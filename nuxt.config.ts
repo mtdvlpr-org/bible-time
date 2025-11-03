@@ -26,7 +26,7 @@ export default defineNuxtConfig({
   },
 
   i18n: {
-    baseUrl: 'https://bibletime.app',
+    baseUrl: 'https://bible-time.netlfiy.app',
     defaultLocale: 'en',
     detectBrowserLanguage: { cookieKey: 'i18n_locale', useCookie: true },
     langDir: 'locales',
