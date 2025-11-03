@@ -3,7 +3,6 @@
     <UPageCard
       v-for="(stat, index) in stats"
       :key="index"
-      to="/customers"
       variant="subtle"
       :icon="stat.icon"
       :title="stat.title"

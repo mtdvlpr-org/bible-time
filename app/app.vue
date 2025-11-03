@@ -10,9 +10,7 @@
 
 <script setup lang="ts">
 const { locale } = useI18n()
-
-const lang = computed(() => uiLocales[locale.value].code)
-const dir = computed(() => uiLocales[locale.value].dir)
+const head = useLocaleHead()
 
 const colorMode = useColorMode()
 const color = computed(() => (colorMode.value === 'dark' ? '#1b1718' : 'white'))
@@ -23,12 +21,13 @@ watchImmediate(locale, (newLocale) => {
 })
 
 useHead({
-  htmlAttrs: { dir, lang },
-  link: [{ href: '/favicon.ico', rel: 'icon' }],
+  htmlAttrs: head.value.htmlAttrs,
+  link: [{ href: '/favicon.ico', rel: 'icon' }, ...(head.value.link || [])],
   meta: [
     { charset: 'utf-8' },
     { content: 'width=device-width, initial-scale=1', name: 'viewport' },
-    { content: color, key: 'theme-color', name: 'theme-color' }
+    { content: color, key: 'theme-color', name: 'theme-color' },
+    ...(head.value.meta || [])
   ],
   titleTemplate: (title) => (title ? `${title} | ${$t('app.title')}` : $t('app.title'))
 })
