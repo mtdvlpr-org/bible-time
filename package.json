@@ -5,7 +5,7 @@
   "scripts": {
     "prepare": "nuxt prepare",
     "dev": "nuxt dev",
-    "build": "nuxt --max_old_space_size=4096 build",
+    "build": "nuxt build",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
     "lint": "eslint .",

@@ -25,6 +25,3 @@ logs
 
 # VSC
 .history
-
-# Generated types
-shared/database-generated.types.ts
