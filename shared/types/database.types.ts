@@ -1,31 +1,8 @@
 import type { MergeDeep } from 'type-fest'
+
 import type { Database as DatabaseGenerated } from './../database-generated.types'
 
 export { Constants } from './../database-generated.types'
-
-// Define your custom JSON type
-type Description = Record<Enums<'app_lang'>, string>
-
-export type Database = MergeDeep<
-  DatabaseGenerated,
-  {
-    public: {
-      Tables: {
-        people: {
-          Row: {
-            description: Description | null
-          }
-          Insert: {
-            description?: Description | null
-          }
-          Update: {
-            description?: Description | null
-          }
-        }
-      }
-    }
-  }
->
 
 export type CompositeTypes<
   PublicCompositeTypeNameOrOptions extends
@@ -43,6 +20,27 @@ export type CompositeTypes<
   : PublicCompositeTypeNameOrOptions extends keyof DefaultSchema['CompositeTypes']
     ? DefaultSchema['CompositeTypes'][PublicCompositeTypeNameOrOptions]
     : never
+
+export type Database = MergeDeep<
+  DatabaseGenerated,
+  {
+    public: {
+      Tables: {
+        people: {
+          Insert: {
+            description?: Description | null
+          }
+          Row: {
+            description: Description | null
+          }
+          Update: {
+            description?: Description | null
+          }
+        }
+      }
+    }
+  }
+>
 
 export type Enums<
   DefaultSchemaEnumNameOrOptions extends
@@ -143,3 +141,6 @@ export type TablesUpdate<
 type DatabaseWithoutInternals = Omit<Database, '__InternalSupabase'>
 
 type DefaultSchema = DatabaseWithoutInternals[Extract<keyof Database, 'public'>]
+
+// Define your custom JSON type
+type Description = Record<Enums<'app_lang'>, string>

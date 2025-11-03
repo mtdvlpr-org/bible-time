@@ -40,8 +40,6 @@ usePageSeo({
   title: t('auth.sign-up')
 })
 
-const { providers } = useProviders()
-
 const { fields: allFields, rules } = useForm()
 
 const fields = [allFields.name, allFields.email, allFields.password]

@@ -1,186 +1,207 @@
 import type { User } from '~/types'
 
-const customers: User[] = [{
-  id: 1,
-  name: 'Alex Smith',
-  email: 'alex.smith@example.com',
-  avatar: {
-    src: 'https://i.pravatar.cc/128?u=1'
+const customers: User[] = [
+  {
+    avatar: {
+      src: 'https://i.pravatar.cc/128?u=1'
+    },
+    email: 'alex.smith@example.com',
+    id: 1,
+    location: 'New York, USA',
+    name: 'Alex Smith',
+    status: 'subscribed'
   },
-  status: 'subscribed',
-  location: 'New York, USA'
-}, {
-  id: 2,
-  name: 'Jordan Brown',
-  email: 'jordan.brown@example.com',
-  avatar: {
-    src: 'https://i.pravatar.cc/128?u=2'
+  {
+    avatar: {
+      src: 'https://i.pravatar.cc/128?u=2'
+    },
+    email: 'jordan.brown@example.com',
+    id: 2,
+    location: 'London, UK',
+    name: 'Jordan Brown',
+    status: 'unsubscribed'
   },
-  status: 'unsubscribed',
-  location: 'London, UK'
-}, {
-  id: 3,
-  name: 'Taylor Green',
-  email: 'taylor.green@example.com',
-  avatar: {
-    src: 'https://i.pravatar.cc/128?u=3'
+  {
+    avatar: {
+      src: 'https://i.pravatar.cc/128?u=3'
+    },
+    email: 'taylor.green@example.com',
+    id: 3,
+    location: 'Paris, France',
+    name: 'Taylor Green',
+    status: 'bounced'
   },
-  status: 'bounced',
-  location: 'Paris, France'
-}, {
-  id: 4,
-  name: 'Morgan White',
-  email: 'morgan.white@example.com',
-  avatar: {
-    src: 'https://i.pravatar.cc/128?u=4'
+  {
+    avatar: {
+      src: 'https://i.pravatar.cc/128?u=4'
+    },
+    email: 'morgan.white@example.com',
+    id: 4,
+    location: 'Berlin, Germany',
+    name: 'Morgan White',
+    status: 'subscribed'
   },
-  status: 'subscribed',
-  location: 'Berlin, Germany'
-}, {
-  id: 5,
-  name: 'Casey Gray',
-  email: 'casey.gray@example.com',
-  avatar: {
-    src: 'https://i.pravatar.cc/128?u=5'
+  {
+    avatar: {
+      src: 'https://i.pravatar.cc/128?u=5'
+    },
+    email: 'casey.gray@example.com',
+    id: 5,
+    location: 'Tokyo, Japan',
+    name: 'Casey Gray',
+    status: 'subscribed'
   },
-  status: 'subscribed',
-  location: 'Tokyo, Japan'
-}, {
-  id: 6,
-  name: 'Jamie Johnson',
-  email: 'jamie.johnson@example.com',
-  avatar: {
-    src: 'https://i.pravatar.cc/128?u=6'
+  {
+    avatar: {
+      src: 'https://i.pravatar.cc/128?u=6'
+    },
+    email: 'jamie.johnson@example.com',
+    id: 6,
+    location: 'Sydney, Australia',
+    name: 'Jamie Johnson',
+    status: 'subscribed'
   },
-  status: 'subscribed',
-  location: 'Sydney, Australia'
-}, {
-  id: 7,
-  name: 'Riley Davis',
-  email: 'riley.davis@example.com',
-  avatar: {
-    src: 'https://i.pravatar.cc/128?u=7'
+  {
+    avatar: {
+      src: 'https://i.pravatar.cc/128?u=7'
+    },
+    email: 'riley.davis@example.com',
+    id: 7,
+    location: 'New York, USA',
+    name: 'Riley Davis',
+    status: 'subscribed'
   },
-  status: 'subscribed',
-  location: 'New York, USA'
-}, {
-  id: 8,
-  name: 'Kelly Wilson',
-  email: 'kelly.wilson@example.com',
-  avatar: {
-    src: 'https://i.pravatar.cc/128?u=8'
+  {
+    avatar: {
+      src: 'https://i.pravatar.cc/128?u=8'
+    },
+    email: 'kelly.wilson@example.com',
+    id: 8,
+    location: 'London, UK',
+    name: 'Kelly Wilson',
+    status: 'subscribed'
   },
-  status: 'subscribed',
-  location: 'London, UK'
-}, {
-  id: 9,
-  name: 'Drew Moore',
-  email: 'drew.moore@example.com',
-  avatar: {
-    src: 'https://i.pravatar.cc/128?u=9'
+  {
+    avatar: {
+      src: 'https://i.pravatar.cc/128?u=9'
+    },
+    email: 'drew.moore@example.com',
+    id: 9,
+    location: 'Paris, France',
+    name: 'Drew Moore',
+    status: 'bounced'
   },
-  status: 'bounced',
-  location: 'Paris, France'
-}, {
-  id: 10,
-  name: 'Jordan Taylor',
-  email: 'jordan.taylor@example.com',
-  avatar: {
-    src: 'https://i.pravatar.cc/128?u=10'
+  {
+    avatar: {
+      src: 'https://i.pravatar.cc/128?u=10'
+    },
+    email: 'jordan.taylor@example.com',
+    id: 10,
+    location: 'Berlin, Germany',
+    name: 'Jordan Taylor',
+    status: 'subscribed'
   },
-  status: 'subscribed',
-  location: 'Berlin, Germany'
-}, {
-  id: 11,
-  name: 'Morgan Anderson',
-  email: 'morgan.anderson@example.com',
-  avatar: {
-    src: 'https://i.pravatar.cc/128?u=11'
+  {
+    avatar: {
+      src: 'https://i.pravatar.cc/128?u=11'
+    },
+    email: 'morgan.anderson@example.com',
+    id: 11,
+    location: 'Tokyo, Japan',
+    name: 'Morgan Anderson',
+    status: 'subscribed'
   },
-  status: 'subscribed',
-  location: 'Tokyo, Japan'
-}, {
-  id: 12,
-  name: 'Casey Thomas',
-  email: 'casey.thomas@example.com',
-  avatar: {
-    src: 'https://i.pravatar.cc/128?u=12'
+  {
+    avatar: {
+      src: 'https://i.pravatar.cc/128?u=12'
+    },
+    email: 'casey.thomas@example.com',
+    id: 12,
+    location: 'Sydney, Australia',
+    name: 'Casey Thomas',
+    status: 'unsubscribed'
   },
-  status: 'unsubscribed',
-  location: 'Sydney, Australia'
-}, {
-  id: 13,
-  name: 'Jamie Jackson',
-  email: 'jamie.jackson@example.com',
-  avatar: {
-    src: 'https://i.pravatar.cc/128?u=13'
+  {
+    avatar: {
+      src: 'https://i.pravatar.cc/128?u=13'
+    },
+    email: 'jamie.jackson@example.com',
+    id: 13,
+    location: 'New York, USA',
+    name: 'Jamie Jackson',
+    status: 'unsubscribed'
   },
-  status: 'unsubscribed',
-  location: 'New York, USA'
-}, {
-  id: 14,
-  name: 'Riley White',
-  email: 'riley.white@example.com',
-  avatar: {
-    src: 'https://i.pravatar.cc/128?u=14'
+  {
+    avatar: {
+      src: 'https://i.pravatar.cc/128?u=14'
+    },
+    email: 'riley.white@example.com',
+    id: 14,
+    location: 'London, UK',
+    name: 'Riley White',
+    status: 'unsubscribed'
   },
-  status: 'unsubscribed',
-  location: 'London, UK'
-}, {
-  id: 15,
-  name: 'Kelly Harris',
-  email: 'kelly.harris@example.com',
-  avatar: {
-    src: 'https://i.pravatar.cc/128?u=15'
+  {
+    avatar: {
+      src: 'https://i.pravatar.cc/128?u=15'
+    },
+    email: 'kelly.harris@example.com',
+    id: 15,
+    location: 'Paris, France',
+    name: 'Kelly Harris',
+    status: 'subscribed'
   },
-  status: 'subscribed',
-  location: 'Paris, France'
-}, {
-  id: 16,
-  name: 'Drew Martin',
-  email: 'drew.martin@example.com',
-  avatar: {
-    src: 'https://i.pravatar.cc/128?u=16'
+  {
+    avatar: {
+      src: 'https://i.pravatar.cc/128?u=16'
+    },
+    email: 'drew.martin@example.com',
+    id: 16,
+    location: 'Berlin, Germany',
+    name: 'Drew Martin',
+    status: 'subscribed'
   },
-  status: 'subscribed',
-  location: 'Berlin, Germany'
-}, {
-  id: 17,
-  name: 'Alex Thompson',
-  email: 'alex.thompson@example.com',
-  avatar: {
-    src: 'https://i.pravatar.cc/128?u=17'
+  {
+    avatar: {
+      src: 'https://i.pravatar.cc/128?u=17'
+    },
+    email: 'alex.thompson@example.com',
+    id: 17,
+    location: 'Tokyo, Japan',
+    name: 'Alex Thompson',
+    status: 'unsubscribed'
   },
-  status: 'unsubscribed',
-  location: 'Tokyo, Japan'
-}, {
-  id: 18,
-  name: 'Jordan Garcia',
-  email: 'jordan.garcia@example.com',
-  avatar: {
-    src: 'https://i.pravatar.cc/128?u=18'
+  {
+    avatar: {
+      src: 'https://i.pravatar.cc/128?u=18'
+    },
+    email: 'jordan.garcia@example.com',
+    id: 18,
+    location: 'Sydney, Australia',
+    name: 'Jordan Garcia',
+    status: 'subscribed'
   },
-  status: 'subscribed',
-  location: 'Sydney, Australia'
-}, {
-  id: 19,
-  name: 'Taylor Rodriguez',
-  email: 'taylor.rodriguez@example.com',
-  avatar: {
-    src: 'https://i.pravatar.cc/128?u=19'
+  {
+    avatar: {
+      src: 'https://i.pravatar.cc/128?u=19'
+    },
+    email: 'taylor.rodriguez@example.com',
+    id: 19,
+    location: 'New York, USA',
+    name: 'Taylor Rodriguez',
+    status: 'bounced'
   },
-  status: 'bounced',
-  location: 'New York, USA'
-}, {
-  id: 20,
-  name: 'Morgan Lopez',
-  email: 'morgan.lopez@example.com',
-  avatar: {
-    src: 'https://i.pravatar.cc/128?u=20'
-  },
-  status: 'subscribed',
-  location: 'London, UK'
-}]
+  {
+    avatar: {
+      src: 'https://i.pravatar.cc/128?u=20'
+    },
+    email: 'morgan.lopez@example.com',
+    id: 20,
+    location: 'London, UK',
+    name: 'Morgan Lopez',
+    status: 'subscribed'
+  }
+]
 
 export default eventHandler(async () => {
   return customers
