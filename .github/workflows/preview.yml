@@ -1,0 +1,29 @@
+name: Deploy Preview
+
+on:
+  pull_request:
+    branches: ['prod']
+
+jobs:
+  netlify:
+    uses: ./.github/workflows/netlify.yml
+    with:
+      prod: false
+    secrets:
+      NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+      NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+
+  # Comment back on PR with the URL
+  pr-comment:
+    needs: call-base
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+    steps:
+      - uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          header: netlify-preview
+          recreate: true
+          message: |
+            ✅ Netlify Preview Ready
+            🔗 **${{ needs.call-base.outputs.deploy_url }}**

@@ -1,0 +1,14 @@
+name: Deploy Production
+
+on:
+  push:
+    branches: ['prod']
+
+jobs:
+  netlify:
+    uses: ./.github/workflows/netlify.yml
+    with:
+      prod: true
+    secrets:
+      NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+      NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}

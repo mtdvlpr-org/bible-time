@@ -1,0 +1,54 @@
+{
+  "name": "bible-time",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "prepare": "nuxt prepare",
+    "dev": "nuxt dev",
+    "build": "nuxt --max_old_space_size=4096 build",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix .",
+    "typecheck": "nuxt typecheck",
+    "test:unit": "echo OK",
+    "test:e2e": "echo OK",
+    "test": "pnpm test:unit && pnpm test:e2e",
+    "supabase:types": "supabase gen types --lang=typescript --project-id pasnnzlggfefuzwhbakl > shared/types/database-generated.types.ts"
+  },
+  "dependencies": {
+    "@iconify-json/lucide": "^1.2.71",
+    "@iconify-json/simple-icons": "^1.2.56",
+    "@nuxt/image": "1.11.0",
+    "@nuxt/ui": "^4.1.0",
+    "@nuxtjs/i18n": "~10.1.2",
+    "@nuxtjs/supabase": "^2.0.1",
+    "@pinia/nuxt": "^0.11.2",
+    "@unovis/ts": "^1.6.1",
+    "@unovis/vue": "^1.6.1",
+    "@vueuse/nuxt": "^13.9.0",
+    "@vueuse/router": "^14.0.0",
+    "date-fns": "^4.1.0",
+    "nuxt": "^4.2.0",
+    "pinia": "^3.0.3",
+    "pinia-plugin-persistedstate": "~4.5.0",
+    "zod": "^4.1.12"
+  },
+  "devDependencies": {
+    "@nuxt/eslint": "~1.9.0",
+    "@types/node": "^22.18.13",
+    "eslint": "~9.38.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-perfectionist": "^4.15.1",
+    "eslint-plugin-prettier": "^5.5.4",
+    "prettier": "^3.6.2",
+    "supabase": "^2.54.11",
+    "typescript": "^5.9.3",
+    "vue-tsc": "^3.1.2"
+  },
+  "engines": {
+    "node": ">=22.18.0",
+    "pnpm": ">=10.18.3"
+  },
+  "packageManager": "pnpm@10.19.0"
+}

@@ -1,0 +1,35 @@
+name: Feature Request
+description: Suggest a new feature.
+title: "[Feature]: "
+labels: ["Status: Triage"]
+type: 🏆 Feature
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this feature request!
+  - type: input
+    id: contact
+    attributes:
+      label: Contact Details
+      description: How can we get in touch with you if we need more info?
+      placeholder: ex. email@example.com
+    validations:
+      required: false
+  - type: textarea
+    id: desired-solution
+    attributes:
+      label: What would you like to see?
+      description: Be as detailed as possible!
+      placeholder: I would love it if ...
+      value: "I would love it if "
+    validations:
+      required: true
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Code of Conduct
+      description: By submitting this issue, you agree to follow our [Code of Conduct](https://github.com/Innovae-Handlet/handlet). 
+      options:
+        - label: I agree to follow this project's Code of Conduct
+          required: true

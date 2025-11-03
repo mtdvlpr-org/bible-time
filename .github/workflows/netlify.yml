@@ -1,0 +1,75 @@
+name: Deploy to Netlify
+
+on:
+  workflow_call:
+    inputs:
+      prod:
+        required: true
+        type: boolean
+    secrets:
+      NETLIFY_AUTH_TOKEN:
+        required: true
+      NETLIFY_SITE_ID:
+        required: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    environment:
+      name: ${{ github.event_name == 'pull_request' && format('preview-{0}', github.event.pull_request.number) || 'production' }}
+      url: ${{ steps.netlify_deploy.outputs.deploy_url }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup PNPM
+        uses: pnpm/action-setup@v4
+        with:
+          run_install: |
+            - args: [--global, netlify-cli]
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Deploy to Netlify
+        id: netlify_deploy
+        run: |
+          if [ "${{ inputs.prod }}" == "true" ]; then
+            echo "🚀 Production Deploy"
+            OUTPUT=$(netlify deploy \
+              --prod \
+              --site="$NETLIFY_SITE_ID" \
+              --auth="$NETLIFY_AUTH_TOKEN" \
+              --dir=dist \
+              --functions=.netlify/functions \
+              2>&1 | tee /dev/stderr)
+            URL=$(echo "$OUTPUT" | sed -nE 's/.*Deployed to production URL:[[:space:]]*([^[:space:]]*).*/\1/p')
+          else
+            echo "🧪 Preview Deploy"
+            OUTPUT=$(netlify deploy \
+              --site="$NETLIFY_SITE_ID" \
+              --auth="$NETLIFY_AUTH_TOKEN" \
+              --dir=dist \
+              --functions=.netlify/functions \
+              2>&1 | tee /dev/stderr)
+            URL=$(echo "$OUTPUT" | sed -nE 's/.*Unique deploy URL:[[:space:]]*([^[:space:]]*).*/\1/p')
+          fi
+          if [ -z "$URL" ]; then
+            echo "❌ Deploy URL not found, failing workflow."
+            exit 1
+          fi
+          echo "deploy_url=$URL" >> $GITHUB_OUTPUT
+          echo "Deployed to $URL"
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}

@@ -10,7 +10,8 @@ dist
 node_modules
 
 # Logs
-*.log*
+logs
+*.log
 
 # Misc
 .DS_Store
@@ -22,34 +23,8 @@ node_modules
 .env.*
 !.env.example
 
-# Test coverage
-coverage
+# VSC
+.history
 
-# Vercel
-.vercel
-
-# Netlify
-.netlify
-
-# Supabase
-.supabase
-
-# Editor directories and files
-.vscode/*
-!.vscode/extensions.json
-.idea
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
-
-# OS generated files
-Thumbs.db
-.DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
-Desktop.ini
+# Generated types
+shared/database-generated.types.ts
