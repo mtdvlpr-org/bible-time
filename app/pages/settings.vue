@@ -27,7 +27,7 @@ import type { NavigationMenuItem } from '@nuxt/ui'
 const { t } = useI18n()
 const localePath = useLocalePath()
 
-usePageSeo({
+useSeoMeta({
   description: t('settings.description'),
   title: t('settings.title')
 })

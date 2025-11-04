@@ -12,7 +12,7 @@ definePageMeta({ layout: 'auth' })
 
 const { t } = useI18n()
 
-usePageSeo({
+useSeoMeta({
   description: t('auth.reset-password-description'),
   title: t('auth.reset-password')
 })

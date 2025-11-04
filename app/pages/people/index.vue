@@ -46,7 +46,7 @@ const { t } = useI18n()
 const supabase = useSupabaseClient()
 const dataTable = useTemplateRef('table')
 
-usePageSeo({
+useSeoMeta({
   description: t('people.description'),
   title: t('people.title')
 })

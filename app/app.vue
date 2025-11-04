@@ -9,6 +9,8 @@
 </template>
 
 <script setup lang="ts">
+defineOgImageComponent('NuxtSeo')
+
 const { locale } = useI18n()
 const head = useLocaleHead()
 
@@ -28,16 +30,12 @@ useHead({
     { content: 'width=device-width, initial-scale=1', name: 'viewport' },
     { content: color, key: 'theme-color', name: 'theme-color' },
     ...(head.value.meta || [])
-  ],
-  titleTemplate: (title) => (title ? `${title} | ${$t('app.title')}` : $t('app.title'))
+  ]
 })
 
-const title = $t('app.title')
-const description = $t('app.description')
-
-usePageSeo({
-  description,
-  image: 'https://ui.nuxt.com/assets/templates/nuxt/dashboard-light.png',
-  title
+useSeoMeta({
+  description: $t('nuxtSiteConfig.description'),
+  titleTemplate: (title) =>
+    title ? `${title} | ${$t('nuxtSiteConfig.name')}` : $t('nuxtSiteConfig.name')
 })
 </script>

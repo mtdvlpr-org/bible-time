@@ -35,7 +35,7 @@ definePageMeta({ layout: 'auth' })
 
 const { t } = useI18n()
 
-usePageSeo({
+useSeoMeta({
   description: t('auth.sign-up-description'),
   title: t('auth.sign-up')
 })

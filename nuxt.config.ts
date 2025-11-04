@@ -21,12 +21,10 @@ export default defineNuxtConfig({
 
   css: ['~/assets/css/main.css'],
 
-  hooks: {
-    'vite:extendConfig': extendViteConfig
-  },
+  hooks: { 'vite:extendConfig': extendViteConfig },
 
   i18n: {
-    baseUrl: 'https://bible-time.netlfiy.app',
+    baseUrl: process.env.NUXT_SITE_URL,
     defaultLocale: 'en',
     detectBrowserLanguage: { cookieKey: 'i18n_locale', useCookie: true },
     langDir: 'locales',
@@ -35,13 +33,11 @@ export default defineNuxtConfig({
       { code: 'nl', dir: 'ltr', file: 'nl.json', language: 'nl-NL', name: 'Nederlands' }
     ] satisfies LocaleObject<AppLocale>[],
     restructureDir: 'app',
-    strategy: 'prefix_and_default'
+    strategy: 'prefix'
   },
 
   image: {
-    alias: {
-      wol: 'https://wol.jw.org'
-    },
+    alias: { wol: 'https://wol.jw.org' },
     domains: ['wol.jw.org']
   },
 
@@ -50,6 +46,7 @@ export default defineNuxtConfig({
     '@nuxt/image',
     '@nuxt/ui',
     '@nuxtjs/i18n',
+    '@nuxtjs/seo',
     '@nuxtjs/supabase',
     '@vueuse/nuxt',
     '@pinia/nuxt',
@@ -60,8 +57,20 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     public: {
-      appName: process.env.APP_NAME || 'BibleTime'
+      appName: process.env.NUXT_SITE_NAME,
+      siteUrl: process.env.NUXT_SITE_URL
     }
+  },
+
+  seo: { fallbackTitle: false },
+
+  sitemap: {
+    sources: ['/api/__sitemap__/urls?type=events', '/api/__sitemap__/urls?type=people']
+    // sitemaps: {
+    //   events: { sources: ['/api/__sitemap__/urls?type=events'] },
+    //   pages: { include: ['/**'], includeAppSources: true },
+    //   people: { sources: ['/api/__sitemap__/urls?type=people'] }
+    // }
   },
 
   supabase: {

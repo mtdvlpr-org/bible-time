@@ -1,7 +1,7 @@
 {
-  "app": {
+  "nuxtSiteConfig": {
     "description": "An overview of Biblical people and events.",
-    "title": "BibleTime"
+    "name": "BibleTime"
   },
   "auth": {
     "account": "Account",

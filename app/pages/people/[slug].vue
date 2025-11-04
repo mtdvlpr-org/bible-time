@@ -32,14 +32,14 @@ import { useRouteParams } from '@vueuse/router'
 const { locale } = useI18n()
 const i18nStore = useI18nStore()
 const supabase = useSupabaseClient()
-const id = useRouteParams('id', '0', { transform: Number })
+const slug = useRouteParams<string>('slug')
 
-const { data: person } = await useAsyncData(`person-${id.value}`, async () => {
-  const { data } = await supabase.from('people').select('*').eq('id', id.value).single()
+const { data: person } = await useAsyncData(`person-${slug.value}`, async () => {
+  const { data } = await supabase.from('people').select('*').eq('slug', slug.value).single()
   return data
 })
 
-usePageSeo({
+useSeoMeta({
   description: person.value?.description?.[locale.value] || undefined,
   title: person.value ? i18nStore.translate(person.value.name) : undefined
 })

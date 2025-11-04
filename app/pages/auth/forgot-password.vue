@@ -26,7 +26,7 @@ definePageMeta({ layout: 'auth' })
 
 const { t } = useI18n()
 
-usePageSeo({
+useSeoMeta({
   description: t('auth.forgot-password-description'),
   title: t('auth.forgot-password')
 })
