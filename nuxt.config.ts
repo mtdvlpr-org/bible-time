@@ -1,6 +1,7 @@
 import type { LocaleObject } from '@nuxtjs/i18n'
 
 import { fileURLToPath } from 'node:url'
+import { defineOrganization } from 'nuxt-schema-org/schema'
 
 import type { AppLocale } from './shared/types/general.types'
 
@@ -60,6 +61,10 @@ export default defineNuxtConfig({
       appName: process.env.NUXT_SITE_NAME,
       siteUrl: process.env.NUXT_SITE_URL
     }
+  },
+
+  schemaOrg: {
+    identity: defineOrganization({ name: process.env.NUXT_SITE_NAME || 'BibleTime' })
   },
 
   seo: { fallbackTitle: false },

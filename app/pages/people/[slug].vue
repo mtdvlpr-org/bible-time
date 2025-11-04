@@ -10,6 +10,10 @@
           <LazyPeopleAddModal />
         </template>
       </UDashboardNavbar>
+
+      <UDashboardToolbar>
+        <UBreadcrumb :items="breadcrumbs" />
+      </UDashboardToolbar>
     </template>
     <template #body>
       <div v-if="person">
@@ -29,7 +33,8 @@
 <script setup lang="ts">
 import { useRouteParams } from '@vueuse/router'
 
-const { locale } = useI18n()
+const { locale, t } = useI18n()
+const localePath = useLocalePath()
 const i18nStore = useI18nStore()
 const supabase = useSupabaseClient()
 const slug = useRouteParams<string>('slug')
@@ -39,8 +44,37 @@ const { data: person } = await useAsyncData(`person-${slug.value}`, async () => 
   return data
 })
 
+const name = computed(() =>
+  person.value ? i18nStore.translate(person.value.name) : 'Page not found'
+)
+
+const breadcrumbs = computed(() => [
+  {
+    icon: 'i-lucide-home',
+    label: t('home.title'),
+    to: localePath('/')
+  },
+  {
+    icon: 'i-lucide-users',
+    label: t('people.title'),
+    to: localePath('/people')
+  },
+  {
+    icon: 'i-lucide-user',
+    label: name.value,
+    to: localePath(`/people/${slug.value}`)
+  }
+])
+
+useSchemaOrg([
+  defineWebPage({ '@type': 'ItemPage' }),
+  defineBreadcrumb({
+    itemListElement: breadcrumbs.value.map((b) => ({ item: b.to, name: b.label }))
+  })
+])
+
 useSeoMeta({
   description: person.value?.description?.[locale.value] || undefined,
-  title: person.value ? i18nStore.translate(person.value.name) : undefined
+  title: name.value
 })
 </script>

@@ -46,6 +46,8 @@ const { t } = useI18n()
 const supabase = useSupabaseClient()
 const dataTable = useTemplateRef('table')
 
+useSchemaOrg([defineWebPage({ '@type': 'CollectionPage' })])
+
 useSeoMeta({
   description: t('people.description'),
   title: t('people.title')
@@ -108,7 +110,7 @@ const columns = computed((): TableColumn<Tables<'people'>>[] => [
     cell: ({ row }) =>
       actionCell([
         { label: t('general.actions'), type: 'label' },
-        { icon: 'i-lucide-list', label: t('person.view'), to: `/people/${row.original.id}` },
+        { icon: 'i-lucide-list', label: t('person.view'), to: `/people/${row.original.slug}` },
         { icon: 'i-lucide-edit', label: t('person.edit') },
         { type: 'separator' },
         {
