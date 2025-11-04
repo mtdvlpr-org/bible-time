@@ -26,6 +26,17 @@ export type Database = MergeDeep<
   {
     public: {
       Tables: {
+        events: {
+          Insert: {
+            description?: Description | null
+          }
+          Row: {
+            description: Description | null
+          }
+          Update: {
+            description?: Description | null
+          }
+        }
         people: {
           Insert: {
             description?: Description | null
