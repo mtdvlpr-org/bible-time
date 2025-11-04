@@ -51,13 +51,6 @@ import { sub } from 'date-fns'
 
 import type { Period, Range } from '~/types'
 
-defineOgImageComponent('NuxtSeo', {
-  colorMode: 'dark',
-  description: 'Look at me in dark mode',
-  theme: '#ff0000',
-  title: 'Hello OG Image 👋'
-})
-
 const { isNotificationsSlideoverOpen } = useDashboard()
 
 const items = [[]] satisfies DropdownMenuItem[][]

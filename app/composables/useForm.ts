@@ -98,7 +98,7 @@ export default function () {
       z.enum(
         Constants.public.Enums.date_precision,
         t('validation.enum', {
-          field: t(field),
+          field,
           values: Constants.public.Enums.date_precision.join(', ')
         })
       ),
