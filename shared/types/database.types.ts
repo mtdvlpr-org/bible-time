@@ -72,6 +72,9 @@ export type Enums<
 
 export type Json = boolean | Json[] | null | number | string | { [key: string]: Json | undefined }
 
+export type ShortEvent = Pick<Tables<'events'>, 'cover_url' | 'slug' | 'title'>
+export type ShortPerson = Pick<Tables<'people'>, 'avatar_url' | 'name' | 'slug'>
+
 export type Tables<
   DefaultSchemaTableNameOrOptions extends
     | keyof (DefaultSchema['Tables'] & DefaultSchema['Views'])

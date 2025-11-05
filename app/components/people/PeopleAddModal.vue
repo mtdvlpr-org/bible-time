@@ -4,7 +4,7 @@
     :title="$t('person.new')"
     description="Add a new person to the database"
   >
-    <UButton icon="i-lucide-plus" :label="$t('person.new')" />
+    <UButton icon="i-lucide:plus" :label="$t('person.new')" />
 
     <template #body>
       <UForm :state="state" :schema="schema" class="space-y-4" @submit="onSubmit">
@@ -32,7 +32,7 @@
                 size="sm"
                 variant="link"
                 color="neutral"
-                icon="i-lucide-circle-x"
+                icon="i-lucide:circle-x"
                 :aria-label="$t('general.clear')"
                 @click="state.avatar_url = undefined"
               />
@@ -60,7 +60,7 @@
             <UInputNumber
               v-model="state.birth_year"
               :max="2025"
-              :min="-4025"
+              :min="-4026"
               class="w-full"
               :decrement="false"
               :increment="false"
@@ -90,7 +90,7 @@
             <UInputNumber
               v-model="state.death_year"
               :max="2025"
-              :min="-4025"
+              :min="-4026"
               class="w-full"
               :decrement="false"
               :increment="false"

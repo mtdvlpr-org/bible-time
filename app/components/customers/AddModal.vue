@@ -1,6 +1,6 @@
 <template>
   <UModal v-model:open="open" title="New customer" description="Add a new customer to the database">
-    <UButton icon="i-lucide-plus" label="New customer" />
+    <UButton icon="i-lucide:plus" label="New customer" />
 
     <template #body>
       <UForm :state="state" :schema="schema" class="space-y-4" @submit="onSubmit">

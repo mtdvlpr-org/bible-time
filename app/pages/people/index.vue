@@ -56,14 +56,13 @@ const {
 })
 
 const toast = useToast()
+const { fields } = useForm()
 const { formatYear } = useDate()
 const { actionCell, avatarCell, sortableColumn } = useTable()
 
 const genderFilters = computed((): { label: string; value: Enums<'gender'> | undefined }[] => [
-  { label: t('general.all'), value: undefined },
-  { label: t('person.male'), value: 'male' },
-  { label: t('person.female'), value: 'female' },
-  { label: t('general.unknown'), value: 'unknown' }
+  ...fields.gender.items,
+  { label: t('general.all'), value: undefined }
 ])
 
 const i18nStore = useI18nStore()
@@ -103,12 +102,12 @@ const columns = computed((): TableColumn<Tables<'people'>>[] => [
     cell: ({ row }) =>
       actionCell([
         { label: t('general.actions'), type: 'label' },
-        { icon: 'i-lucide-list', label: t('person.view'), to: `/people/${row.original.slug}` },
-        { icon: 'i-lucide-edit', label: t('person.edit') },
+        { icon: 'i-lucide:list', label: t('person.view'), to: `/people/${row.original.slug}` },
+        { icon: 'i-lucide:edit', label: t('person.edit') },
         { type: 'separator' },
         {
           color: 'error',
-          icon: 'i-lucide-trash',
+          icon: 'i-lucide:trash',
           label: t('person.delete'),
           onSelect() {
             toast.add({

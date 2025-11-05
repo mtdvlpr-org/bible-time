@@ -3,7 +3,7 @@
     loading-auto
     :fields="fields"
     :schema="schema"
-    icon="i-lucide-lock"
+    icon="i-lucide:lock"
     :title="$t('auth.forgot-password')"
     :description="$t('auth.forgot-password-description')"
     @submit="onSubmit"

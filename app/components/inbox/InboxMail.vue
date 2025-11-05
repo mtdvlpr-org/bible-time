@@ -6,22 +6,22 @@
           class="-ms-1.5"
           color="neutral"
           variant="ghost"
-          icon="i-lucide-x"
+          icon="i-lucide:x"
           @click="emit('close')"
         />
       </template>
 
       <template #right>
         <UTooltip text="Archive">
-          <UButton color="neutral" variant="ghost" icon="i-lucide-inbox" />
+          <UButton color="neutral" variant="ghost" icon="i-lucide:inbox" />
         </UTooltip>
 
         <UTooltip text="Reply">
-          <UButton color="neutral" variant="ghost" icon="i-lucide-reply" />
+          <UButton color="neutral" variant="ghost" icon="i-lucide:reply" />
         </UTooltip>
 
         <UDropdownMenu :items="dropdownItems">
-          <UButton color="neutral" variant="ghost" icon="i-lucide-ellipsis-vertical" />
+          <UButton color="neutral" variant="ghost" icon="i-lucide:ellipsis-vertical" />
         </UDropdownMenu>
       </template>
     </UDashboardNavbar>
@@ -60,7 +60,7 @@
         :ui="{ header: 'flex items-center gap-1.5 text-dimmed' }"
       >
         <template #header>
-          <UIcon class="size-5" name="i-lucide-reply" />
+          <UIcon class="size-5" name="i-lucide:reply" />
 
           <span class="text-sm truncate">
             Reply to {{ mail.from.name }} ({{ mail.from.email }})
@@ -83,7 +83,7 @@
 
           <div class="flex items-center justify-between">
             <UTooltip text="Attach file">
-              <UButton color="neutral" variant="ghost" icon="i-lucide-paperclip" />
+              <UButton color="neutral" variant="ghost" icon="i-lucide:paperclip" />
             </UTooltip>
 
             <div class="flex items-center justify-end gap-2">
@@ -93,7 +93,7 @@
                 type="submit"
                 color="neutral"
                 :loading="loading"
-                icon="i-lucide-send"
+                icon="i-lucide:send"
               />
             </div>
           </div>
@@ -118,21 +118,21 @@ const emit = defineEmits<{
 const dropdownItems = [
   [
     {
-      icon: 'i-lucide-check-circle',
+      icon: 'i-lucide:check-circle',
       label: 'Mark as unread'
     },
     {
-      icon: 'i-lucide-triangle-alert',
+      icon: 'i-lucide:triangle-alert',
       label: 'Mark as important'
     }
   ],
   [
     {
-      icon: 'i-lucide-star',
+      icon: 'i-lucide:star',
       label: 'Star thread'
     },
     {
-      icon: 'i-lucide-circle-pause',
+      icon: 'i-lucide:circle-pause',
       label: 'Mute thread'
     }
   ]
@@ -152,7 +152,7 @@ function onSubmit() {
     toast.add({
       color: 'success',
       description: 'Your email has been sent successfully',
-      icon: 'i-lucide-check-circle',
+      icon: 'i-lucide:check-circle',
       title: 'Email sent'
     })
 

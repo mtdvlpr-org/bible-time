@@ -2,7 +2,7 @@ export default function () {
   const { t } = useI18n()
 
   const formatYear = (year: null | number, precision?: Enums<'date_precision'> | null) => {
-    if (!year) return ''
+    if (!year) return t('general.unknown')
     let prefix = ''
 
     switch (precision) {

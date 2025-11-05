@@ -1,6 +1,6 @@
 <template>
   <AuthPasswordForm
-    icon="i-lucide-lock"
+    icon="i-lucide:lock"
     :on-success="onSuccess"
     :title="$t('auth.reset-password')"
     :description="$t('auth.reset-password-description')"

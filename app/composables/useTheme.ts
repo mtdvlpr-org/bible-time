@@ -82,7 +82,7 @@ export default function () {
             slot: 'chip'
           }
         ],
-        icon: 'i-lucide-palette',
+        icon: 'i-lucide:palette',
         label: t('settings.appearance')
       }) satisfies DropdownMenuItem
   )

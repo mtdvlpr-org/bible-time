@@ -1,408 +1,406 @@
-export type CompositeTypes<
-  PublicCompositeTypeNameOrOptions extends
-    | keyof DefaultSchema['CompositeTypes']
-    | { schema: keyof DatabaseWithoutInternals },
-  CompositeTypeName extends PublicCompositeTypeNameOrOptions extends {
-    schema: keyof DatabaseWithoutInternals
-  }
-    ? keyof DatabaseWithoutInternals[PublicCompositeTypeNameOrOptions['schema']]['CompositeTypes']
-    : never = never
-> = PublicCompositeTypeNameOrOptions extends {
-  schema: keyof DatabaseWithoutInternals
-}
-  ? DatabaseWithoutInternals[PublicCompositeTypeNameOrOptions['schema']]['CompositeTypes'][CompositeTypeName]
-  : PublicCompositeTypeNameOrOptions extends keyof DefaultSchema['CompositeTypes']
-    ? DefaultSchema['CompositeTypes'][PublicCompositeTypeNameOrOptions]
-    : never
+export type Json =
+  | string
+  | number
+  | boolean
+  | null
+  | { [key: string]: Json | undefined }
+  | Json[]
 
 export type Database = {
   // Allows to automatically instantiate createClient with right options
   // instead of createClient<Database, { PostgrestVersion: 'XX' }>(URL, KEY)
   __InternalSupabase: {
-    PostgrestVersion: '13.0.5'
+    PostgrestVersion: "13.0.5"
   }
   public: {
-    CompositeTypes: {
-      [_ in never]: never
-    }
-    Enums: {
-      app_lang: 'en' | 'nl'
-      app_permission:
-        | 'events.create'
-        | 'events.delete'
-        | 'events.update'
-        | 'people.create'
-        | 'people.delete'
-        | 'people.update'
-        | 'suggestions.create'
-        | 'suggestions.update'
-        | 'users.manage'
-      app_role: 'admin' | 'moderator' | 'user'
-      date_precision: 'after' | 'before' | 'circa' | 'exact'
-      event_relation: 'author' | 'other' | 'participant'
-      gender: 'female' | 'male' | 'unknown'
-      person_relation: 'contemporary' | 'other' | 'parent' | 'sibling' | 'spouse'
-      source_kind: 'article' | 'book' | 'other' | 'video' | 'website'
-      suggestion_status: 'approved' | 'pending' | 'rejected'
-      suggestion_type:
-        | 'event.create'
-        | 'event.update'
-        | 'person.create'
-        | 'person.update'
-        | 'translation.create'
-        | 'translation.update'
-    }
-    Functions: {
-      authorize: {
-        Args: {
-          requested_permission: Database['public']['Enums']['app_permission']
-        }
-        Returns: boolean
-      }
-      custom_access_token_hook: { Args: { event: Json }; Returns: Json }
-    }
     Tables: {
       event_relations: {
-        Insert: {
-          created_at?: string
+        Row: {
           event_id: number
           person_id: number
-          relation_kind: Database['public']['Enums']['event_relation']
+          relation_kind: Database["public"]["Enums"]["event_relation"]
+        }
+        Insert: {
+          event_id: number
+          person_id: number
+          relation_kind: Database["public"]["Enums"]["event_relation"]
+        }
+        Update: {
+          event_id?: number
+          person_id?: number
+          relation_kind?: Database["public"]["Enums"]["event_relation"]
         }
         Relationships: [
           {
-            columns: ['event_id']
-            foreignKeyName: 'event_relations_event_id_fkey'
+            foreignKeyName: "event_relations_event_id_fkey"
+            columns: ["event_id"]
             isOneToOne: false
-            referencedColumns: ['id']
-            referencedRelation: 'events'
+            referencedRelation: "events"
+            referencedColumns: ["id"]
           },
           {
-            columns: ['person_id']
-            foreignKeyName: 'event_relations_person_id_fkey'
+            foreignKeyName: "event_relations_person_id_fkey"
+            columns: ["person_id"]
             isOneToOne: false
-            referencedColumns: ['id']
-            referencedRelation: 'people'
-          }
+            referencedRelation: "people"
+            referencedColumns: ["id"]
+          },
         ]
-        Row: {
-          created_at: string
-          event_id: number
-          person_id: number
-          relation_kind: Database['public']['Enums']['event_relation']
-        }
-        Update: {
-          created_at?: string
-          event_id?: number
-          person_id?: number
-          relation_kind?: Database['public']['Enums']['event_relation']
-        }
       }
       events: {
-        Insert: {
-          aliases?: string[]
-          cover_url?: null | string
-          created_at?: string
-          description?: Json | null
-          end_precision?: Database['public']['Enums']['date_precision'] | null
-          end_year?: null | number
-          id?: number
-          slug: string
-          start_precision?: Database['public']['Enums']['date_precision'] | null
-          start_year?: null | number
-          title: string
-          updated_at?: string
-        }
-        Relationships: []
         Row: {
           aliases: string[]
-          cover_url: null | string
+          cover_url: string | null
           created_at: string
           description: Json | null
-          end_precision: Database['public']['Enums']['date_precision'] | null
-          end_year: null | number
+          end_precision: Database["public"]["Enums"]["date_precision"] | null
+          end_year: number | null
           id: number
           slug: string
-          start_precision: Database['public']['Enums']['date_precision'] | null
-          start_year: null | number
+          start_precision: Database["public"]["Enums"]["date_precision"] | null
+          start_year: number | null
           title: string
           updated_at: string
         }
-        Update: {
+        Insert: {
           aliases?: string[]
-          cover_url?: null | string
+          cover_url?: string | null
           created_at?: string
           description?: Json | null
-          end_precision?: Database['public']['Enums']['date_precision'] | null
-          end_year?: null | number
+          end_precision?: Database["public"]["Enums"]["date_precision"] | null
+          end_year?: number | null
+          id?: number
+          slug: string
+          start_precision?: Database["public"]["Enums"]["date_precision"] | null
+          start_year?: number | null
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          aliases?: string[]
+          cover_url?: string | null
+          created_at?: string
+          description?: Json | null
+          end_precision?: Database["public"]["Enums"]["date_precision"] | null
+          end_year?: number | null
           id?: number
           slug?: string
-          start_precision?: Database['public']['Enums']['date_precision'] | null
-          start_year?: null | number
+          start_precision?: Database["public"]["Enums"]["date_precision"] | null
+          start_year?: number | null
           title?: string
           updated_at?: string
         }
+        Relationships: []
       }
       people: {
-        Insert: {
-          aliases?: string[]
-          avatar_url?: null | string
-          birth_precision?: Database['public']['Enums']['date_precision'] | null
-          birth_year?: null | number
-          created_at?: string
-          death_precision?: Database['public']['Enums']['date_precision'] | null
-          death_year?: null | number
-          description?: Json | null
-          gender?: Database['public']['Enums']['gender']
-          id?: number
-          name: string
-          slug: string
-          updated_at?: string
-        }
-        Relationships: []
         Row: {
           aliases: string[]
-          avatar_url: null | string
-          birth_precision: Database['public']['Enums']['date_precision'] | null
-          birth_year: null | number
+          avatar_url: string | null
+          birth_precision: Database["public"]["Enums"]["date_precision"] | null
+          birth_year: number | null
           created_at: string
-          death_precision: Database['public']['Enums']['date_precision'] | null
-          death_year: null | number
+          death_precision: Database["public"]["Enums"]["date_precision"] | null
+          death_year: number | null
           description: Json | null
-          gender: Database['public']['Enums']['gender']
+          father: number | null
+          gender: Database["public"]["Enums"]["gender"]
           id: number
+          mother: number | null
           name: string
           slug: string
           updated_at: string
         }
+        Insert: {
+          aliases?: string[]
+          avatar_url?: string | null
+          birth_precision?: Database["public"]["Enums"]["date_precision"] | null
+          birth_year?: number | null
+          created_at?: string
+          death_precision?: Database["public"]["Enums"]["date_precision"] | null
+          death_year?: number | null
+          description?: Json | null
+          father?: number | null
+          gender?: Database["public"]["Enums"]["gender"]
+          id?: number
+          mother?: number | null
+          name: string
+          slug: string
+          updated_at?: string
+        }
         Update: {
           aliases?: string[]
-          avatar_url?: null | string
-          birth_precision?: Database['public']['Enums']['date_precision'] | null
-          birth_year?: null | number
+          avatar_url?: string | null
+          birth_precision?: Database["public"]["Enums"]["date_precision"] | null
+          birth_year?: number | null
           created_at?: string
-          death_precision?: Database['public']['Enums']['date_precision'] | null
-          death_year?: null | number
+          death_precision?: Database["public"]["Enums"]["date_precision"] | null
+          death_year?: number | null
           description?: Json | null
-          gender?: Database['public']['Enums']['gender']
+          father?: number | null
+          gender?: Database["public"]["Enums"]["gender"]
           id?: number
+          mother?: number | null
           name?: string
           slug?: string
           updated_at?: string
         }
+        Relationships: [
+          {
+            foreignKeyName: "people_father_fkey"
+            columns: ["father"]
+            isOneToOne: false
+            referencedRelation: "people"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "people_mother_fkey"
+            columns: ["mother"]
+            isOneToOne: false
+            referencedRelation: "people"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       person_relations: {
-        Insert: {
-          created_at?: string
+        Row: {
           person_one: number
           person_two: number
-          relation_kind: Database['public']['Enums']['person_relation']
+          relation_kind: Database["public"]["Enums"]["person_relation"]
+        }
+        Insert: {
+          person_one: number
+          person_two: number
+          relation_kind: Database["public"]["Enums"]["person_relation"]
+        }
+        Update: {
+          person_one?: number
+          person_two?: number
+          relation_kind?: Database["public"]["Enums"]["person_relation"]
         }
         Relationships: [
           {
-            columns: ['person_one']
-            foreignKeyName: 'person_relations_person_one_fkey'
+            foreignKeyName: "person_relations_person_one_fkey"
+            columns: ["person_one"]
             isOneToOne: false
-            referencedColumns: ['id']
-            referencedRelation: 'people'
+            referencedRelation: "people"
+            referencedColumns: ["id"]
           },
           {
-            columns: ['person_two']
-            foreignKeyName: 'person_relations_person_two_fkey'
+            foreignKeyName: "person_relations_person_two_fkey"
+            columns: ["person_two"]
             isOneToOne: false
-            referencedColumns: ['id']
-            referencedRelation: 'people'
-          }
+            referencedRelation: "people"
+            referencedColumns: ["id"]
+          },
         ]
-        Row: {
-          created_at: string
-          person_one: number
-          person_two: number
-          relation_kind: Database['public']['Enums']['person_relation']
-        }
-        Update: {
-          created_at?: string
-          person_one?: number
-          person_two?: number
-          relation_kind?: Database['public']['Enums']['person_relation']
-        }
       }
       profiles: {
-        Insert: {
-          avatar_url?: null | string
-          created_at?: string
-          display_name: string
-          id: string
-        }
-        Relationships: []
         Row: {
-          avatar_url: null | string
+          avatar_url: string | null
           created_at: string
           display_name: string
           id: string
         }
+        Insert: {
+          avatar_url?: string | null
+          created_at?: string
+          display_name: string
+          id: string
+        }
         Update: {
-          avatar_url?: null | string
+          avatar_url?: string | null
           created_at?: string
           display_name?: string
           id?: string
         }
+        Relationships: []
       }
       role_permissions: {
-        Insert: {
-          id?: number
-          permission: Database['public']['Enums']['app_permission']
-          role: Database['public']['Enums']['app_role']
-        }
-        Relationships: []
         Row: {
           id: number
-          permission: Database['public']['Enums']['app_permission']
-          role: Database['public']['Enums']['app_role']
+          permission: Database["public"]["Enums"]["app_permission"]
+          role: Database["public"]["Enums"]["app_role"]
+        }
+        Insert: {
+          id?: number
+          permission: Database["public"]["Enums"]["app_permission"]
+          role: Database["public"]["Enums"]["app_role"]
         }
         Update: {
           id?: number
-          permission?: Database['public']['Enums']['app_permission']
-          role?: Database['public']['Enums']['app_role']
+          permission?: Database["public"]["Enums"]["app_permission"]
+          role?: Database["public"]["Enums"]["app_role"]
         }
+        Relationships: []
       }
       suggestions: {
-        Insert: {
-          created_at?: string
-          id?: number
-          payload: Json
-          reviewed_by?: null | string
-          status?: Database['public']['Enums']['suggestion_status']
-          target_id?: null | number
-          type: Database['public']['Enums']['suggestion_type']
-          updated_at?: string
-          user_id?: string
-        }
-        Relationships: [
-          {
-            columns: ['reviewed_by']
-            foreignKeyName: 'suggestions_reviewed_by_fkey'
-            isOneToOne: false
-            referencedColumns: ['id']
-            referencedRelation: 'profiles'
-          },
-          {
-            columns: ['user_id']
-            foreignKeyName: 'suggestions_user_id_fkey'
-            isOneToOne: false
-            referencedColumns: ['id']
-            referencedRelation: 'profiles'
-          }
-        ]
         Row: {
           created_at: string
           id: number
           payload: Json
-          reviewed_by: null | string
-          status: Database['public']['Enums']['suggestion_status']
-          target_id: null | number
-          type: Database['public']['Enums']['suggestion_type']
+          reviewed_by: string | null
+          status: Database["public"]["Enums"]["suggestion_status"]
+          target_id: number | null
+          type: Database["public"]["Enums"]["suggestion_type"]
           updated_at: string
           user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: number
+          payload: Json
+          reviewed_by?: string | null
+          status?: Database["public"]["Enums"]["suggestion_status"]
+          target_id?: number | null
+          type: Database["public"]["Enums"]["suggestion_type"]
+          updated_at?: string
+          user_id?: string
         }
         Update: {
           created_at?: string
           id?: number
           payload?: Json
-          reviewed_by?: null | string
-          status?: Database['public']['Enums']['suggestion_status']
-          target_id?: null | number
-          type?: Database['public']['Enums']['suggestion_type']
+          reviewed_by?: string | null
+          status?: Database["public"]["Enums"]["suggestion_status"]
+          target_id?: number | null
+          type?: Database["public"]["Enums"]["suggestion_type"]
           updated_at?: string
           user_id?: string
         }
+        Relationships: [
+          {
+            foreignKeyName: "suggestions_reviewed_by_fkey"
+            columns: ["reviewed_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "suggestions_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       translations: {
-        Insert: {
-          id?: number
-          key: string
-          lang: Database['public']['Enums']['app_lang']
-          value: string
-        }
-        Relationships: []
         Row: {
           id: number
           key: string
-          lang: Database['public']['Enums']['app_lang']
+          lang: Database["public"]["Enums"]["app_lang"]
+          value: string
+        }
+        Insert: {
+          id?: number
+          key: string
+          lang: Database["public"]["Enums"]["app_lang"]
           value: string
         }
         Update: {
           id?: number
           key?: string
-          lang?: Database['public']['Enums']['app_lang']
+          lang?: Database["public"]["Enums"]["app_lang"]
           value?: string
         }
+        Relationships: []
       }
       user_roles: {
-        Insert: {
-          id?: number
-          role: Database['public']['Enums']['app_role']
-          user_id: string
-        }
-        Relationships: []
         Row: {
           id: number
-          role: Database['public']['Enums']['app_role']
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          id?: number
+          role: Database["public"]["Enums"]["app_role"]
           user_id: string
         }
         Update: {
           id?: number
-          role?: Database['public']['Enums']['app_role']
+          role?: Database["public"]["Enums"]["app_role"]
           user_id?: string
         }
+        Relationships: []
       }
     }
     Views: {
       [_ in never]: never
     }
+    Functions: {
+      authorize: {
+        Args: {
+          requested_permission: Database["public"]["Enums"]["app_permission"]
+        }
+        Returns: boolean
+      }
+      custom_access_token_hook: { Args: { event: Json }; Returns: Json }
+    }
+    Enums: {
+      app_lang: "en" | "nl"
+      app_permission:
+        | "people.create"
+        | "people.update"
+        | "people.delete"
+        | "events.create"
+        | "events.update"
+        | "events.delete"
+        | "suggestions.create"
+        | "suggestions.update"
+        | "users.manage"
+      app_role: "admin" | "moderator" | "user"
+      date_precision: "after" | "before" | "circa" | "exact"
+      event_relation: "participant" | "author" | "other"
+      gender: "male" | "female" | "unknown"
+      person_relation:
+        | "friend"
+        | "spouse"
+        | "contemporary"
+        | "other"
+        | "sibling"
+      source_kind: "book" | "article" | "website" | "video" | "other"
+      suggestion_status: "pending" | "approved" | "rejected"
+      suggestion_type:
+        | "person.create"
+        | "person.update"
+        | "event.create"
+        | "event.update"
+        | "translation.create"
+        | "translation.update"
+    }
+    CompositeTypes: {
+      [_ in never]: never
+    }
   }
 }
 
-export type Enums<
-  DefaultSchemaEnumNameOrOptions extends
-    | keyof DefaultSchema['Enums']
-    | { schema: keyof DatabaseWithoutInternals },
-  EnumName extends DefaultSchemaEnumNameOrOptions extends {
-    schema: keyof DatabaseWithoutInternals
-  }
-    ? keyof DatabaseWithoutInternals[DefaultSchemaEnumNameOrOptions['schema']]['Enums']
-    : never = never
-> = DefaultSchemaEnumNameOrOptions extends {
-  schema: keyof DatabaseWithoutInternals
-}
-  ? DatabaseWithoutInternals[DefaultSchemaEnumNameOrOptions['schema']]['Enums'][EnumName]
-  : DefaultSchemaEnumNameOrOptions extends keyof DefaultSchema['Enums']
-    ? DefaultSchema['Enums'][DefaultSchemaEnumNameOrOptions]
-    : never
+type DatabaseWithoutInternals = Omit<Database, "__InternalSupabase">
 
-export type Json = boolean | Json[] | null | number | string | { [key: string]: Json | undefined }
+type DefaultSchema = DatabaseWithoutInternals[Extract<keyof Database, "public">]
 
 export type Tables<
   DefaultSchemaTableNameOrOptions extends
-    | keyof (DefaultSchema['Tables'] & DefaultSchema['Views'])
+    | keyof (DefaultSchema["Tables"] & DefaultSchema["Views"])
     | { schema: keyof DatabaseWithoutInternals },
   TableName extends DefaultSchemaTableNameOrOptions extends {
     schema: keyof DatabaseWithoutInternals
   }
-    ? keyof (DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions['schema']]['Tables'] &
-        DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions['schema']]['Views'])
-    : never = never
+    ? keyof (DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"] &
+        DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Views"])
+    : never = never,
 > = DefaultSchemaTableNameOrOptions extends {
   schema: keyof DatabaseWithoutInternals
 }
-  ? (DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions['schema']]['Tables'] &
-      DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions['schema']]['Views'])[TableName] extends {
+  ? (DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"] &
+      DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Views"])[TableName] extends {
       Row: infer R
     }
     ? R
     : never
-  : DefaultSchemaTableNameOrOptions extends keyof (DefaultSchema['Tables'] & DefaultSchema['Views'])
-    ? (DefaultSchema['Tables'] & DefaultSchema['Views'])[DefaultSchemaTableNameOrOptions] extends {
+  : DefaultSchemaTableNameOrOptions extends keyof (DefaultSchema["Tables"] &
+        DefaultSchema["Views"])
+    ? (DefaultSchema["Tables"] &
+        DefaultSchema["Views"])[DefaultSchemaTableNameOrOptions] extends {
         Row: infer R
       }
       ? R
@@ -411,23 +409,23 @@ export type Tables<
 
 export type TablesInsert<
   DefaultSchemaTableNameOrOptions extends
-    | keyof DefaultSchema['Tables']
+    | keyof DefaultSchema["Tables"]
     | { schema: keyof DatabaseWithoutInternals },
   TableName extends DefaultSchemaTableNameOrOptions extends {
     schema: keyof DatabaseWithoutInternals
   }
-    ? keyof DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions['schema']]['Tables']
-    : never = never
+    ? keyof DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"]
+    : never = never,
 > = DefaultSchemaTableNameOrOptions extends {
   schema: keyof DatabaseWithoutInternals
 }
-  ? DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions['schema']]['Tables'][TableName] extends {
+  ? DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"][TableName] extends {
       Insert: infer I
     }
     ? I
     : never
-  : DefaultSchemaTableNameOrOptions extends keyof DefaultSchema['Tables']
-    ? DefaultSchema['Tables'][DefaultSchemaTableNameOrOptions] extends {
+  : DefaultSchemaTableNameOrOptions extends keyof DefaultSchema["Tables"]
+    ? DefaultSchema["Tables"][DefaultSchemaTableNameOrOptions] extends {
         Insert: infer I
       }
       ? I
@@ -436,63 +434,93 @@ export type TablesInsert<
 
 export type TablesUpdate<
   DefaultSchemaTableNameOrOptions extends
-    | keyof DefaultSchema['Tables']
+    | keyof DefaultSchema["Tables"]
     | { schema: keyof DatabaseWithoutInternals },
   TableName extends DefaultSchemaTableNameOrOptions extends {
     schema: keyof DatabaseWithoutInternals
   }
-    ? keyof DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions['schema']]['Tables']
-    : never = never
+    ? keyof DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"]
+    : never = never,
 > = DefaultSchemaTableNameOrOptions extends {
   schema: keyof DatabaseWithoutInternals
 }
-  ? DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions['schema']]['Tables'][TableName] extends {
+  ? DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"][TableName] extends {
       Update: infer U
     }
     ? U
     : never
-  : DefaultSchemaTableNameOrOptions extends keyof DefaultSchema['Tables']
-    ? DefaultSchema['Tables'][DefaultSchemaTableNameOrOptions] extends {
+  : DefaultSchemaTableNameOrOptions extends keyof DefaultSchema["Tables"]
+    ? DefaultSchema["Tables"][DefaultSchemaTableNameOrOptions] extends {
         Update: infer U
       }
       ? U
       : never
     : never
 
-type DatabaseWithoutInternals = Omit<Database, '__InternalSupabase'>
+export type Enums<
+  DefaultSchemaEnumNameOrOptions extends
+    | keyof DefaultSchema["Enums"]
+    | { schema: keyof DatabaseWithoutInternals },
+  EnumName extends DefaultSchemaEnumNameOrOptions extends {
+    schema: keyof DatabaseWithoutInternals
+  }
+    ? keyof DatabaseWithoutInternals[DefaultSchemaEnumNameOrOptions["schema"]]["Enums"]
+    : never = never,
+> = DefaultSchemaEnumNameOrOptions extends {
+  schema: keyof DatabaseWithoutInternals
+}
+  ? DatabaseWithoutInternals[DefaultSchemaEnumNameOrOptions["schema"]]["Enums"][EnumName]
+  : DefaultSchemaEnumNameOrOptions extends keyof DefaultSchema["Enums"]
+    ? DefaultSchema["Enums"][DefaultSchemaEnumNameOrOptions]
+    : never
 
-type DefaultSchema = DatabaseWithoutInternals[Extract<keyof Database, 'public'>]
+export type CompositeTypes<
+  PublicCompositeTypeNameOrOptions extends
+    | keyof DefaultSchema["CompositeTypes"]
+    | { schema: keyof DatabaseWithoutInternals },
+  CompositeTypeName extends PublicCompositeTypeNameOrOptions extends {
+    schema: keyof DatabaseWithoutInternals
+  }
+    ? keyof DatabaseWithoutInternals[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"]
+    : never = never,
+> = PublicCompositeTypeNameOrOptions extends {
+  schema: keyof DatabaseWithoutInternals
+}
+  ? DatabaseWithoutInternals[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"][CompositeTypeName]
+  : PublicCompositeTypeNameOrOptions extends keyof DefaultSchema["CompositeTypes"]
+    ? DefaultSchema["CompositeTypes"][PublicCompositeTypeNameOrOptions]
+    : never
 
 export const Constants = {
   public: {
     Enums: {
-      app_lang: ['en', 'nl'],
+      app_lang: ["en", "nl"],
       app_permission: [
-        'people.create',
-        'people.update',
-        'people.delete',
-        'events.create',
-        'events.update',
-        'events.delete',
-        'suggestions.create',
-        'suggestions.update',
-        'users.manage'
+        "people.create",
+        "people.update",
+        "people.delete",
+        "events.create",
+        "events.update",
+        "events.delete",
+        "suggestions.create",
+        "suggestions.update",
+        "users.manage",
       ],
-      app_role: ['admin', 'moderator', 'user'],
-      date_precision: ['after', 'before', 'circa', 'exact'],
-      event_relation: ['participant', 'author', 'other'],
-      gender: ['male', 'female', 'unknown'],
-      person_relation: ['parent', 'spouse', 'contemporary', 'other', 'sibling'],
-      source_kind: ['book', 'article', 'website', 'video', 'other'],
-      suggestion_status: ['pending', 'approved', 'rejected'],
+      app_role: ["admin", "moderator", "user"],
+      date_precision: ["after", "before", "circa", "exact"],
+      event_relation: ["participant", "author", "other"],
+      gender: ["male", "female", "unknown"],
+      person_relation: ["friend", "spouse", "contemporary", "other", "sibling"],
+      source_kind: ["book", "article", "website", "video", "other"],
+      suggestion_status: ["pending", "approved", "rejected"],
       suggestion_type: [
-        'person.create',
-        'person.update',
-        'event.create',
-        'event.update',
-        'translation.create',
-        'translation.update'
-      ]
-    }
-  }
+        "person.create",
+        "person.update",
+        "event.create",
+        "event.update",
+        "translation.create",
+        "translation.update",
+      ],
+    },
+  },
 } as const

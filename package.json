@@ -14,7 +14,7 @@
     "test:unit": "echo OK",
     "test:e2e": "echo OK",
     "test": "pnpm test:unit && pnpm test:e2e",
-    "supabase:types": "supabase gen types --lang=typescript --project-id pasnnzlggfefuzwhbakl > shared/types/database-generated.types.ts"
+    "supabase:types": "supabase gen types --lang=typescript --project-id pasnnzlggfefuzwhbakl > shared/database-generated.types.ts"
   },
   "dependencies": {
     "@iconify-json/lucide": "^1.2.71",
@@ -25,11 +25,8 @@
     "@nuxtjs/seo": "^3.2.2",
     "@nuxtjs/supabase": "^2.0.1",
     "@pinia/nuxt": "^0.11.2",
-    "@unovis/ts": "^1.6.1",
-    "@unovis/vue": "^1.6.1",
     "@vueuse/nuxt": "^13.9.0",
     "@vueuse/router": "^14.0.0",
-    "date-fns": "^4.1.0",
     "nuxt": "^4.2.0",
     "pinia": "^3.0.3",
     "pinia-plugin-persistedstate": "~4.5.0",

@@ -27,7 +27,7 @@
         />
 
         <UDropdownMenu :items="items" :content="{ align: 'end' }">
-          <UButton color="neutral" variant="ghost" icon="i-lucide-ellipsis-vertical" />
+          <UButton color="neutral" variant="ghost" icon="i-lucide:ellipsis-vertical" />
         </UDropdownMenu>
       </div>
     </li>

@@ -16,8 +16,28 @@
       </UDashboardToolbar>
     </template>
     <template #body>
-      <div v-if="person">
-        {{ description }}
+      <div v-if="person" class="prose max-w-none">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <!-- Left column: avatar & quick facts -->
+          <aside class="md:col-span-1">
+            <PeopleInfoCard :person="person" />
+          </aside>
+
+          <!-- Main content: description and related content -->
+          <main class="md:col-span-2">
+            <UCard class="p-6">
+              <p v-if="description" class="whitespace-pre-line">
+                {{ description }}
+              </p>
+              <div v-else class="text-sm text-zinc-500">{{ $t('person.no-description') }}</div>
+            </UCard>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+              <EventsRelatedCard :events="events" />
+              <PeopleRelatedCard :people="relatedPeople" />
+            </div>
+          </main>
+        </div>
       </div>
       <UError
         v-else
@@ -33,6 +53,8 @@
 <script setup lang="ts">
 import { useRouteParams } from '@vueuse/router'
 
+import PeopleInfoCard from '~/components/people/PeopleInfoCard.vue'
+
 const { locale, t } = useI18n()
 const localePath = useLocalePath()
 const i18nStore = useI18nStore()
@@ -40,29 +62,71 @@ const supabase = useSupabaseClient()
 const slug = useRouteParams<string>('slug')
 
 const { data: person } = await useAsyncData(`person-${slug.value}`, async () => {
-  const { data } = await supabase.from('people').select('*').eq('slug', slug.value).single()
+  const { data } = await supabase
+    .from('people')
+    .select(
+      `*,
+    mother(name, slug, avatar_url),
+    father(name, slug, avatar_url),
+    event_relations(relation_kind, events(title, slug, cover_url)),
+    person_relations!person_relations_person_one_fkey(relation_kind, people!person_relations_person_two_fkey(name, slug, avatar_url))`
+    )
+    .eq('slug', slug.value)
+    .single()
+    .overrideTypes<{ father: ShortPerson; mother: ShortPerson }>()
   return data
 })
 
 const name = computed(() => (person.value ? i18nStore.translate(person.value.name) : '404'))
 
 const description = computed(() => {
-  return person.value?.description?.[locale.value] ?? t('feedback.page-not-found')
+  return person.value
+    ? (person.value.description?.[locale.value] ?? '')
+    : t('feedback.page-not-found')
+})
+
+const events = computed(() => {
+  return (
+    person.value?.event_relations?.map((rel) => ({
+      ...rel.events,
+      relation_kind: rel.relation_kind
+    })) ?? []
+  )
+})
+
+const relatedPeople = computed(() => {
+  const fromRelations =
+    person.value?.person_relations?.map((rel) => ({
+      ...rel.people,
+      relation_kind: rel.relation_kind
+    })) ?? []
+
+  const parents = []
+  if (person.value?.father) {
+    parents.push({ ...person.value.father, relation_kind: 'father' as const })
+  }
+
+  if (person.value?.mother) {
+    parents.push({ ...person.value.mother, relation_kind: 'mother' as const })
+  }
+
+  // show parents first, then other relations
+  return [...parents, ...fromRelations]
 })
 
 const breadcrumbs = computed(() => [
   {
-    icon: 'i-lucide-home',
+    icon: 'i-lucide:home',
     label: t('home.title'),
     to: localePath('/')
   },
   {
-    icon: 'i-lucide-users',
+    icon: 'i-lucide:users',
     label: t('people.title'),
     to: localePath('/people')
   },
   {
-    icon: 'i-lucide-user',
+    icon: 'i-lucide:user',
     label: name.value,
     to: localePath(`/people/${slug.value}`)
   }

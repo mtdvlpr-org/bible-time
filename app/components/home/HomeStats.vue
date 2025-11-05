@@ -1,11 +1,12 @@
 <template>
-  <UPageGrid class="lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-px">
+  <UPageGrid class="lg:grid-cols-2 gap-4 sm:gap-6 lg:gap-px">
     <UPageCard
-      v-for="(stat, index) in stats"
-      :key="index"
+      v-for="table in tables"
+      :key="table.key"
+      :to="table.to"
       variant="subtle"
-      :icon="stat.icon"
-      :title="stat.title"
+      :icon="table.icon"
+      :title="table.title"
       class="lg:rounded-none first:rounded-l-lg last:rounded-r-lg hover:z-1"
       :ui="{
         container: 'gap-y-1.5',
@@ -16,87 +17,58 @@
     >
       <div class="flex items-center gap-2">
         <span class="text-2xl font-semibold text-highlighted">
-          {{ stat.value }}
+          {{ stats[table.key] }}
         </span>
-
-        <UBadge class="text-xs" variant="subtle" :color="stat.variation > 0 ? 'success' : 'error'">
-          {{ stat.variation > 0 ? '+' : '' }}{{ stat.variation }}%
-        </UBadge>
       </div>
     </UPageCard>
   </UPageGrid>
 </template>
 
 <script setup lang="ts">
-import type { Period, Range, Stat } from '~/types'
+const { t } = useI18n()
+const localePath = useLocalePath()
 
-const props = defineProps<{
-  period: Period
-  range: Range
-}>()
-
-function formatCurrency(value: number): string {
-  return value.toLocaleString('en-US', {
-    currency: 'USD',
-    maximumFractionDigits: 0,
-    style: 'currency'
-  })
+type Table = {
+  icon: string
+  key: TableKey
+  title: string
+  to: string
 }
 
-const baseStats = [
-  {
-    icon: 'i-lucide-users',
-    maxValue: 1000,
-    maxVariation: 25,
-    minValue: 400,
-    minVariation: -15,
-    title: 'Customers'
-  },
-  {
-    icon: 'i-lucide-chart-pie',
-    maxValue: 2000,
-    maxVariation: 20,
-    minValue: 1000,
-    minVariation: -10,
-    title: 'Conversions'
-  },
-  {
-    formatter: formatCurrency,
-    icon: 'i-lucide-circle-dollar-sign',
-    maxValue: 500000,
-    maxVariation: 30,
-    minValue: 200000,
-    minVariation: -20,
-    title: 'Revenue'
-  },
-  {
-    icon: 'i-lucide-shopping-cart',
-    maxValue: 300,
-    maxVariation: 15,
-    minValue: 100,
-    minVariation: -5,
-    title: 'Orders'
-  }
-]
+type TableKey = 'events' | 'people'
 
-const { data: stats } = await useAsyncData<Stat[]>(
+const tables = computed((): Table[] => [
+  {
+    icon: 'i-lucide:users',
+    key: 'people',
+    title: t('people.title'),
+    to: localePath('/people')
+  },
+  {
+    icon: 'i-lucide:calendar-range',
+    key: 'events',
+    title: t('events.title'),
+    to: localePath('/events')
+  }
+])
+
+const supabase = useSupabaseClient()
+
+const { data: stats } = await useAsyncData(
   'stats',
   async () => {
-    return baseStats.map((stat) => {
-      const value = randomInt(stat.minValue, stat.maxValue)
-      const variation = randomInt(stat.minVariation, stat.maxVariation)
+    const [peopleResult, eventsResult] = await Promise.all([
+      supabase.from('people').select('*', { count: 'exact', head: true }),
+      supabase.from('events').select('*', { count: 'exact', head: true })
+    ])
 
-      return {
-        icon: stat.icon,
-        title: stat.title,
-        value: stat.formatter ? stat.formatter(value) : value,
-        variation
-      }
-    })
+    const counts: Record<TableKey, number> = {
+      events: eventsResult.count ?? 0,
+      people: peopleResult.count ?? 0
+    }
+
+    return counts
   },
-  {
-    default: () => [],
-    watch: [() => props.period, () => props.range]
-  }
+  { default: () => ({ events: 0, people: 0 }) }
 )
 </script>

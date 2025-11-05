@@ -15,9 +15,9 @@ export default function () {
       color: 'neutral',
       icon: isSorted
         ? isSorted === 'asc'
-          ? 'i-lucide-arrow-up-narrow-wide'
-          : 'i-lucide-arrow-down-wide-narrow'
-        : 'i-lucide-arrow-up-down',
+          ? 'i-lucide:arrow-up-narrow-wide'
+          : 'i-lucide:arrow-down-wide-narrow'
+        : 'i-lucide:arrow-up-down',
       label,
       onClick: () => column.toggleSorting(),
       variant: 'ghost'
@@ -43,7 +43,7 @@ export default function () {
           h(UButton, {
             class: 'ml-auto',
             color: 'neutral',
-            icon: 'i-lucide-ellipsis-vertical',
+            icon: 'i-lucide:ellipsis-vertical',
             variant: 'ghost'
           })
       )

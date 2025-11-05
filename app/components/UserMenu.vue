@@ -13,7 +13,7 @@
       class="data-[state=open]:bg-elevated"
       :ui="{ trailingIcon: 'text-dimmed' }"
       :label="collapsed ? undefined : user.display_name"
-      :trailing-icon="collapsed ? undefined : 'i-lucide-chevrons-up-down'"
+      :trailing-icon="collapsed ? undefined : 'i-lucide:chevrons-up-down'"
     />
 
     <template #chip-leading="{ item }">
@@ -68,13 +68,13 @@ const items = computed<DropdownMenuItem[][]>(() => [
   ],
   [
     {
-      icon: 'i-lucide-user',
+      icon: 'i-lucide:user',
       label: t('settings.profile'),
       to: localePath('/settings/profile')
     },
     {
       exact: true,
-      icon: 'i-lucide-settings',
+      icon: 'i-lucide:settings',
       label: t('settings.title'),
       to: localePath('/settings')
     }
@@ -92,15 +92,15 @@ const items = computed<DropdownMenuItem[][]>(() => [
         slot: 'flag',
         type: 'checkbox'
       })),
-      icon: 'i-lucide-globe',
+      icon: 'i-lucide:globe',
       label: t('settings.language')
     },
     appearanceDropdownItem.value,
     {
       children: [
-        { icon: 'i-lucide-monitor', key: 'system', label: t('settings.system') },
-        { icon: 'i-lucide-sun', key: 'light', label: t('settings.light') },
-        { icon: 'i-lucide-moon', key: 'dark', label: t('settings.dark') }
+        { icon: 'i-lucide:monitor', key: 'system', label: t('settings.system') },
+        { icon: 'i-lucide:sun', key: 'light', label: t('settings.light') },
+        { icon: 'i-lucide:moon', key: 'dark', label: t('settings.dark') }
       ].map((item) => ({
         checked: colorMode.preference === item.key,
         icon: item.icon,
@@ -111,13 +111,13 @@ const items = computed<DropdownMenuItem[][]>(() => [
         },
         type: 'checkbox'
       })),
-      icon: 'i-lucide-sun-moon',
+      icon: 'i-lucide:sun-moon',
       label: t('settings.theme')
     }
   ],
   [
     {
-      icon: 'i-lucide-log-out',
+      icon: 'i-lucide:log-out',
       label: t('settings.log-out'),
       onSelect: () => {
         userStore.signOut()

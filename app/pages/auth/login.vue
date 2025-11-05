@@ -4,7 +4,7 @@
     :providers="[]"
     :fields="fields"
     :schema="schema"
-    icon="i-lucide-lock"
+    icon="i-lucide:lock"
     :separator="$t('auth.or')"
     :title="$t('auth.welcome-back')"
     @submit="onSubmit"

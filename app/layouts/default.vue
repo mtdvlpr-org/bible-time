@@ -9,7 +9,7 @@
       :ui="{ footer: 'lg:border-t lg:border-default' }"
     >
       <template #header="{ collapsed }">
-        <TeamsMenu :collapsed="collapsed" />
+        <AppLogo :collapsed="collapsed" />
       </template>
 
       <template #default="{ collapsed }">
@@ -58,8 +58,6 @@
     </UDashboardSearch>
 
     <slot />
-
-    <NotificationsSlideover />
   </UDashboardGroup>
 </template>
 
@@ -80,7 +78,7 @@ const open = ref(false)
 const links = computed((): NavigationMenuItem[][] => [
   [
     {
-      icon: 'i-lucide-house',
+      icon: 'i-lucide:house',
       label: t('home.title'),
       onSelect: () => {
         open.value = false
@@ -88,7 +86,7 @@ const links = computed((): NavigationMenuItem[][] => [
       to: localePath('/')
     },
     {
-      icon: 'i-lucide-users',
+      icon: 'i-lucide:users',
       label: t('people.title'),
       onSelect: () => {
         open.value = false
@@ -121,7 +119,7 @@ const links = computed((): NavigationMenuItem[][] => [
         }
       ],
       defaultOpen: true,
-      icon: 'i-lucide-settings',
+      icon: 'i-lucide:settings',
       label: t('settings.title'),
       type: 'trigger'
     }

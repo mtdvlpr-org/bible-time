@@ -3,7 +3,7 @@
     <UInput
       v-model="globalFilter"
       class="max-w-sm"
-      icon="i-lucide-search"
+      icon="i-lucide:search"
       :placeholder="searchLabel ? searchLabel : $t('general.search')"
     />
 
@@ -34,7 +34,7 @@
           color="neutral"
           variant="outline"
           :label="$t('general.display')"
-          trailing-icon="i-lucide-settings-2"
+          trailing-icon="i-lucide:settings-2"
         />
       </UDropdownMenu>
       <UButton

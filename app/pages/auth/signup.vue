@@ -4,7 +4,7 @@
     :providers="[]"
     :fields="fields"
     :schema="schema"
-    icon="i-lucide-user"
+    icon="i-lucide:user"
     :separator="$t('auth.or')"
     :title="$t('auth.sign-up')"
     :description="$t('auth.sign-up-description')"

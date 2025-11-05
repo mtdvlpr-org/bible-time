@@ -7,7 +7,7 @@ export default function () {
   const showError = (options: Partial<Toast>) => {
     toast.add({
       color: 'error',
-      icon: 'i-lucide-circle-alert',
+      icon: 'i-lucide:circle-alert',
       title: t('feedback.something-went-wrong'),
       ...options
     })
@@ -16,7 +16,7 @@ export default function () {
   const showInfo = (options: Partial<Toast>) => {
     toast.add({
       color: 'info',
-      icon: 'i-lucide-info',
+      icon: 'i-lucide:info',
       title: t('feedback.info'),
       ...options
     })
@@ -25,7 +25,7 @@ export default function () {
   const showWarning = (options: Partial<Toast>) => {
     toast.add({
       color: 'warning',
-      icon: 'i-lucide-triangle-alert',
+      icon: 'i-lucide:triangle-alert',
       title: t('feedback.warning'),
       ...options
     })
@@ -34,7 +34,7 @@ export default function () {
   const showSuccess = (options: Partial<Toast>) => {
     toast.add({
       color: 'success',
-      icon: 'i-lucide-circle-check',
+      icon: 'i-lucide:circle-check',
       title: t('feedback.success'),
       ...options
     })
