@@ -1,5 +1,5 @@
 <template>
-  <UApp>
+  <UApp :locale="uiLocales[locale]">
     <UError :error="error" />
   </UApp>
 </template>
@@ -11,19 +11,24 @@ const props = defineProps<{
   error: NuxtError
 }>()
 
-useSeoMeta({
-  description: 'We are sorry but this page could not be found.',
-  title: 'Page not found'
-})
+const { locale } = useI18n()
+const head = useLocaleHead()
+
+const colorMode = useColorMode()
+const color = computed(() => (colorMode.value === 'dark' ? '#1b1718' : 'white'))
 
 useHead({
-  htmlAttrs: {
-    lang: 'en'
-  }
+  htmlAttrs: head.value.htmlAttrs,
+  link: [{ href: '/favicon.ico', rel: 'icon' }],
+  meta: [
+    { charset: 'utf-8' },
+    { content: 'width=device-width, initial-scale=1', name: 'viewport' },
+    { content: color, key: 'theme-color', name: 'theme-color' }
+  ]
 })
 
-defineOgImageComponent('NuxtSeo', {
+useSeoMeta({
   description: props.error.statusMessage,
-  title: props.error.statusCode.toString()
+  title: props.error.statusCode
 })
 </script>

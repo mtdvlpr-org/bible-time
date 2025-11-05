@@ -1,8 +1,4 @@
 {
-  "nuxtSiteConfig": {
-    "description": "Een overzicht van Bijbelse personen en gebeurtenissen.",
-    "name": "BibleTime"
-  },
   "auth": {
     "account": "Account",
     "already-have-account": "Heb je al een account?",
@@ -64,6 +60,8 @@
     "deleted-successfully": "{item} is succesvol verwijderd.",
     "error": "Error",
     "info": "Informatie",
+    "page-not-exist": "De pagina die je zoekt bestaat niet.",
+    "page-not-found": "Pagina niet gevonden",
     "saved-successfully": "{item} is succesvol opgeslagen.",
     "something-went-wrong": "Er is iets misgegaan",
     "success": "Succes",
@@ -101,6 +99,10 @@
   },
   "home": {
     "title": "Home"
+  },
+  "nuxtSiteConfig": {
+    "description": "Een overzicht van Bijbelse personen en gebeurtenissen.",
+    "name": "BibleTime"
   },
   "people": {
     "born": "Geboren",

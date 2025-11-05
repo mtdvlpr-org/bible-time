@@ -11,15 +11,14 @@
 definePageMeta({ layout: 'auth' })
 
 const { t } = useI18n()
-
-useSeoMeta({
-  description: t('auth.reset-password-description'),
-  title: t('auth.reset-password')
-})
-
 const localePath = useLocalePath()
 
 async function onSuccess() {
   await navigateTo(localePath('/'))
 }
+
+useSeoMeta({
+  description: t('auth.reset-password-description'),
+  title: t('auth.reset-password')
+})
 </script>

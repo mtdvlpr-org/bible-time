@@ -26,11 +26,6 @@ definePageMeta({ layout: 'auth' })
 
 const { t } = useI18n()
 
-useSeoMeta({
-  description: t('auth.forgot-password-description'),
-  title: t('auth.forgot-password')
-})
-
 const { fields: allFields, rules } = useForm()
 
 const fields = [allFields.email]
@@ -53,4 +48,9 @@ async function onSubmit(payload: FormSubmitEvent<Schema>) {
     showSuccess({ description: t('auth.check-your-email-for-instructions') })
   }
 }
+
+useSeoMeta({
+  description: t('auth.forgot-password-description'),
+  title: t('auth.forgot-password')
+})
 </script>

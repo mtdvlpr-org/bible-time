@@ -27,11 +27,6 @@ import type { NavigationMenuItem } from '@nuxt/ui'
 const { t } = useI18n()
 const localePath = useLocalePath()
 
-useSeoMeta({
-  description: t('settings.description'),
-  title: t('settings.title')
-})
-
 const links = computed((): NavigationMenuItem[][] => [
   [
     {
@@ -55,4 +50,9 @@ const links = computed((): NavigationMenuItem[][] => [
     // Links pushed to the right
   ]
 ])
+
+useSeoMeta({
+  description: t('settings.description'),
+  title: t('settings.title')
+})
 </script>

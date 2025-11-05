@@ -43,11 +43,6 @@ definePageMeta({ layout: 'auth' })
 
 const { t } = useI18n()
 
-useSeoMeta({
-  description: t('auth.login-description'),
-  title: t('auth.login')
-})
-
 // Redirect if user is logged in
 const user = useSupabaseUser()
 const redirectInfo = useSupabaseCookieRedirect()
@@ -89,4 +84,9 @@ async function onSubmit(payload: FormSubmitEvent<Schema>) {
     showError({ description: error.message })
   }
 }
+
+useSeoMeta({
+  description: t('auth.login-description'),
+  title: t('auth.login')
+})
 </script>

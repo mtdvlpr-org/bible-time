@@ -9,8 +9,6 @@
 </template>
 
 <script setup lang="ts">
-defineOgImageComponent('NuxtSeo')
-
 const { locale } = useI18n()
 const head = useLocaleHead()
 
@@ -38,4 +36,8 @@ useSeoMeta({
   titleTemplate: (title) =>
     title ? `${title} | ${$t('nuxtSiteConfig.name')}` : $t('nuxtSiteConfig.name')
 })
+
+if (import.meta.server) {
+  defineOgImageComponent('Page')
+}
 </script>

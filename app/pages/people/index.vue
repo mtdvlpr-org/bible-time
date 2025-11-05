@@ -46,13 +46,6 @@ const { t } = useI18n()
 const supabase = useSupabaseClient()
 const dataTable = useTemplateRef('table')
 
-useSchemaOrg([defineWebPage({ '@type': 'CollectionPage' })])
-
-useSeoMeta({
-  description: t('people.description'),
-  title: t('people.title')
-})
-
 const {
   data: people,
   pending,
@@ -128,4 +121,11 @@ const columns = computed((): TableColumn<Tables<'people'>>[] => [
     id: 'actions'
   }
 ])
+
+useSeoMeta({
+  description: t('people.description'),
+  title: t('people.title')
+})
+
+useSchemaOrg([defineWebPage({ '@type': 'CollectionPage' })])
 </script>

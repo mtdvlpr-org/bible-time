@@ -7,24 +7,24 @@
         </template>
 
         <template #right>
-          <LazyPeopleAddModal />
+          <LazyPeopleAddModal v-if="person" />
         </template>
       </UDashboardNavbar>
 
-      <UDashboardToolbar>
+      <UDashboardToolbar v-if="person">
         <UBreadcrumb :items="breadcrumbs" />
       </UDashboardToolbar>
     </template>
     <template #body>
       <div v-if="person">
-        {{ person?.description?.[locale] }}
+        {{ description }}
       </div>
       <UError
         v-else
         :error="{
           statusCode: 404,
-          statusMessage: 'Page not found',
-          message: 'The page you are looking for does not exist.'
+          statusMessage: $t('feedback.page-not-found'),
+          message: $t('feedback.page-not-exist')
         }"
       />
     </template>
@@ -44,9 +44,11 @@ const { data: person } = await useAsyncData(`person-${slug.value}`, async () => 
   return data
 })
 
-const name = computed(() =>
-  person.value ? i18nStore.translate(person.value.name) : 'Page not found'
-)
+const name = computed(() => (person.value ? i18nStore.translate(person.value.name) : '404'))
+
+const description = computed(() => {
+  return person.value?.description?.[locale.value] ?? t('feedback.page-not-found')
+})
 
 const breadcrumbs = computed(() => [
   {
@@ -66,15 +68,32 @@ const breadcrumbs = computed(() => [
   }
 ])
 
-useSchemaOrg([
-  defineWebPage({ '@type': 'ItemPage' }),
-  defineBreadcrumb({
-    itemListElement: breadcrumbs.value.map((b) => ({ item: b.to, name: b.label }))
-  })
-])
-
 useSeoMeta({
-  description: person.value?.description?.[locale.value] || undefined,
+  articleModifiedTime: person.value?.updated_at,
+  articlePublishedTime: person.value?.created_at,
+  description: description.value,
+  ogType: person.value ? 'article' : undefined,
   title: name.value
 })
+
+useSchemaOrg(
+  person.value
+    ? [
+        defineWebPage({ '@type': 'ItemPage' }),
+        defineBreadcrumb({
+          itemListElement: breadcrumbs.value.map((b) => ({ item: b.to, name: b.label }))
+        }),
+        defineArticle({
+          dateModified: person.value.updated_at,
+          datePublished: person.value.created_at,
+          image: person.value.avatar_url,
+          mainEntity: definePerson({
+            description: description.value,
+            image: person.value.avatar_url,
+            name: name.value
+          })
+        })
+      ]
+    : []
+)
 </script>

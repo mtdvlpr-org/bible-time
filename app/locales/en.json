@@ -1,8 +1,4 @@
 {
-  "nuxtSiteConfig": {
-    "description": "An overview of Biblical people and events.",
-    "name": "BibleTime"
-  },
   "auth": {
     "account": "Account",
     "already-have-account": "Already have an account?",
@@ -64,6 +60,8 @@
     "deleted-successfully": "{item} has been deleted successfully.",
     "error": "Error",
     "info": "Information",
+    "page-not-exist": "The page you are looking for does not exist.",
+    "page-not-found": "Page not found",
     "saved-successfully": "{item} has been saved successfully.",
     "something-went-wrong": "Something went wrong.",
     "success": "Success",
@@ -101,6 +99,10 @@
   },
   "home": {
     "title": "Home"
+  },
+  "nuxtSiteConfig": {
+    "description": "An overview of Biblical people and events.",
+    "name": "BibleTime"
   },
   "people": {
     "born": "Born",
