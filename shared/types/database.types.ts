@@ -53,6 +53,9 @@ export type Database = MergeDeep<
   }
 >
 
+// Define your custom JSON type
+export type Description = Partial<Record<Enums<'app_lang'>, string>>
+
 export type Enums<
   DefaultSchemaEnumNameOrOptions extends
     | keyof DefaultSchema['Enums']
@@ -71,8 +74,8 @@ export type Enums<
     : never
 
 export type Json = boolean | Json[] | null | number | string | { [key: string]: Json | undefined }
-
 export type ShortEvent = Pick<Tables<'events'>, 'cover_url' | 'slug' | 'title'>
+
 export type ShortPerson = Pick<Tables<'people'>, 'avatar_url' | 'name' | 'slug'>
 
 export type Tables<
@@ -155,6 +158,3 @@ export type TablesUpdate<
 type DatabaseWithoutInternals = Omit<Database, '__InternalSupabase'>
 
 type DefaultSchema = DatabaseWithoutInternals[Extract<keyof Database, 'public'>]
-
-// Define your custom JSON type
-type Description = Record<Enums<'app_lang'>, string>

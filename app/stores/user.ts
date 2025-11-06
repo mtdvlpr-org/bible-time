@@ -1,17 +1,26 @@
 type State = {
+  permissions: Record<Enums<'app_role'>, Enums<'app_permission'>[]>
   user: null | {
     avatar_url: null | string
     display_name: string
     email: string
     id: string
+    role: Enums<'app_role'>
   }
 }
 
 export const useUserStore = defineStore('user', {
   actions: {
+    can(permission: Enums<'app_permission'>) {
+      if (!this.user) return false
+      return this.permissions[this.user.role].includes(permission)
+    },
     async fetch() {
       const user = useSupabaseUser()
-      if (!user.value || user.value.sub === this.user?.id) return
+      const session = useSupabaseSession()
+      this.fetchPermissions(user.value?.user_role ?? 'user')
+      if (!user.value || !session.value || user.value.sub === this.user?.id) return
+
       const supabase = useSupabaseClient()
       const {
         data: profile,
@@ -33,12 +42,22 @@ export const useUserStore = defineStore('user', {
             : null,
           display_name: profile.display_name,
           email: user.value.email,
-          id: profile.id
+          id: profile.id,
+          role: user.value.user_role ?? 'user'
         }
       }
     },
+    async fetchPermissions(role: Enums<'app_role'>, refresh = false) {
+      if (!refresh && this.permissions[role].length) return
+
+      const supabase = useSupabaseClient()
+      const { data } = await supabase.from('role_permissions').select('permission').eq('role', role)
+      if (!data) return
+
+      this.permissions[role] = data.map((d) => d.permission)
+    },
     async signOut() {
-      this.$reset()
+      this.user = null
       await useSupabaseClient().auth.signOut()
       navigateTo('/auth/login')
     },
@@ -58,6 +77,12 @@ export const useUserStore = defineStore('user', {
   },
   persist: true,
   state: (): State => ({
+    permissions: {
+      admin: [],
+      moderator: [],
+      translator: [],
+      user: []
+    },
     user: null
   })
 })

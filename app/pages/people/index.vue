@@ -7,7 +7,7 @@
         </template>
 
         <template #right>
-          <LazyPeopleAddModal />
+          <LazyPeopleAddModal v-if="can('people.create')" />
         </template>
       </UDashboardNavbar>
     </template>
@@ -43,6 +43,7 @@
 import type { TableColumn } from '@nuxt/ui'
 
 const { t } = useI18n()
+const { can } = useUserStore()
 const supabase = useSupabaseClient()
 const dataTable = useTemplateRef('table')
 

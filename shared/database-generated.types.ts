@@ -347,8 +347,10 @@ export type Database = {
         | "events.delete"
         | "suggestions.create"
         | "suggestions.update"
+        | "translations.create"
+        | "translations.update"
         | "users.manage"
-      app_role: "admin" | "moderator" | "user"
+      app_role: "admin" | "moderator" | "translator" | "user"
       date_precision: "after" | "before" | "circa" | "exact"
       event_relation: "participant" | "author" | "other"
       gender: "male" | "female" | "unknown"
@@ -504,9 +506,11 @@ export const Constants = {
         "events.delete",
         "suggestions.create",
         "suggestions.update",
+        "translations.create",
+        "translations.update",
         "users.manage",
       ],
-      app_role: ["admin", "moderator", "user"],
+      app_role: ["admin", "moderator", "translator", "user"],
       date_precision: ["after", "before", "circa", "exact"],
       event_relation: ["participant", "author", "other"],
       gender: ["male", "female", "unknown"],

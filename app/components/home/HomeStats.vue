@@ -54,7 +54,7 @@ const tables = computed((): Table[] => [
 
 const supabase = useSupabaseClient()
 
-const { data: stats } = await useAsyncData(
+const { data: stats } = await useLazyAsyncData(
   'stats',
   async () => {
     const [peopleResult, eventsResult] = await Promise.all([

@@ -7,7 +7,12 @@
         </template>
 
         <template #right>
-          <LazyPeopleAddModal v-if="person" />
+          <UButton
+            v-if="person && can('people.update')"
+            :icon="edit ? 'i-lucide:pencil-off' : 'i-lucide:edit'"
+            :label="edit ? $t('general.stop-editing') : $t('person.edit')"
+            @click="edit = !edit"
+          />
         </template>
       </UDashboardNavbar>
 
@@ -25,12 +30,7 @@
 
           <!-- Main content: description and related content -->
           <main class="md:col-span-2">
-            <UCard class="p-6">
-              <p v-if="description" class="whitespace-pre-line">
-                {{ description }}
-              </p>
-              <div v-else class="text-sm text-zinc-500">{{ $t('person.no-description') }}</div>
-            </UCard>
+            <DescriptionCard :edit="edit" :slug="person.slug" :description="person.description" />
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
               <EventsRelatedCard :events="events" />
@@ -53,8 +53,8 @@
 <script setup lang="ts">
 import { useRouteParams } from '@vueuse/router'
 
-import PeopleInfoCard from '~/components/people/PeopleInfoCard.vue'
-
+const edit = ref(false)
+const { can } = useUserStore()
 const { locale, t } = useI18n()
 const localePath = useLocalePath()
 const i18nStore = useI18nStore()
@@ -69,7 +69,8 @@ const { data: person } = await useAsyncData(`person-${slug.value}`, async () => 
     mother(name, slug, avatar_url),
     father(name, slug, avatar_url),
     event_relations(relation_kind, events(title, slug, cover_url)),
-    person_relations!person_relations_person_one_fkey(relation_kind, people!person_relations_person_two_fkey(name, slug, avatar_url))`
+    related_one:person_relations!person_relations_person_one_fkey(relation_kind, people!person_relations_person_two_fkey(name, slug, avatar_url)),
+    related_two:person_relations!person_relations_person_two_fkey(relation_kind, people!person_relations_person_one_fkey(name, slug, avatar_url))`
     )
     .eq('slug', slug.value)
     .single()
@@ -78,12 +79,6 @@ const { data: person } = await useAsyncData(`person-${slug.value}`, async () => 
 })
 
 const name = computed(() => (person.value ? i18nStore.translate(person.value.name) : '404'))
-
-const description = computed(() => {
-  return person.value
-    ? (person.value.description?.[locale.value] ?? '')
-    : t('feedback.page-not-found')
-})
 
 const events = computed(() => {
   return (
@@ -96,7 +91,7 @@ const events = computed(() => {
 
 const relatedPeople = computed(() => {
   const fromRelations =
-    person.value?.person_relations?.map((rel) => ({
+    person.value?.related_one.concat(person.value.related_two).map((rel) => ({
       ...rel.people,
       relation_kind: rel.relation_kind
     })) ?? []
@@ -131,6 +126,10 @@ const breadcrumbs = computed(() => [
     to: localePath(`/people/${slug.value}`)
   }
 ])
+
+const description = computed(() => {
+  return person.value ? person.value.description?.[locale.value] : t('feedback.page-not-found')
+})
 
 useSeoMeta({
   articleModifiedTime: person.value?.updated_at,
