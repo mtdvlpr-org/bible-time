@@ -1,7 +1,7 @@
 <template>
   <UDashboardPanel id="person">
     <template #header>
-      <UDashboardNavbar :title="person?.name">
+      <UDashboardNavbar :title="name">
         <template #leading>
           <UDashboardSidebarCollapse />
         </template>
@@ -30,11 +30,16 @@
 
           <!-- Main content: description and related content -->
           <main class="md:col-span-2">
-            <DescriptionCard :edit="edit" :slug="person.slug" :description="person.description" />
+            <DescriptionCard
+              :edit="edit"
+              type="person"
+              :slug="person.slug"
+              :description="person.description"
+            />
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
               <EventsRelatedCard :events="events" />
-              <PeopleRelatedCard :people="relatedPeople" />
+              <PeopleRelatedCard :id="person.id" :edit="edit" type="person" :slug="person.slug" />
             </div>
           </main>
         </div>
@@ -57,7 +62,7 @@ const edit = ref(false)
 const { can } = useUserStore()
 const { locale, t } = useI18n()
 const localePath = useLocalePath()
-const i18nStore = useI18nStore()
+const { translate } = useTranslations()
 const supabase = useSupabaseClient()
 const slug = useRouteParams<string>('slug')
 
@@ -78,7 +83,7 @@ const { data: person } = await useAsyncData(`person-${slug.value}`, async () => 
   return data
 })
 
-const name = computed(() => (person.value ? i18nStore.translate(person.value.name) : '404'))
+const name = computed(() => (person.value ? translate(person.value.name) : '404'))
 
 const events = computed(() => {
   return (
@@ -87,26 +92,6 @@ const events = computed(() => {
       relation_kind: rel.relation_kind
     })) ?? []
   )
-})
-
-const relatedPeople = computed(() => {
-  const fromRelations =
-    person.value?.related_one.concat(person.value.related_two).map((rel) => ({
-      ...rel.people,
-      relation_kind: rel.relation_kind
-    })) ?? []
-
-  const parents = []
-  if (person.value?.father) {
-    parents.push({ ...person.value.father, relation_kind: 'father' as const })
-  }
-
-  if (person.value?.mother) {
-    parents.push({ ...person.value.mother, relation_kind: 'mother' as const })
-  }
-
-  // show parents first, then other relations
-  return [...parents, ...fromRelations]
 })
 
 const breadcrumbs = computed(() => [

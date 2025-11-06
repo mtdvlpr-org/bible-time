@@ -27,13 +27,16 @@
 const props = defineProps<{
   edit?: boolean
   slug: string
+  type: 'event' | 'person'
 }>()
 
-const { data: person } = useNuxtData<Tables<'people'>>(`person-${props.slug}`)
+const { data: item } = useNuxtData<Tables<'events'> | Tables<'people'>>(
+  `${props.type}-${props.slug}`
+)
 const { locale, localeProperties } = useI18n()
 
 const localeDescription = computed(() => {
-  return person.value?.description?.[locale.value] ?? null
+  return item.value?.description?.[locale.value] ?? null
 })
 
 const newDescription = ref(localeDescription.value)
@@ -42,26 +45,29 @@ const { showError, showSuccess } = useFlash()
 const supabase = useSupabaseClient()
 
 const onSubmit = async () => {
-  if (!person.value) return
+  if (!item.value) return
 
   // Set old and new description
-  const previousDescription = person.value.description
+  const previousDescription = item.value.description
   const description = {
-    ...(person.value.description ?? {}),
+    ...(item.value.description ?? {}),
     [locale.value]: newDescription.value ?? ''
   }
 
   // Update description optimistically
-  person.value = { ...person.value, description }
+  item.value = { ...item.value, description }
 
   // Send update to Supabase
-  const { error } = await supabase.from('people').update({ description }).eq('slug', props.slug)
+  const { error } = await supabase
+    .from(props.type === 'person' ? 'people' : 'events')
+    .update({ description })
+    .eq('slug', props.slug)
 
   if (error) {
     showError({ description: error.message })
 
     // Revert description on error
-    person.value.description = previousDescription
+    item.value.description = previousDescription
   } else {
     // TODO: i18n
     showSuccess({ description: 'Description updated successfully.' })

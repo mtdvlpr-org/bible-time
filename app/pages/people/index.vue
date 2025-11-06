@@ -66,12 +66,12 @@ const genderFilters = computed((): { label: string; value: Enums<'gender'> | und
   { label: t('general.all'), value: undefined }
 ])
 
-const i18nStore = useI18nStore()
+const { translate } = useTranslations()
 
 const columns = computed((): TableColumn<Tables<'people'>>[] => [
   {
     accessorKey: 'name',
-    cell: ({ row }) => avatarCell(i18nStore.translate(row.original.name), row.original.avatar_url),
+    cell: ({ row }) => avatarCell(translate(row.original.name), row.original.avatar_url),
     header: t('person.name')
   },
   {
@@ -104,7 +104,6 @@ const columns = computed((): TableColumn<Tables<'people'>>[] => [
       actionCell([
         { label: t('general.actions'), type: 'label' },
         { icon: 'i-lucide:list', label: t('person.view'), to: `/people/${row.original.slug}` },
-        { icon: 'i-lucide:edit', label: t('person.edit') },
         { type: 'separator' },
         {
           color: 'error',
@@ -112,8 +111,8 @@ const columns = computed((): TableColumn<Tables<'people'>>[] => [
           label: t('person.delete'),
           onSelect() {
             toast.add({
-              description: 'The customer has been deleted.',
-              title: 'Customer deleted'
+              description: 'The person has been deleted.',
+              title: 'Person deleted'
             })
           }
         }

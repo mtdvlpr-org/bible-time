@@ -20,11 +20,6 @@ export const useI18nStore = defineStore('i18n', {
       } else if (translations) {
         this.translations[locale] = translations
       }
-    },
-    translate(key: string) {
-      const locale = useI18n().locale.value
-      const translation = this.translations[locale].find((t) => t.key === key)
-      return translation ? translation.value : key
     }
   },
   persist: true,

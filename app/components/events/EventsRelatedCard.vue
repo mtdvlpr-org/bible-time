@@ -13,7 +13,7 @@
                 <UAvatar size="sm" :alt="e.title" :src="e.cover_url ?? undefined" />
                 <div>
                   <div class="text-sm font-medium">
-                    {{ i18nStore.translate(e.title) }}
+                    {{ translate(e.title) }}
                   </div>
                 </div>
               </div>
@@ -34,18 +34,6 @@ defineProps<{
   events: (ShortEvent & { relation_kind: Enums<'event_relation'> })[]
 }>()
 
-const { t } = useI18n()
-const i18nStore = useI18nStore()
+const { translate, translateRelation } = useTranslations()
 const localePath = useLocalePath()
-
-const translateRelation = (relation: Enums<'event_relation'>): string => {
-  switch (relation) {
-    case 'author':
-      return t('relation.author')
-    case 'other':
-      return t('general.other')
-    case 'participant':
-      return t('relation.participant')
-  }
-}
 </script>

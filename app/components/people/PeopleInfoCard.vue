@@ -8,7 +8,7 @@
         :src="person.avatar_url ?? undefined"
       />
       <div>
-        <h2 class="text-lg font-semibold">{{ i18nStore.translate(person.name) }}</h2>
+        <h2 class="text-lg font-semibold">{{ translate(person.name) }}</h2>
         <div v-if="!edit" class="text-sm text-zinc-500">
           {{ aliases.length ? aliases.join(', ') : '' }}
         </div>
@@ -117,7 +117,7 @@ const props = defineProps<{
 const { data: person } = useNuxtData<Tables<'people'>>(`person-${props.slug}`)
 
 const { t } = useI18n()
-const i18nStore = useI18nStore()
+const { translate } = useTranslations()
 const { formatYear } = useDate()
 
 const gender = computed(() => {
@@ -132,7 +132,7 @@ const gender = computed(() => {
 })
 
 const aliases = computed(() => {
-  return person.value?.aliases.map((alias) => i18nStore.translate(alias)) ?? []
+  return person.value?.aliases.map((alias) => translate(alias)) ?? []
 })
 
 const { fields, rules } = useForm()

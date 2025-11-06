@@ -94,6 +94,14 @@ const links = computed((): NavigationMenuItem[][] => [
       to: localePath('/people')
     },
     {
+      icon: 'i-lucide:calendar-range',
+      label: t('events.title'),
+      onSelect: () => {
+        open.value = false
+      },
+      to: localePath('/events')
+    },
+    {
       children: [
         {
           exact: true,
