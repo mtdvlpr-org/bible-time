@@ -142,7 +142,7 @@ export default function () {
     year: (field: string) =>
       z
         .int(t('validation.invalid', { field }))
-        .min(-6, t('validation.min', { field, size: -4026 }))
+        .min(-4026, t('validation.min', { field, size: -4026 }))
         .max(2025, t('validation.max', { field, size: 2025 }))
         .refine((v) => v !== 0, t('validation.not-zero', { field }))
   } as const

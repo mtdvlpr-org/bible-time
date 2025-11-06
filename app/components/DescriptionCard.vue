@@ -63,6 +63,7 @@ const onSubmit = async () => {
     // Revert description on error
     person.value.description = previousDescription
   } else {
+    // TODO: i18n
     showSuccess({ description: 'Description updated successfully.' })
   }
 }

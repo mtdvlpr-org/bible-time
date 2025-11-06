@@ -25,7 +25,7 @@
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
           <!-- Left column: avatar & quick facts -->
           <aside class="md:col-span-1">
-            <PeopleInfoCard :person="person" />
+            <PeopleInfoCard :edit="edit" :slug="person.slug" />
           </aside>
 
           <!-- Main content: description and related content -->
