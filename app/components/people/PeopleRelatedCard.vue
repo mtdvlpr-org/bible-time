@@ -8,7 +8,7 @@
       <ul v-else class="space-y-2">
         <li v-for="p in people" :key="p.slug">
           <div class="flex items-center justify-between gap-3">
-            <ULink class="w-full" :to="localePath(`/people/${p.slug}`)">
+            <ULink class="w-full" :to="$localePath(`/people/${p.slug}`)">
               <div class="flex items-center justify-between gap-3">
                 <div class="flex items-center gap-3">
                   <UAvatar
@@ -101,7 +101,6 @@ const people = computed(() => {
 
 const { t } = useI18n()
 const { translate, translateRelation } = useTranslations()
-const localePath = useLocalePath()
 
 const supabase = useSupabaseClient()
 const selectedPerson = ref<Omit<Tables<'people'>, 'description'> | undefined>()

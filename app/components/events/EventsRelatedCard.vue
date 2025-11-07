@@ -7,7 +7,7 @@
       </div>
       <ul v-else class="space-y-2">
         <li v-for="e in events" :key="e.slug">
-          <ULink :to="localePath(`/events/${e.slug}`)">
+          <ULink :to="$localePath(`/events/${e.slug}`)">
             <div class="flex items-center justify-between gap-3">
               <div class="flex items-center gap-3">
                 <UAvatar alt="" size="sm" icon="i-lucide-image" :src="e.cover_url ?? undefined" />
@@ -35,5 +35,4 @@ defineProps<{
 }>()
 
 const { translate, translateRelation } = useTranslations()
-const localePath = useLocalePath()
 </script>
