@@ -128,8 +128,6 @@ import type { FormSubmitEvent } from '@nuxt/ui'
 
 import { z } from 'zod'
 
-import EventsRelatedCard from './EventsRelatedCard.vue'
-
 const open = ref(false)
 
 const { t } = useI18n()

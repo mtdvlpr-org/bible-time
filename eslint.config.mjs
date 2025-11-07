@@ -1,5 +1,6 @@
 import perfectionist from 'eslint-plugin-perfectionist'
 import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended'
+import { globalIgnores } from 'eslint/config'
 
 // @ts-check
 import withNuxt from './.nuxt/eslint.config.mjs'
@@ -24,7 +25,8 @@ export default withNuxt(
       'vue/prefer-template': ['warn']
     }
   },
-  eslintPluginPrettierRecommended
+  eslintPluginPrettierRecommended,
+  globalIgnores(['shared/database-generated.types.ts'])
 ).overrideRules({
   'vue/attributes-order': ['warn', { alphabetical: true, sortLineLength: true }],
   'vue/block-order': ['error', { order: ['template', 'script', 'style'] }]
