@@ -58,7 +58,7 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     public: {
-      appName: process.env.NUXT_SITE_NAME,
+      siteName: process.env.NUXT_SITE_NAME,
       siteUrl: process.env.NUXT_SITE_URL
     }
   },

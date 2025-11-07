@@ -7,21 +7,21 @@ export default function () {
 
   const signIn = (provider: Provider) => {
     supabase.auth.signInWithOAuth({
-      options: { redirectTo: config.public.baseURL + '/auth/confirm' },
+      options: { redirectTo: config.public.siteUrl + '/auth/confirm' },
       provider
     })
   }
 
   const providers: ButtonProps[] = [
     {
-      icon: 'i-simple-icons-google',
+      icon: 'i-simple-icons:google',
       label: 'Google',
       onClick: () => {
         signIn('google')
       }
     },
     {
-      icon: 'i-simple-icons-github',
+      icon: 'i-simple-icons:github',
       label: 'GitHub',
       onClick: () => {
         signIn('github')
