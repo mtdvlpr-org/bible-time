@@ -26,7 +26,7 @@ export default function () {
 
   const avatarCell = (label: string, avatar: null | string) => {
     return h('div', { class: 'flex items-center gap-3' }, [
-      ...(avatar ? [h(UAvatar, { alt: '', size: 'lg', src: avatar })] : []),
+      ...(avatar ? [h(UAvatar, { alt: '', icon: 'i-lucide-image', size: 'lg', src: avatar })] : []),
       h('div', undefined, [h('p', { class: 'font-medium text-highlighted' }, label)])
     ])
   }

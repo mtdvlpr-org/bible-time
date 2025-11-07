@@ -2,8 +2,9 @@
   <UCard v-if="event">
     <div class="flex items-center gap-4">
       <UAvatar
+        alt=""
         size="xl"
-        :alt="event.title"
+        icon="i-lucide-image"
         class="w-28 h-28 md:w-32 md:h-32"
         :src="event.cover_url ?? undefined"
       />

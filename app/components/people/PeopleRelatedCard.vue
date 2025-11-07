@@ -11,7 +11,12 @@
             <ULink class="w-full" :to="localePath(`/people/${p.slug}`)">
               <div class="flex items-center justify-between gap-3">
                 <div class="flex items-center gap-3">
-                  <UAvatar size="sm" :alt="p.name" :src="p.avatar_url ?? undefined" />
+                  <UAvatar
+                    alt=""
+                    size="sm"
+                    icon="i-lucide-image"
+                    :src="p.avatar_url ?? undefined"
+                  />
                   <div class="text-sm font-medium">
                     {{ translate(p.name) }}
                   </div>

@@ -1,12 +1,7 @@
 <template>
   <UCard v-if="person">
     <div class="flex items-center gap-4">
-      <UAvatar
-        size="xl"
-        :alt="person.name"
-        class="w-28 h-28 md:w-32 md:h-32"
-        :src="person.avatar_url ?? undefined"
-      />
+      <AvatarModal v-model="newAvatar" :edit="edit" type="person" :current="person.avatar_url" />
       <div>
         <h2 class="text-lg font-semibold">{{ translate(person.name) }}</h2>
         <div v-if="!edit" class="text-sm text-zinc-500">
@@ -137,6 +132,8 @@ const aliases = computed(() => {
 
 const { fields, rules } = useForm()
 
+const newAvatar = ref(person.value?.avatar_url ?? null)
+
 const schema = z
   .object({
     aliases: z.array(z.string()).optional(),
@@ -189,6 +186,7 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
   const newData = {
     ...person.value,
     aliases: event.data.aliases ?? [],
+    avatar_url: newAvatar.value,
     birth_precision: event.data.birth_precision ?? null,
     birth_year: event.data.birth_year ?? null,
     death_precision: event.data.death_precision ?? null,

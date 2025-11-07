@@ -10,7 +10,7 @@
           <ULink :to="localePath(`/events/${e.slug}`)">
             <div class="flex items-center justify-between gap-3">
               <div class="flex items-center gap-3">
-                <UAvatar size="sm" :alt="e.title" :src="e.cover_url ?? undefined" />
+                <UAvatar alt="" size="sm" icon="i-lucide-image" :src="e.cover_url ?? undefined" />
                 <div>
                   <div class="text-sm font-medium">
                     {{ translate(e.title) }}

@@ -37,10 +37,10 @@ export default defineNuxtConfig({
     strategy: 'prefix'
   },
 
-  image: {
-    alias: { wol: 'https://wol.jw.org' },
-    domains: ['wol.jw.org']
-  },
+  // image: {
+  //   alias: { wol: 'https://wol.jw.org' },
+  //   domains: ['wol.jw.org']
+  // },
 
   modules: [
     '@nuxt/eslint',

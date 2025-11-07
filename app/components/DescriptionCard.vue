@@ -17,9 +17,12 @@
         />
       </div>
     </UForm>
-    <p v-else-if="localeDescription" class="whitespace-pre-line">
-      {{ localeDescription }}
-    </p>
+    <template v-else-if="localeDescription || item?.description?.en">
+      <p v-if="!localeDescription" class="text-sm text-zinc-500 mb-2">English</p>
+      <p class="whitespace-pre-line">
+        {{ localeDescription || item?.description?.en }}
+      </p>
+    </template>
     <div v-else class="text-sm text-zinc-500">{{ $t('general.no-description') }}</div>
   </UCard>
 </template>

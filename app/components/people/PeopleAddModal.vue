@@ -13,18 +13,16 @@
           name="name"
           :label="fields.name.label"
           :placeholder="fields.name.placeholder"
+          :description="$t('validation.provide-in-language', { language: 'English' })"
         >
           <UInput v-model="state.name" class="w-full" @change="state.slug = slugify(state.name)" />
         </UFormField>
-        <UFormField
-          name="avatar_url"
-          :label="$t('person.avatar-url')"
-          placeholder="https://example.com/avatar.jpg"
-        >
+        <UFormField name="avatar_url" :label="$t('person.avatar-url')">
           <UInput
             v-model="state.avatar_url"
             type="url"
             class="w-full"
+            placeholder="https://example.com/avatar.jpg"
             :avatar="state.avatar_url ? { src: state.avatar_url, alt: '' } : undefined"
           >
             <template v-if="state.avatar_url?.length" #trailing>
@@ -190,12 +188,22 @@ const normalizeSlug = (e: Event) => {
   state.slug = input.value
 }
 
-const { showSuccess } = useFlash()
+const supabase = useSupabaseClient()
+
+const { showError, showSuccess } = useFlash()
 async function onSubmit(event: FormSubmitEvent<Schema>) {
-  showSuccess({
-    description: t('feedback.saved-successfully', { item: event.data.name })
-  })
-  open.value = false
-  resetState()
+  const { error } = await supabase.from('people').insert(event.data)
+
+  if (error) {
+    showError({
+      description: t('feedback.could-not-save', { item: event.data.name })
+    })
+  } else {
+    showSuccess({
+      description: t('feedback.saved-successfully', { item: event.data.name })
+    })
+    open.value = false
+    resetState()
+  }
 }
 </script>
