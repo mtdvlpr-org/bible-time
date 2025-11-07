@@ -1,13 +1,8 @@
 <template>
   <UCard v-if="event">
     <div class="flex items-center gap-4">
-      <UAvatar
-        alt=""
-        size="xl"
-        icon="i-lucide-image"
-        class="w-28 h-28 md:w-32 md:h-32"
-        :src="event.cover_url ?? undefined"
-      />
+      <AvatarModal v-model="newAvatar" :edit="edit" type="event" :current="event.cover_url" />
+
       <div>
         <h2 class="text-lg font-semibold">{{ translate(event.title) }}</h2>
         <div v-if="!edit" class="text-sm text-zinc-500">
@@ -108,6 +103,8 @@ const aliases = computed(() => {
 
 const { fields, rules } = useForm()
 
+const newAvatar = ref(event.value?.cover_url ?? null)
+
 const schema = z
   .object({
     aliases: z.array(z.string()).optional(),
@@ -158,6 +155,7 @@ async function onSubmit(submitEvent: FormSubmitEvent<Schema>) {
   const newData = {
     ...event.value,
     aliases: submitEvent.data.aliases ?? [],
+    cover_url: newAvatar.value,
     end_precision: submitEvent.data.end_precision ?? null,
     end_year: submitEvent.data.end_year ?? null,
     start_precision: submitEvent.data.start_precision ?? null,

@@ -1,38 +1,42 @@
 <template>
   <UModal
     v-model:open="open"
-    :title="$t('person.new')"
-    description="Add a new person to the database"
+    :title="$t('event.new')"
+    description="Add a new event to the database"
   >
-    <UButton icon="i-lucide:plus" :label="$t('person.new')" />
+    <UButton icon="i-lucide:plus" :label="$t('event.new')" />
 
     <template #body>
       <UForm :state="state" :schema="schema" class="space-y-4" @submit="onSubmit">
         <UFormField
           required
-          name="name"
-          :label="fields.name.label"
+          name="title"
+          :label="$t('event.title')"
           :placeholder="fields.name.placeholder"
           :description="$t('validation.provide-in-language', { language: 'English' })"
         >
-          <UInput v-model="state.name" class="w-full" @change="state.slug = slugify(state.name)" />
-        </UFormField>
-        <UFormField name="avatar_url" :label="$t('person.avatar-url')">
           <UInput
-            v-model="state.avatar_url"
+            v-model="state.title"
+            class="w-full"
+            @change="state.slug = slugify(state.title)"
+          />
+        </UFormField>
+        <UFormField name="cover_url" :label="$t('event.cover-url')">
+          <UInput
+            v-model="state.cover_url"
             type="url"
             class="w-full"
-            placeholder="https://example.com/avatar.jpg"
-            :avatar="state.avatar_url ? { src: state.avatar_url, alt: '' } : undefined"
+            placeholder="https://example.com/cover.jpg"
+            :cover="state.cover_url ? { src: state.cover_url, alt: '' } : undefined"
           >
-            <template v-if="state.avatar_url?.length" #trailing>
+            <template v-if="state.cover_url?.length" #trailing>
               <UButton
                 size="sm"
                 variant="link"
                 color="neutral"
                 icon="i-lucide:circle-x"
                 :aria-label="$t('general.clear')"
-                @click="state.avatar_url = undefined"
+                @click="state.cover_url = undefined"
               />
             </template>
           </UInput>
@@ -41,22 +45,19 @@
           required
           name="slug"
           :label="$t('general.slug')"
-          description="The unique identifier for this person in the URL."
+          description="The unique identifier for this event in the URL."
         >
           <UInput v-model="state.slug" class="w-full" @input="normalizeSlug" />
         </UFormField>
-        <UFormField required name="gender" :label="fields.gender.label">
-          <USelect v-model="state.gender" class="w-full" :items="fields.gender.items" />
-        </UFormField>
         <fieldset class="flex justify-between">
           <UFormField
-            name="birth_year"
-            :label="$t('person.birth-year')"
-            :class="state.birth_year ? 'w-50' : 'w-full'"
-            :description="state.birth_year ? undefined : 'A negative number means before Christ'"
+            name="start_year"
+            :label="$t('event.start-year')"
+            :class="state.start_year ? 'w-50' : 'w-full'"
+            :description="state.start_year ? undefined : 'A negative number means before Christ'"
           >
             <UInputNumber
-              v-model="state.birth_year"
+              v-model="state.start_year"
               :max="2025"
               :min="-4026"
               class="w-full"
@@ -65,14 +66,14 @@
             />
           </UFormField>
           <UFormField
-            v-if="state.birth_year"
+            v-if="state.start_year"
             required
             class="w-50"
-            name="birth_precision"
+            name="start_precision"
             :label="$t('date.precision')"
           >
             <USelect
-              v-model="state.birth_precision"
+              v-model="state.start_precision"
               class="w-full"
               :items="fields.datePrecision.items"
             />
@@ -80,13 +81,13 @@
         </fieldset>
         <fieldset class="flex justify-between">
           <UFormField
-            name="death_year"
-            :label="$t('person.death-year')"
-            :class="state.death_year ? 'w-50' : 'w-full'"
-            :description="state.death_year ? undefined : 'A negative number means before Christ'"
+            name="end_year"
+            :label="$t('event.end-year')"
+            :class="state.end_year ? 'w-50' : 'w-full'"
+            :description="state.end_year ? undefined : 'A negative number means before Christ'"
           >
             <UInputNumber
-              v-model="state.death_year"
+              v-model="state.end_year"
               :max="2025"
               :min="-4026"
               class="w-full"
@@ -95,14 +96,14 @@
             />
           </UFormField>
           <UFormField
-            v-if="state.death_year"
+            v-if="state.end_year"
             required
             class="w-50"
-            name="death_precision"
+            name="end_precision"
             :label="$t('date.precision')"
           >
             <USelect
-              v-model="state.death_precision"
+              v-model="state.end_precision"
               class="w-full"
               :items="fields.datePrecision.items"
             />
@@ -127,6 +128,8 @@ import type { FormSubmitEvent } from '@nuxt/ui'
 
 import { z } from 'zod'
 
+import EventsRelatedCard from './EventsRelatedCard.vue'
+
 const open = ref(false)
 
 const { t } = useI18n()
@@ -134,52 +137,48 @@ const { fields, rules } = useForm()
 
 const schema = z
   .object({
-    avatar_url: rules.url(t('person.avatar-url')).optional(),
-    birth_precision: rules.datePrecision(t('date.precision')).optional(),
-    birth_year: rules.year(t('person.birth-year')).optional(),
-    death_precision: rules.datePrecision(t('date.precision')).optional(),
-    death_year: rules.year(t('person.death-year')).optional(),
-    gender: rules.gender,
-    name: rules.name,
-    slug: rules.slug
+    cover_url: rules.url(t('event.cover-url')).optional(),
+    end_precision: rules.datePrecision(t('date.precision')).optional(),
+    end_year: rules.year(t('event.end-year')).optional(),
+    slug: rules.slug,
+    start_precision: rules.datePrecision(t('date.precision')).optional(),
+    start_year: rules.year(t('event.start-year')).optional(),
+    title: rules.name
   })
   .refine(
     (data) => {
-      if (!data.birth_year || !data.death_year) return true
-      return data.death_year >= data.birth_year
+      if (!data.start_year || !data.end_year) return true
+      return data.end_year >= data.start_year
     },
     {
       message: t('validation.after-or-equal-to', {
-        date: t('person.birth-year'),
-        field: t('person.death-year')
+        date: t('event.start-year'),
+        field: t('event.end-year')
       }),
-      path: ['death_year']
+      path: ['end_year']
     }
   )
-  .refine((data) => !data.birth_year || !!data.birth_precision, {
+  .refine((data) => !data.start_year || !!data.start_precision, {
     message: t('validation.required', { field: t('date.precision') }),
-    path: ['birth_precision']
+    path: ['start_precision']
   })
-  .refine((data) => !data.death_year || !!data.death_precision, {
+  .refine((data) => !data.end_year || !!data.end_precision, {
     message: t('validation.required', { field: t('date.precision') }),
-    path: ['death_precision']
+    path: ['end_precision']
   })
 
 type Schema = z.output<typeof schema>
 
-const state = reactive<Partial<Schema>>({
-  gender: 'unknown'
-})
+const state = reactive<Partial<Schema>>({})
 
 const resetState = () => {
-  state.name = undefined
-  state.avatar_url = undefined
+  state.title = undefined
+  state.cover_url = undefined
   state.slug = undefined
-  state.gender = 'unknown'
-  state.birth_year = undefined
-  state.birth_precision = undefined
-  state.death_year = undefined
-  state.death_precision = undefined
+  state.start_year = undefined
+  state.start_precision = undefined
+  state.end_year = undefined
+  state.end_precision = undefined
 }
 
 const normalizeSlug = (e: Event) => {
@@ -192,19 +191,19 @@ const supabase = useSupabaseClient()
 
 const { showError, showSuccess } = useFlash()
 async function onSubmit(event: FormSubmitEvent<Schema>) {
-  const { error } = await supabase.from('people').insert(event.data)
+  const { error } = await supabase.from('events').insert(event.data)
 
   if (error) {
     showError({
-      description: t('feedback.could-not-save', { item: event.data.name })
+      description: t('feedback.could-not-save', { item: event.data.title })
     })
   } else {
     showSuccess({
-      description: t('feedback.saved-successfully', { item: event.data.name })
+      description: t('feedback.saved-successfully', { item: event.data.title })
     })
     open.value = false
     resetState()
-    refreshNuxtData('people')
+    refreshNuxtData('events')
   }
 }
 </script>

@@ -38,21 +38,22 @@
     "year": "Jaar"
   },
   "event": {
-    "cover": "Omslag",
-    "cover-url": "Omslag-URL",
-    "create": "Maak evenement",
-    "delete": "Verwijder evenement",
-    "edit": "Bewerk evenement",
+    "cover": "Cover",
+    "cover-url": "Cover URL",
+    "create": "Maak gebeurtenis",
+    "delete": "Verwijder gebeurtenis",
+    "edit": "Bewerk gebeurtenis",
     "end-year": "Eindejaar",
+    "new": "Nieuw gebeurtenis",
     "start-year": "Beginjaar",
     "title": "Titel",
-    "view": "Bekijk evenement"
+    "view": "Bekijk gebeurtenis"
   },
   "events": {
     "description": "Een overzicht van Bijbelse gebeurtenissen.",
-    "not-found": "Geen evenementen gevonden.",
-    "search": "Zoek evenementen...",
-    "title": "Evenementen"
+    "not-found": "Geen gebeurtenissen gevonden.",
+    "search": "Zoek gebeurtenissen...",
+    "title": "Gebeurtenissen"
   },
   "feedback": {
     "could-not-delete": "{item} kon niet worden verwijderd.",
@@ -119,7 +120,7 @@
   },
   "person": {
     "avatar": "Avatar",
-    "avatar-url": "Avatar-URL",
+    "avatar-url": "Avatar URL",
     "birth-year": "Geboortejaar",
     "create": "Maak persoon",
     "death-year": "Sterfjaar",
@@ -194,7 +195,7 @@
     "min-length": "{field} moet minimaal {length} karakters bevatten.",
     "not-zero": "{field} mag niet nul zijn.",
     "passwords-do-not-match": "Wachtwoorden komen niet overeen.",
-    "provide-in-language": "Geef tekst op in het {taal}.",
+    "provide-in-language": "Geef tekst op in het {language}.",
     "required": "{field} is verplicht."
   }
 }

@@ -104,18 +104,22 @@ const columns = computed((): TableColumn<Tables<'people'>>[] => [
       actionCell([
         { label: t('general.actions'), type: 'label' },
         { icon: 'i-lucide:list', label: t('person.view'), to: `/people/${row.original.slug}` },
-        { type: 'separator' },
-        {
-          color: 'error',
-          icon: 'i-lucide:trash',
-          label: t('person.delete'),
-          onSelect() {
-            toast.add({
-              description: 'The person has been deleted.',
-              title: 'Person deleted'
-            })
-          }
-        }
+        ...(can('people.delete')
+          ? [
+              { type: 'separator' as const },
+              {
+                color: 'error' as const,
+                icon: 'i-lucide:trash',
+                label: t('person.delete'),
+                onSelect() {
+                  toast.add({
+                    description: 'The person has been deleted.',
+                    title: 'Person deleted'
+                  })
+                }
+              }
+            ]
+          : [])
       ]),
     id: 'actions'
   }

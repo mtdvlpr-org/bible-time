@@ -117,7 +117,7 @@ useSchemaOrg(
           dateModified: event.value.updated_at,
           datePublished: event.value.created_at,
           image: event.value.cover_url,
-          mainEntity: definePerson({
+          mainEntity: defineEvent({
             description: description.value,
             image: event.value.cover_url,
             name: title.value

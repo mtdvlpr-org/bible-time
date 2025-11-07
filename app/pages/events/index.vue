@@ -7,7 +7,7 @@
         </template>
 
         <template #right>
-          <!-- <LazyPeopleAddModal v-if="can('events.create')" /> -->
+          <LazyEventsAddModal v-if="can('events.create')" />
         </template>
       </UDashboardNavbar>
     </template>
@@ -29,6 +29,7 @@
 import type { TableColumn } from '@nuxt/ui'
 
 const { t } = useI18n()
+const { can } = useUserStore()
 const supabase = useSupabaseClient()
 
 const {
@@ -67,18 +68,22 @@ const columns = computed((): TableColumn<Tables<'events'>>[] => [
       actionCell([
         { label: t('general.actions'), type: 'label' },
         { icon: 'i-lucide:list', label: t('event.view'), to: `/events/${row.original.slug}` },
-        { type: 'separator' },
-        {
-          color: 'error',
-          icon: 'i-lucide:trash',
-          label: t('event.delete'),
-          onSelect() {
-            toast.add({
-              description: 'The event has been deleted.',
-              title: 'Event deleted'
-            })
-          }
-        }
+        ...(can('events.delete')
+          ? [
+              { type: 'separator' as const },
+              {
+                color: 'error' as const,
+                icon: 'i-lucide:trash',
+                label: t('event.delete'),
+                onSelect() {
+                  toast.add({
+                    description: 'The event has been deleted.',
+                    title: 'Event deleted'
+                  })
+                }
+              }
+            ]
+          : [])
       ]),
     id: 'actions'
   }
