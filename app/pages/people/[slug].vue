@@ -38,7 +38,7 @@
             />
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-              <EventsRelatedCard :events="events" />
+              <EventsRelatedCard :id="person.id" :edit="edit" :slug="person.slug" />
               <PeopleRelatedCard :id="person.id" :edit="edit" type="person" :slug="person.slug" />
             </div>
           </main>
@@ -84,15 +84,6 @@ const { data: person } = await useAsyncData(`person-${slug.value}`, async () => 
 })
 
 const name = computed(() => (person.value ? translate(person.value.name) : '404'))
-
-const events = computed(() => {
-  return (
-    person.value?.event_relations?.map((rel) => ({
-      ...rel.events,
-      relation_kind: rel.relation_kind
-    })) ?? []
-  )
-})
 
 const breadcrumbs = computed(() => [
   {

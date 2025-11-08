@@ -17,5 +17,11 @@
   "i18n-ally.keystyle": "nested",
   "tailwindCSS.classAttributes": ["class", "ui"],
   "tailwindCSS.experimental.classRegex": [["ui:\\s*{([^)]*)\\s*}", "(?:'|\"|`)([^']*)(?:'|\"|`)"]],
-  "typescript.tsdk": "node_modules/typescript/lib"
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "i18n-ally.extract.ignored": ["*"],
+  "i18n-ally.extract.ignoredByFiles": {
+    "app\\pages\\events\\[slug].vue": [
+      "*,related_one:event_relations(relation_kind, people(name, slug, avatar_url))"
+    ]
+  }
 }

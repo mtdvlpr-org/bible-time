@@ -15,7 +15,7 @@
         :label="$t('general.aliases')"
         :description="$t('validation.provide-in-language', { language: 'English' })"
       >
-        <UInputTags v-model="state.aliases" />
+        <UInputTags v-model="state.aliases" class="w-full" />
       </UFormField>
       <UFormField
         name="start_year"

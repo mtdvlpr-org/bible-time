@@ -1,4 +1,5 @@
 <template>
+  <!-- TODO: i18n -->
   <div>Waiting for login...</div>
 </template>
 

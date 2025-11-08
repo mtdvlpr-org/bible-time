@@ -51,7 +51,13 @@
           />
         </UFormField>
         <div class="mt-4 flex justify-end">
-          <UButton loading-auto type="submit" icon="i-lucide:plus" :label="$t('general.add')" />
+          <UButton
+            loading-auto
+            type="submit"
+            icon="i-lucide:plus"
+            :label="$t('general.add')"
+            :disabled="!selectedPerson || !selectedRelation"
+          />
         </div>
       </UForm>
     </div>
@@ -112,11 +118,7 @@ const items = computed((): Omit<Tables<'people'>, 'description'>[] => {
       ?.filter(
         (p) => p.slug !== props.slug && people.value.findIndex((rel) => rel.slug === p.slug) === -1
       )
-      .map((p) => ({
-        ...p,
-        description: undefined,
-        label: translate(p.name)
-      })) ?? []
+      .map((p) => ({ ...p, description: undefined, label: translate(p.name) })) ?? []
   )
 })
 
@@ -188,6 +190,7 @@ const removeRelatedPerson = async (slug: string) => {
       related_one: item.value.related_one.filter((rel) => rel.people.slug !== slug),
       related_two: item.value.related_two?.filter((rel) => rel.people.slug !== slug)
     }
+    // TODO: i18n
     showSuccess({ description: 'Successfully removed related person.' })
   }
 }
@@ -248,6 +251,7 @@ const onSubmit = async () => {
   if (message) {
     showError({ description: message })
   } else {
+    // TODO: i18n
     showSuccess({ description: 'Successfully added related person.' })
     selectedPerson.value = undefined
     selectedRelation.value = undefined

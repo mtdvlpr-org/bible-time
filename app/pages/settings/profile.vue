@@ -39,7 +39,12 @@
       >
         <div class="flex flex-wrap items-center gap-3">
           <UAvatar size="lg" :src="avatarPreview" :alt="profile.display_name" />
-          <UButton v-if="!avatarFile" label="Choose" color="primary" @click="onFileClick" />
+          <UButton
+            v-if="!avatarFile"
+            color="primary"
+            :label="$t('general.choose')"
+            @click="onFileClick"
+          />
           <UButton
             v-if="avatarFile || (userStore.user?.avatar_url && !avatarPreview)"
             color="neutral"

@@ -76,6 +76,7 @@ const columns = computed((): TableColumn<Tables<'events'>>[] => [
                 icon: 'i-lucide:trash',
                 label: t('event.delete'),
                 onSelect() {
+                  // TODO: Implement delete functionality
                   toast.add({
                     description: 'The event has been deleted.',
                     title: 'Event deleted'

@@ -17,7 +17,7 @@
     >
       <div class="flex items-center gap-2">
         <span class="text-2xl font-semibold text-highlighted">
-          {{ stats[table.key] }}
+          <NumberFlow :value="stats[table.key]" />
         </span>
       </div>
     </UPageCard>
@@ -25,6 +25,7 @@
 </template>
 
 <script setup lang="ts">
+import NumberFlow from '@number-flow/vue'
 const { t } = useI18n()
 const localePath = useLocalePath()
 

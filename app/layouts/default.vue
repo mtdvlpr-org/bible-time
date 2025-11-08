@@ -183,6 +183,7 @@ const cookie = useCookie('cookie-consent')
 onMounted(() => {
   if (cookie.value === 'accepted') return
 
+  // TODO: i18n
   toast.add({
     actions: [
       {

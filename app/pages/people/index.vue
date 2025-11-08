@@ -112,6 +112,7 @@ const columns = computed((): TableColumn<Tables<'people'>>[] => [
                 icon: 'i-lucide:trash',
                 label: t('person.delete'),
                 onSelect() {
+                  // TODO: Implement delete functionality
                   toast.add({
                     description: 'The person has been deleted.',
                     title: 'Person deleted'
