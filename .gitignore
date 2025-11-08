@@ -25,3 +25,12 @@ logs
 
 # VSC
 .history
+
+# Local Netlify folder
+.netlify
+
+# Generated assets
+public/brand/*
+!public/brand/logo.svg
+!public/brand/logo-mono.svg
+!public/brand/logo-horizontal.svg

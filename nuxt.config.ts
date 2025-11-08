@@ -5,6 +5,8 @@ import { defineOrganization } from 'nuxt-schema-org/schema'
 
 import type { AppLocale } from './shared/types/general.types'
 
+import { iconBaseUrl, maskableSizes, transparentSizes } from './app/utils/assets'
+
 function extendViteConfig(config: import('vite').UserConfig) {
   const plugin = config.plugins?.find((plugin) => isPlugin(plugin, 'nuxt:environments'))
   if (plugin) plugin.enforce = 'pre'
@@ -22,6 +24,8 @@ export default defineNuxtConfig({
 
   css: ['~/assets/css/main.css'],
 
+  future: { typescriptBundlerResolution: true },
+
   hooks: { 'vite:extendConfig': extendViteConfig },
 
   i18n: {
@@ -37,35 +41,63 @@ export default defineNuxtConfig({
     strategy: 'prefix'
   },
 
-  // image: {
-  //   alias: { wol: 'https://wol.jw.org' },
-  //   domains: ['wol.jw.org']
-  // },
+  image: { alias: { wol: 'https://wol.jw.org' }, domains: ['wol.jw.org'] },
 
   modules: [
+    '@netlify/nuxt',
     '@nuxt/eslint',
     '@nuxt/image',
     '@nuxt/ui',
     '@nuxtjs/i18n',
     '@nuxtjs/seo',
     '@nuxtjs/supabase',
-    '@vueuse/nuxt',
     '@pinia/nuxt',
+    '@vite-pwa/nuxt',
+    '@vueuse/nuxt',
     'pinia-plugin-persistedstate/nuxt'
   ],
+
+  netlify: { headers: { enabled: true }, redirects: { enabled: true } },
+
+  nitro: { netlify: { images: { remote_images: ['https://wol.jw.org/*'] } }, preset: 'netlify' },
+
+  pwa: {
+    devOptions: {
+      enabled: true,
+      navigateFallback: '/',
+      navigateFallbackAllowlist: [/^\/$/],
+      type: 'module'
+    },
+    manifest: {
+      description: 'An overview of Biblical people and events.',
+      icons: [
+        ...transparentSizes.map((size) => ({
+          sizes: `${size}x${size}`,
+          src: `${iconBaseUrl}/pwa-${size}x${size}.png`,
+          type: 'image/png'
+        })),
+        ...maskableSizes.map((size) => ({
+          purpose: 'any maskable',
+          sizes: `${size}x${size}`,
+          src: `${iconBaseUrl}/pwa-${size}x${size}.png`,
+          type: 'image/png'
+        }))
+      ],
+      name: process.env.NUXT_SITE_NAME || 'BibleTime',
+      short_name: process.env.NUXT_SITE_NAME || 'BibleTime',
+      theme_color: '#1A3D7C'
+    },
+    registerType: 'autoUpdate',
+    registerWebManifestInRouteRules: true
+  },
 
   routeRules: { '/api/**': { cors: true } },
 
   runtimeConfig: {
-    public: {
-      siteName: process.env.NUXT_SITE_NAME,
-      siteUrl: process.env.NUXT_SITE_URL
-    }
+    public: { siteName: process.env.NUXT_SITE_NAME, siteUrl: process.env.NUXT_SITE_URL }
   },
 
-  schemaOrg: {
-    identity: defineOrganization({ name: process.env.NUXT_SITE_NAME || 'BibleTime' })
-  },
+  schemaOrg: { identity: defineOrganization({ name: process.env.NUXT_SITE_NAME || 'BibleTime' }) },
 
   seo: { fallbackTitle: false },
 

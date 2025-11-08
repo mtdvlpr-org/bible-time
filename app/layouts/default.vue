@@ -9,7 +9,8 @@
       :ui="{ footer: 'lg:border-t lg:border-default' }"
     >
       <template #header="{ collapsed }">
-        <AppLogo :collapsed="collapsed" />
+        <AppIcon v-if="collapsed" />
+        <AppLogo v-else style="height: 90%" />
       </template>
 
       <template #default="{ collapsed }">

@@ -7,5 +7,6 @@ ignoredBuiltDependencies:
   - vue-demi
 
 onlyBuiltDependencies:
+  - protobufjs
   - sharp
   - supabase
