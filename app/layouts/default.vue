@@ -35,7 +35,17 @@
 
       <template #footer="{ collapsed }">
         <LazyUserMenu v-if="userStore.user" :collapsed="collapsed" :user="userStore.user" />
-        <LazyLoginButton v-else :collapsed="collapsed" />
+        <LazyUButton
+          v-else
+          block
+          color="neutral"
+          variant="ghost"
+          :square="collapsed"
+          icon="i-lucide:user"
+          :label="$t('auth.login')"
+          :class="[!collapsed && 'py-2']"
+          :to="$localePath('/auth/login')"
+        />
       </template>
     </UDashboardSidebar>
 

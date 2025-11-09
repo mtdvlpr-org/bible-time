@@ -1,6 +1,6 @@
 export default defineNuxtRouteMiddleware((to, _from) => {
   const guestRoutes = ['/auth/login', '/auth/signup', '/auth/forgot-password']
-  const protectedRoutes = ['/settings/profile', '/settings/security']
+  const protectedRoutes = ['/settings/profile', '/settings/security', '/suggestions']
 
   const isGuestRoute = guestRoutes.some((route) => to.path.includes(route))
   const isProtectedRoute = protectedRoutes.some((route) => to.path.includes(route))
