@@ -11,9 +11,10 @@ const querySchema = z.object({
  * Verify OTP token for various authentication flows
  */
 export default defineEventHandler(async (event) => {
-  const { redirect_to, token_hash, type } = await getValidatedQuery(event, querySchema.parse)
-
-  const client = await serverSupabaseClient(event)
+  const [{ redirect_to, token_hash, type }, client] = await Promise.all([
+    getValidatedQuery(event, querySchema.parse),
+    serverSupabaseClient(event)
+  ])
 
   const { error } = await client.auth.verifyOtp({ token_hash, type })
 

@@ -9,10 +9,10 @@ const routeSchema = z.object({
  * Approve a requested suggestion
  */
 export default defineEventHandler(async (event) => {
-  await authService.can(event, 'translations.create')
-  const { id } = await getValidatedRouterParams(event, routeSchema.parse)
+  await authService.can(event, 'suggestions.update')
 
-  const [user, client] = await Promise.all([
+  const [{ id }, user, client] = await Promise.all([
+    getValidatedRouterParams(event, routeSchema.parse),
     authService.getUser(event),
     serverSupabaseClient(event)
   ])

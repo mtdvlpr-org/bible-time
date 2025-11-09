@@ -16,8 +16,11 @@ const bodySchema = z.object({
  */
 export default defineEventHandler(async (event) => {
   await authService.can(event, 'translations.create')
-  const { slug, type } = await getValidatedRouterParams(event, routeSchema.parse)
-  const { description, locale } = await readValidatedBody(event, bodySchema.parse)
+
+  const [{ slug, type }, { description, locale }] = await Promise.all([
+    getValidatedRouterParams(event, routeSchema.parse),
+    readValidatedBody(event, bodySchema.parse)
+  ])
 
   const client = serverSupabaseServiceRole(event)
 
