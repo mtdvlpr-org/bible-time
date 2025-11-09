@@ -7,15 +7,6 @@ import type { AppLocale } from './shared/types/general.types'
 
 import { iconBaseUrl, maskableSizes, transparentSizes } from './app/utils/assets'
 
-function extendViteConfig(config: import('vite').UserConfig) {
-  const plugin = config.plugins?.find((plugin) => isPlugin(plugin, 'nuxt:environments'))
-  if (plugin) plugin.enforce = 'pre'
-}
-
-function isPlugin(plugin: unknown, name: string): plugin is import('vite').Plugin {
-  return !!(plugin && typeof plugin === 'object' && 'name' in plugin && plugin.name === name)
-}
-
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   alias: { '#server': fileURLToPath(new URL('./server', import.meta.url)) },
@@ -25,8 +16,6 @@ export default defineNuxtConfig({
   css: ['~/assets/css/main.css'],
 
   future: { typescriptBundlerResolution: true },
-
-  hooks: { 'vite:extendConfig': extendViteConfig },
 
   i18n: {
     baseUrl: process.env.NUXT_SITE_URL,
