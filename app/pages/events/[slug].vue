@@ -7,6 +7,12 @@
         </template>
 
         <template #right>
+          <TranslateModal
+            v-if="event && locale !== 'en' && can('translations.create')"
+            type="event"
+            :name="event.title"
+            :aliases="event.aliases"
+          />
           <UButton
             v-if="event && can('events.update')"
             :icon="edit ? 'i-lucide:pencil-off' : 'i-lucide:edit'"

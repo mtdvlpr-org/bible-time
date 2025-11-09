@@ -7,8 +7,9 @@
         </template>
 
         <template #right>
-          <PeopleTranslateModal
+          <TranslateModal
             v-if="person && locale !== 'en' && can('translations.create')"
+            type="person"
             :name="person.name"
             :aliases="person.aliases"
           />

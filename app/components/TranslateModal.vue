@@ -1,10 +1,13 @@
 <template>
   <UModal
     v-model:open="open"
-    :title="$t('person.translate')"
+    :title="type === 'person' ? $t('person.translate') : $t('event.translate')"
     :description="$t('validation.provide-in-language', { language: localeProperties.name })"
   >
-    <UButton icon="i-lucide:globe" :label="$t('person.translate')" />
+    <UButton
+      icon="i-lucide:globe"
+      :label="type === 'person' ? $t('person.translate') : $t('event.translate')"
+    />
 
     <template #body>
       <UForm :state="state" :schema="schema" class="space-y-4" @submit="onSubmit">
@@ -60,6 +63,7 @@ import { z } from 'zod'
 const props = defineProps<{
   aliases: string[]
   name: string
+  type: 'event' | 'person'
 }>()
 
 const open = ref(false)
