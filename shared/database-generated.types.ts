@@ -238,9 +238,10 @@ export type Database = {
           created_at: string
           id: number
           payload: Json
+          reason: string | null
           reviewed_by: string | null
           status: Database["public"]["Enums"]["suggestion_status"]
-          target_id: number | null
+          target_slug: string | null
           type: Database["public"]["Enums"]["suggestion_type"]
           updated_at: string
           user_id: string
@@ -249,9 +250,10 @@ export type Database = {
           created_at?: string
           id?: number
           payload: Json
+          reason?: string | null
           reviewed_by?: string | null
           status?: Database["public"]["Enums"]["suggestion_status"]
-          target_id?: number | null
+          target_slug?: string | null
           type: Database["public"]["Enums"]["suggestion_type"]
           updated_at?: string
           user_id?: string
@@ -260,9 +262,10 @@ export type Database = {
           created_at?: string
           id?: number
           payload?: Json
+          reason?: string | null
           reviewed_by?: string | null
           status?: Database["public"]["Enums"]["suggestion_status"]
-          target_id?: number | null
+          target_slug?: string | null
           type?: Database["public"]["Enums"]["suggestion_type"]
           updated_at?: string
           user_id?: string

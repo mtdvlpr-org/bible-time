@@ -10,3 +10,8 @@ export const slugify = (str: string | undefined, final = true): string => {
   if (final) slug = slug.replace(/^-+|-+$/g, '')
   return slug
 }
+
+export const deslugify = (slug: null | string): string => {
+  if (!slug) return ''
+  return slug.replace(/-/g, ' ').replace(/\b\w/g, capitalize)
+}

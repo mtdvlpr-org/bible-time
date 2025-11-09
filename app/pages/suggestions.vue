@@ -47,7 +47,7 @@ const { actionCell, sortableColumn } = useTable()
 
 const userStore = useUserStore()
 
-const { translateSuggestionStatus, translateSuggestionType } = useTranslations()
+const { translate, translateSuggestionStatus, translateSuggestionType } = useTranslations()
 
 const columns = computed((): TableColumn<Tables<'suggestions'>>[] => [
   {
@@ -56,9 +56,9 @@ const columns = computed((): TableColumn<Tables<'suggestions'>>[] => [
     header: ({ column }) => sortableColumn(column, t('suggestion.type'))
   },
   {
-    accessorKey: 'target_id',
-    cell: ({ row }) => row.original.target_id,
-    header: t('suggestion.target')
+    accessorKey: 'target_slug',
+    cell: ({ row }) => translate(deslugify(row.original.target_slug)),
+    header: ({ column }) => sortableColumn(column, t('suggestion.target'))
   },
   {
     accessorKey: 'status',
