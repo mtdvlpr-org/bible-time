@@ -7,13 +7,13 @@
         </template>
 
         <template #right>
-          <TranslateModal
+          <LazyTranslateModal
             v-if="event && locale !== 'en' && can('translations.create')"
             type="event"
             :name="event.title"
             :aliases="event.aliases"
           />
-          <UButton
+          <LazyUButton
             v-if="event && can('events.update')"
             :icon="edit ? 'i-lucide:pencil-off' : 'i-lucide:edit'"
             :label="edit ? $t('general.stop-editing') : $t('event.edit')"
@@ -22,9 +22,9 @@
         </template>
       </UDashboardNavbar>
 
-      <UDashboardToolbar v-if="event">
+      <LazyUDashboardToolbar v-if="event">
         <UBreadcrumb :items="breadcrumbs" />
-      </UDashboardToolbar>
+      </LazyUDashboardToolbar>
     </template>
     <template #body>
       <div v-if="event" class="prose max-w-none">

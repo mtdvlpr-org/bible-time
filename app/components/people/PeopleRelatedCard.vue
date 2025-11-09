@@ -28,7 +28,7 @@
                 </div>
               </div>
             </ULink>
-            <UButton
+            <LazyUButton
               v-if="edit"
               size="xs"
               color="error"
@@ -38,7 +38,7 @@
           </div>
         </li>
       </ul>
-      <UForm v-if="edit" class="space-y-2" @submit="onSubmit">
+      <LazyUForm v-if="edit" class="space-y-2" @submit="onSubmit">
         <UFormField :label="$t('relation.related-person')">
           <USelectMenu v-model="selectedPerson" class="w-48" :items="items" :loading="pending" />
         </UFormField>
@@ -59,7 +59,7 @@
             :disabled="!selectedPerson || !selectedRelation"
           />
         </div>
-      </UForm>
+      </LazyUForm>
     </div>
   </UCard>
 </template>

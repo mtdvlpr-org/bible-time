@@ -1,6 +1,6 @@
 <template>
   <UCard class="p-6">
-    <UForm v-if="edit" @submit="onSubmit">
+    <LazyUForm v-if="edit" @submit="onSubmit">
       <UFormField
         :label="$t('general.description')"
         :description="$t('validation.provide-in-language', { language: localeProperties.name })"
@@ -16,7 +16,7 @@
           :disabled="localeDescription === newDescription"
         />
       </div>
-    </UForm>
+    </LazyUForm>
     <template v-else-if="localeDescription || item?.description?.en">
       <p v-if="!localeDescription" class="text-sm text-zinc-500 mb-2">{{ $t('i18n.english') }}</p>
       <p class="whitespace-pre-line">

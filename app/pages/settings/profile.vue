@@ -39,19 +39,19 @@
       >
         <div class="flex flex-wrap items-center gap-3">
           <UAvatar size="lg" :src="avatarPreview" :alt="profile.display_name" />
-          <UButton
+          <LazyUButton
             v-if="!avatarFile"
             color="primary"
             :label="$t('general.choose')"
             @click="onFileClick"
           />
-          <UButton
+          <LazyUButton
             v-if="avatarFile || (userStore.user?.avatar_url && !avatarPreview)"
             color="neutral"
             :label="$t('general.cancel')"
             @click="resetAvatar"
           />
-          <UButton
+          <LazyUButton
             v-if="!avatarFile && userStore.user?.avatar_url && avatarPreview"
             color="error"
             :label="$t('general.delete')"

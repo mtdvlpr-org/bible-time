@@ -11,6 +11,7 @@
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
     "typecheck": "nuxt typecheck",
+    "analyze": "nuxt analyze",
     "test:unit": "echo OK",
     "test:e2e": "echo OK",
     "test": "pnpm test:unit && pnpm test:e2e",

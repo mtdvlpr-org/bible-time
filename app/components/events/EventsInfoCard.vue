@@ -1,5 +1,5 @@
 <template>
-  <UCard v-if="event">
+  <LazyUCard v-if="event">
     <div class="flex items-center gap-4">
       <AvatarModal v-model="newAvatar" :edit="edit" type="event" :current="event.cover_url" />
 
@@ -10,7 +10,13 @@
         </div>
       </div>
     </div>
-    <UForm v-if="edit" :state="state" :schema="schema" class="mt-4 space-y-4" @submit="onSubmit">
+    <LazyUForm
+      v-if="edit"
+      :state="state"
+      :schema="schema"
+      class="mt-4 space-y-4"
+      @submit="onSubmit"
+    >
       <UFormField
         :label="$t('general.aliases')"
         :description="$t('validation.provide-in-language', { language: $t('i18n.english') })"
@@ -31,7 +37,7 @@
           :increment="false"
         />
       </UFormField>
-      <UFormField
+      <LazyUFormField
         v-if="state.start_year"
         required
         name="start_precision"
@@ -42,7 +48,7 @@
           class="w-full"
           :items="fields.datePrecision.items"
         />
-      </UFormField>
+      </LazyUFormField>
       <UFormField
         name="end_year"
         :label="$t('event.end-year')"
@@ -57,13 +63,18 @@
           :increment="false"
         />
       </UFormField>
-      <UFormField v-if="state.end_year" required name="end_precision" :label="$t('date.precision')">
+      <LazyUFormField
+        v-if="state.end_year"
+        required
+        name="end_precision"
+        :label="$t('date.precision')"
+      >
         <USelect v-model="state.end_precision" class="w-full" :items="fields.datePrecision.items" />
-      </UFormField>
+      </LazyUFormField>
       <div class="flex justify-end">
         <UButton loading-auto type="submit" icon="i-lucide:save" :label="$t('general.save')" />
       </div>
-    </UForm>
+    </LazyUForm>
     <div v-else class="mt-4 space-y-2">
       <div>
         <div class="text-xs text-zinc-500">{{ $t('event.start-year') }}</div>
@@ -79,7 +90,7 @@
         </div>
       </div>
     </div>
-  </UCard>
+  </LazyUCard>
 </template>
 <script setup lang="ts">
 import type { FormSubmitEvent } from '@nuxt/ui'

@@ -65,7 +65,7 @@
               :increment="false"
             />
           </UFormField>
-          <UFormField
+          <LazyUFormField
             v-if="state.start_year"
             required
             class="w-50"
@@ -77,7 +77,7 @@
               class="w-full"
               :items="fields.datePrecision.items"
             />
-          </UFormField>
+          </LazyUFormField>
         </fieldset>
         <fieldset class="flex justify-between">
           <UFormField
@@ -95,7 +95,7 @@
               :increment="false"
             />
           </UFormField>
-          <UFormField
+          <LazyUFormField
             v-if="state.end_year"
             required
             class="w-50"
@@ -107,7 +107,7 @@
               class="w-full"
               :items="fields.datePrecision.items"
             />
-          </UFormField>
+          </LazyUFormField>
         </fieldset>
         <div class="flex justify-end gap-2">
           <UButton

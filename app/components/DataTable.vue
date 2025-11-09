@@ -37,7 +37,7 @@
           trailing-icon="i-lucide:settings-2"
         />
       </UDropdownMenu>
-      <UButton
+      <LazyUButton
         v-if="refresh"
         color="neutral"
         variant="outline"

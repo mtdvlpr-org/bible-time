@@ -188,6 +188,9 @@
     "video": "Video",
     "website": "Website"
   },
+  "suggestions": {
+    "title": "Suggestions"
+  },
   "validation": {
     "after-or-equal-to": "{field} must be after or equal to {date}.",
     "contains-lowercase": "{field} must contain at least one lowercase letter.",

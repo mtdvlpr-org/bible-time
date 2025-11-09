@@ -1,5 +1,5 @@
 <template>
-  <UCard v-if="person">
+  <LazyUCard v-if="person">
     <div class="flex items-center gap-4">
       <AvatarModal v-model="newAvatar" :edit="edit" type="person" :current="person.avatar_url" />
       <div>
@@ -9,7 +9,13 @@
         </div>
       </div>
     </div>
-    <UForm v-if="edit" :state="state" :schema="schema" class="mt-4 space-y-4" @submit="onSubmit">
+    <LazyUForm
+      v-if="edit"
+      :state="state"
+      :schema="schema"
+      class="mt-4 space-y-4"
+      @submit="onSubmit"
+    >
       <UFormField
         :label="$t('general.aliases')"
         :description="$t('validation.provide-in-language', { language: $t('i18n.english') })"
@@ -30,7 +36,7 @@
           :increment="false"
         />
       </UFormField>
-      <UFormField
+      <LazyUFormField
         v-if="state.birth_year"
         required
         name="birth_precision"
@@ -41,7 +47,7 @@
           class="w-full"
           :items="fields.datePrecision.items"
         />
-      </UFormField>
+      </LazyUFormField>
       <UFormField
         name="death_year"
         :label="$t('person.death-year')"
@@ -56,7 +62,7 @@
           :increment="false"
         />
       </UFormField>
-      <UFormField
+      <LazyUFormField
         v-if="state.death_year"
         required
         name="death_precision"
@@ -67,14 +73,14 @@
           class="w-full"
           :items="fields.datePrecision.items"
         />
-      </UFormField>
+      </LazyUFormField>
       <UFormField required name="gender" :label="fields.gender.label">
         <USelect v-model="state.gender" class="w-full" :items="fields.gender.items" />
       </UFormField>
       <div class="flex justify-end">
         <UButton loading-auto type="submit" icon="i-lucide:save" :label="$t('general.save')" />
       </div>
-    </UForm>
+    </LazyUForm>
     <div v-else class="mt-4 space-y-2">
       <div>
         <div class="text-xs text-zinc-500">{{ $t('people.born') }}</div>
@@ -97,7 +103,7 @@
         </div>
       </div>
     </div>
-  </UCard>
+  </LazyUCard>
 </template>
 <script setup lang="ts">
 import type { FormSubmitEvent } from '@nuxt/ui'

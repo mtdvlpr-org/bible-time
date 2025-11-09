@@ -9,8 +9,8 @@
       :ui="{ footer: 'lg:border-t lg:border-default' }"
     >
       <template #header="{ collapsed }">
-        <AppIcon v-if="collapsed" />
-        <AppLogo v-else style="height: 90%" />
+        <LazyAppIcon v-if="collapsed" />
+        <LazyAppLogo v-else style="height: 90%" />
       </template>
 
       <template #default="{ collapsed }">
@@ -34,8 +34,8 @@
       </template>
 
       <template #footer="{ collapsed }">
-        <UserMenu v-if="userStore.user" :collapsed="collapsed" :user="userStore.user" />
-        <LoginButton v-else :collapsed="collapsed" />
+        <LazyUserMenu v-if="userStore.user" :collapsed="collapsed" :user="userStore.user" />
+        <LazyLoginButton v-else :collapsed="collapsed" />
       </template>
     </UDashboardSidebar>
 
