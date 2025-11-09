@@ -2,9 +2,9 @@ export default function () {
   const { locale, t } = useI18n()
   const i18nStore = useI18nStore()
 
-  const translate = (key: string) => {
-    const translation = i18nStore.translations[locale.value].find((t) => t.key === key)
-    return translation ? translation.value : key
+  const translate = (key: string, fallback = true) => {
+    const translation = i18nStore.translations[locale.value][key]
+    return translation || (fallback ? key : '')
   }
 
   const translateRelation = (

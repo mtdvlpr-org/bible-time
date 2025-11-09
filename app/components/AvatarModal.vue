@@ -60,7 +60,13 @@
             :label="$t('general.reset')"
             @click="reset"
           />
-          <UButton type="submit" color="primary" variant="solid" :label="$t('general.confirm')" />
+          <UButton
+            loading-auto
+            type="submit"
+            color="primary"
+            variant="solid"
+            :label="$t('general.confirm')"
+          />
         </div>
       </UForm>
     </template>

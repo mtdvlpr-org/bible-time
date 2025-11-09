@@ -1,6 +1,6 @@
 import type { SitemapUrl } from '#sitemap/types'
 
-import { serverSupabaseClient } from '#supabase/server'
+import { serverSupabaseServiceRole } from '#supabase/server'
 import { z } from 'zod'
 
 const types = ['people', 'events'] as const
@@ -12,14 +12,14 @@ const querySchema = z.object({
 export default defineSitemapEventHandler(async (event) => {
   const { type } = await getValidatedQuery(event, querySchema.parse)
 
-  const client = await serverSupabaseClient(event)
+  const serviceClient = serverSupabaseServiceRole(event)
 
   const fetchType = async (table: (typeof types)[number]) => {
-    const { data } = await client.from(table).select('slug, updated_at')
+    const { data } = await serviceClient.from(table).select('slug, updated_at')
     return { data, type: table }
   }
 
-  const apiqueries = type ? [fetchType(type)] : [fetchType('people'), fetchType('events')]
+  const apiqueries = type ? [fetchType(type)] : types.map((t) => fetchType(t))
 
   const results = await Promise.all(apiqueries)
 

@@ -99,6 +99,7 @@
     "stop": "Stop",
     "stop-editing": "Stop met bewerken",
     "submit": "Verzend",
+    "translate": "Vertaal",
     "unknown": "Onbekend",
     "update": "Werk bij",
     "yes": "Ja"
@@ -134,6 +135,7 @@
     "mother": "Moeder",
     "name": "Naam",
     "new": "Nieuw persoon",
+    "translate": "Vertaal persoon",
     "view": "Bekijk persoon"
   },
   "relation": {

@@ -7,6 +7,7 @@
         </template>
 
         <template #right>
+          <PeopleTranslateModal v-if="person && can('translations.create')" :name="person.name" />
           <UButton
             v-if="person && can('people.update')"
             :icon="edit ? 'i-lucide:pencil-off' : 'i-lucide:edit'"

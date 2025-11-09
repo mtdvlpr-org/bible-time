@@ -15,10 +15,7 @@ export default defineEventHandler(async (event) => {
 
   const client = await serverSupabaseClient(event)
 
-  const { error } = await client.auth.verifyOtp({
-    token_hash,
-    type
-  })
+  const { error } = await client.auth.verifyOtp({ token_hash, type })
 
   if (error) {
     throw createError({

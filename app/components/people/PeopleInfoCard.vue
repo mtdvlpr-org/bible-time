@@ -72,7 +72,7 @@
         <USelect v-model="state.gender" class="w-full" :items="fields.gender.items" />
       </UFormField>
       <div class="flex justify-end">
-        <UButton type="submit" icon="i-lucide:save" :label="$t('general.save')" />
+        <UButton loading-auto type="submit" icon="i-lucide:save" :label="$t('general.save')" />
       </div>
     </UForm>
     <div v-else class="mt-4 space-y-2">

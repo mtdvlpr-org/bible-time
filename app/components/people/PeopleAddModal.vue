@@ -116,7 +116,13 @@
             :label="$t('general.cancel')"
             @click="open = false"
           />
-          <UButton type="submit" color="primary" variant="solid" :label="$t('general.create')" />
+          <UButton
+            loading-auto
+            type="submit"
+            color="primary"
+            variant="solid"
+            :label="$t('general.create')"
+          />
         </div>
       </UForm>
     </template>

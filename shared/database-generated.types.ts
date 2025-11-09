@@ -286,21 +286,21 @@ export type Database = {
       }
       translations: {
         Row: {
-          id: number
           key: string
           lang: Database["public"]["Enums"]["app_lang"]
+          updated_by: string | null
           value: string
         }
         Insert: {
-          id?: number
           key: string
           lang: Database["public"]["Enums"]["app_lang"]
+          updated_by?: string | null
           value: string
         }
         Update: {
-          id?: number
           key?: string
           lang?: Database["public"]["Enums"]["app_lang"]
+          updated_by?: string | null
           value?: string
         }
         Relationships: []

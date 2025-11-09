@@ -99,6 +99,7 @@
     "stop": "Stop",
     "stop-editing": "Stop editing",
     "submit": "Submit",
+    "translate": "Translate",
     "unknown": "Unknown",
     "update": "Update",
     "yes": "Yes"
@@ -134,6 +135,7 @@
     "mother": "Mother",
     "name": "Name",
     "new": "New person",
+    "translate": "Translate person",
     "view": "View person"
   },
   "relation": {
