@@ -188,7 +188,20 @@
     "video": "Video",
     "website": "Website"
   },
+  "suggestion": {
+    "approved": "Approved",
+    "delete": "Delete suggestion",
+    "pending": "Pending",
+    "rejected": "Rejected",
+    "status": "Status",
+    "target": "Target",
+    "type": "Type",
+    "view": "View suggestion"
+  },
   "suggestions": {
+    "description": "An overview of suggestions for improvement.",
+    "not-found": "No suggestions found",
+    "search": "Search suggestions...",
     "title": "Suggestions"
   },
   "validation": {

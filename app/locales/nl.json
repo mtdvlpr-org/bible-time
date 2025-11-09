@@ -188,7 +188,20 @@
     "video": "Video",
     "website": "Website"
   },
+  "suggestion": {
+    "approved": "Goedgekeurd",
+    "delete": "Verwijder suggestie",
+    "pending": "In behandeling",
+    "rejected": "Afgekeurd",
+    "status": "Status",
+    "target": "Doel",
+    "type": "Type",
+    "view": "Bekijk suggestie"
+  },
   "suggestions": {
+    "description": "",
+    "not-found": "Geen suggesties gevonden",
+    "search": "Zoek suggesties...",
     "title": "Suggesties"
   },
   "validation": {

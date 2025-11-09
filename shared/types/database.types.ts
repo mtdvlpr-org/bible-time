@@ -48,6 +48,17 @@ export type Database = MergeDeep<
             description?: Description | null
           }
         }
+        suggestions: {
+          Insert: {
+            payload: SuggestionPayload
+          }
+          Row: {
+            payload: SuggestionPayload
+          }
+          Update: {
+            payload?: SuggestionPayload
+          }
+        }
       }
     }
   }
@@ -74,9 +85,15 @@ export type Enums<
     : never
 
 export type Json = boolean | Json[] | null | number | string | { [key: string]: Json | undefined }
-export type ShortEvent = Pick<Tables<'events'>, 'cover_url' | 'slug' | 'title'>
 
+export type ShortEvent = Pick<Tables<'events'>, 'cover_url' | 'slug' | 'title'>
 export type ShortPerson = Pick<Tables<'people'>, 'avatar_url' | 'name' | 'slug'>
+
+export type SuggestionPayload =
+  | TablesInsert<'events'>
+  | TablesInsert<'people'>
+  | TablesUpdate<'events'>
+  | TablesUpdate<'people'>
 
 export type Tables<
   DefaultSchemaTableNameOrOptions extends

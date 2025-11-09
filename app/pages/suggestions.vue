@@ -1,5 +1,5 @@
 <template>
-  <UDashboardPanel id="people">
+  <UDashboardPanel id="suggestions">
     <template #header>
       <UDashboardNavbar :title="$t('suggestions.title')">
         <template #leading>
@@ -7,7 +7,7 @@
         </template>
 
         <template #right>
-          <LazyPeopleAddModal v-if="can('suggestions.create')" />
+          <!-- <LazyPeopleAddModal v-if="can('suggestions.create')" /> -->
         </template>
       </UDashboardNavbar>
     </template>
@@ -15,26 +15,14 @@
     <template #body>
       <DataTable
         ref="table"
-        :data="people"
         :columns="columns"
         :pending="pending"
         :refresh="refresh"
-        :empty="$t('people.not-found')"
-        :search-label="$t('people.search')"
+        :data="suggestions"
+        :empty="$t('suggestions.not-found')"
+        :search-label="$t('suggestions.search')"
       >
-        <template #filters>
-          <USelect
-            class="min-w-28"
-            :items="genderFilters"
-            :placeholder="$t('people.filter-gender')"
-            :ui="{
-              trailingIcon: 'group-data-[state=open]:rotate-180 transition-transform duration-200'
-            }"
-            @update:model-value="
-              (v) => dataTable?.table?.tableApi?.getColumn('gender')?.setFilterValue(v)
-            "
-          />
-        </template>
+        <template #filters> </template>
       </DataTable>
     </template>
   </UDashboardPanel>
@@ -43,79 +31,57 @@
 import type { TableColumn } from '@nuxt/ui'
 
 const { t } = useI18n()
-const { can } = useUserStore()
 const supabase = useSupabaseClient()
-const dataTable = useTemplateRef('table')
 
 const {
-  data: people,
+  data: suggestions,
   pending,
   refresh
-} = await useAsyncData('people', async () => {
-  const { data } = await supabase.from('people').select('*')
+} = await useAsyncData('suggestions', async () => {
+  const { data } = await supabase.from('suggestions').select('*')
   return data ?? []
 })
 
 const toast = useToast()
-const { fields } = useForm()
-const { formatYear } = useDate()
-const { actionCell, avatarCell, sortableColumn } = useTable()
+const { actionCell, sortableColumn } = useTable()
 
-const genderFilters = computed((): { label: string; value: Enums<'gender'> | undefined }[] => [
-  ...fields.gender.items,
-  { label: t('general.all'), value: undefined }
-])
+const userStore = useUserStore()
 
-const { translate } = useTranslations()
+const { translateSuggestionStatus, translateSuggestionType } = useTranslations()
 
-const columns = computed((): TableColumn<Tables<'people'>>[] => [
+const columns = computed((): TableColumn<Tables<'suggestions'>>[] => [
   {
-    accessorKey: 'name',
-    cell: ({ row }) => avatarCell(translate(row.original.name), row.original.avatar_url),
-    header: t('person.name')
+    accessorKey: 'type',
+    cell: ({ row }) => translateSuggestionType(row.original.type),
+    header: ({ column }) => sortableColumn(column, t('suggestion.type'))
   },
   {
-    accessorKey: 'gender',
-    cell: ({ row }) => {
-      switch (row.original.gender) {
-        case 'female':
-          return t('person.female')
-        case 'male':
-          return t('person.male')
-        case 'unknown':
-          return t('general.unknown')
-      }
-    },
-    filterFn: 'equals',
-    header: t('person.gender')
+    accessorKey: 'target_id',
+    cell: ({ row }) => row.original.target_id,
+    header: t('suggestion.target')
   },
   {
-    accessorKey: 'birth_year',
-    cell: ({ row }) => formatYear(row.original.birth_year, row.original.birth_precision),
-    header: ({ column }) => sortableColumn(column, t('people.born'))
-  },
-  {
-    accessorKey: 'death_year',
-    cell: ({ row }) => formatYear(row.original.death_year, row.original.death_precision),
-    header: ({ column }) => sortableColumn(column, t('people.died'))
+    accessorKey: 'status',
+    cell: ({ row }) => translateSuggestionStatus(row.original.status),
+    header: ({ column }) => sortableColumn(column, t('suggestion.status'))
   },
   {
     cell: ({ row }) =>
       actionCell([
         { label: t('general.actions'), type: 'label' },
-        { icon: 'i-lucide:list', label: t('person.view'), to: `/people/${row.original.slug}` },
-        ...(can('people.delete')
+        { icon: 'i-lucide:list', label: t('suggestion.view') },
+        ...(row.original.user_id === userStore.user?.id
           ? [
               { type: 'separator' as const },
               {
                 color: 'error' as const,
                 icon: 'i-lucide:trash',
-                label: t('person.delete'),
+                label: t('suggestion.delete'),
                 onSelect() {
                   // TODO: Implement delete functionality
                   toast.add({
-                    description: 'The person has been deleted.',
-                    title: 'Person deleted'
+                    description: 'The suggestion has been deleted.',
+                    title: 'Suggestion deleted'
                   })
                 }
               }
@@ -127,8 +93,8 @@ const columns = computed((): TableColumn<Tables<'people'>>[] => [
 ])
 
 useSeoMeta({
-  description: t('people.description'),
-  title: t('people.title')
+  description: t('suggestions.description'),
+  title: t('suggestions.title')
 })
 
 useSchemaOrg([defineWebPage({ '@type': 'CollectionPage' })])
