@@ -9,7 +9,7 @@
         </div>
       </div>
     </div>
-    <PeopleForm
+    <LazyPeopleForm
       v-if="edit"
       no-avatar
       class="mt-4"
