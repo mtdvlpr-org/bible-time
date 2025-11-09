@@ -18,7 +18,7 @@
       </div>
     </UForm>
     <template v-else-if="localeDescription || item?.description?.en">
-      <p v-if="!localeDescription" class="text-sm text-zinc-500 mb-2">English</p>
+      <p v-if="!localeDescription" class="text-sm text-zinc-500 mb-2">{{ $t('i18n.english') }}</p>
       <p class="whitespace-pre-line">
         {{ localeDescription || item?.description?.en }}
       </p>

@@ -24,12 +24,12 @@ export const useI18nStore = defineStore('i18n', {
       if (error) {
         supabaseService.handleError(error, status, statusText)
       } else if (translations) {
-        this.translations[locale] = translations.reduce(
+        this.translations[locale] = translations.reduce<Record<string, string>>(
           (acc, { key, value }) => {
             acc[key] = value
             return acc
           },
-          {} as Record<string, string>
+          {}
         )
       }
     }

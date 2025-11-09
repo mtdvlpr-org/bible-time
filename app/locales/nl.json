@@ -107,6 +107,9 @@
   "home": {
     "title": "Home"
   },
+  "i18n": {
+    "english": "Engels"
+  },
   "nuxtSiteConfig": {
     "description": "Een overzicht van Bijbelse personen en gebeurtenissen.",
     "name": "BibleTime"
@@ -157,7 +160,7 @@
     "relation": "Relatie",
     "relations": "Relaties",
     "sibling": "Broer/zus",
-    "spouse": "Echtgenoot",
+    "spouse": "Huwelijkspartner",
     "type": "Relatietype"
   },
   "search": {

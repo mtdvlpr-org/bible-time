@@ -12,7 +12,7 @@
     <UForm v-if="edit" :state="state" :schema="schema" class="mt-4 space-y-4" @submit="onSubmit">
       <UFormField
         :label="$t('general.aliases')"
-        :description="$t('validation.provide-in-language', { language: 'English' })"
+        :description="$t('validation.provide-in-language', { language: $t('i18n.english') })"
       >
         <UInputTags v-model="state.aliases" class="w-full" />
       </UFormField>

@@ -13,7 +13,7 @@
           name="title"
           :label="$t('event.title')"
           :placeholder="fields.name.placeholder"
-          :description="$t('validation.provide-in-language', { language: 'English' })"
+          :description="$t('validation.provide-in-language', { language: $t('i18n.english') })"
         >
           <UInput
             v-model="state.title"

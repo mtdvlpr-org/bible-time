@@ -13,7 +13,7 @@
           name="name"
           :label="fields.name.label"
           :placeholder="fields.name.placeholder"
-          :description="$t('validation.provide-in-language', { language: 'English' })"
+          :description="$t('validation.provide-in-language', { language: $t('i18n.english') })"
         >
           <UInput v-model="state.name" class="w-full" @change="state.slug = slugify(state.name)" />
         </UFormField>
