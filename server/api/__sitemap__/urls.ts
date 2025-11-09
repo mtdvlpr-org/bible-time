@@ -9,6 +9,9 @@ const querySchema = z.object({
   type: z.enum(types).optional()
 })
 
+/**
+ * Generate sitemap URLs for items
+ */
 export default defineSitemapEventHandler(async (event) => {
   const { type } = await getValidatedQuery(event, querySchema.parse)
 

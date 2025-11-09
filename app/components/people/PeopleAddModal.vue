@@ -21,10 +21,15 @@ const open = ref(false)
 const { t } = useI18n()
 
 const supabase = useSupabaseClient()
+const { data: people } = useNuxtData<Tables<'people'>[]>('people')
 
 const { showError, showSuccess } = useFlash()
 async function onSubmit(event: FormSubmitEvent<Schema>) {
-  const { error } = await supabase.from('people').insert(event.data)
+  const { data: created, error } = await supabase
+    .from('people')
+    .insert(event.data)
+    .select()
+    .single()
 
   if (error) {
     showError({
@@ -35,7 +40,7 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
       description: t('feedback.saved-successfully', { item: event.data.name })
     })
     open.value = false
-    refreshNuxtData('people')
+    if (created && people.value) people.value = [...people.value, created]
   }
 }
 </script>
