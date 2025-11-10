@@ -191,8 +191,10 @@
   "suggestion": {
     "approved": "Approved",
     "delete": "Delete suggestion",
+    "new": "New suggestion",
     "pending": "Pending",
     "rejected": "Rejected",
+    "review": "Review suggestion",
     "status": "Status",
     "target": "Target",
     "type": "Type",

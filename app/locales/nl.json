@@ -191,8 +191,10 @@
   "suggestion": {
     "approved": "Goedgekeurd",
     "delete": "Verwijder suggestie",
+    "new": "Nieuwe suggestie",
     "pending": "In behandeling",
     "rejected": "Afgekeurd",
+    "review": "Beoordeel suggestie",
     "status": "Status",
     "target": "Doel",
     "type": "Type",

@@ -7,6 +7,7 @@
         </template>
 
         <template #right>
+          <LazySuggestionsAddModal v-if="can('suggestions.create')" type="event.create" />
           <LazyEventsAddModal v-if="can('events.create')" />
         </template>
       </UDashboardNavbar>

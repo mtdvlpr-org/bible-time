@@ -138,12 +138,12 @@ const { fields, rules } = useForm()
 
 const schema = z
   .object({
-    aliases: z.array(z.string()),
-    avatar_url: rules.url(t('person.avatar-url')).nullable(),
+    aliases: z.array(z.string()).optional(),
+    avatar_url: rules.url(t('person.avatar-url')).nullable().optional(),
     birth_precision: rules.datePrecision(t('date.precision')).optional(),
-    birth_year: rules.year(t('person.birth-year')).nullable(),
+    birth_year: rules.year(t('person.birth-year')).nullable().optional(),
     death_precision: rules.datePrecision(t('date.precision')).optional(),
-    death_year: rules.year(t('person.death-year')).nullable(),
+    death_year: rules.year(t('person.death-year')).nullable().optional(),
     gender: rules.gender,
     name: rules.name,
     slug: rules.slug
