@@ -30,7 +30,7 @@ export default defineNuxtConfig({
     strategy: 'prefix'
   },
 
-  image: { alias: { wol: 'https://wol.jw.org' }, domains: ['wol.jw.org'] },
+  // image: { alias: { wol: 'https://wol.jw.org' }, domains: ['wol.jw.org'] },
 
   modules: [
     '@netlify/nuxt',
@@ -48,7 +48,7 @@ export default defineNuxtConfig({
 
   netlify: { headers: { enabled: true }, redirects: { enabled: true } },
 
-  nitro: { netlify: { images: { remote_images: ['https://wol.jw.org/*'] } }, preset: 'netlify' },
+  // nitro: { netlify: { images: { remote_images: ['https://wol.jw.org/*'] } }, preset: 'netlify' },
 
   pwa: {
     devOptions: {
