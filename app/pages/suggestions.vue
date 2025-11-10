@@ -29,8 +29,26 @@
         :data="suggestions"
         :empty="$t('suggestions.not-found')"
         :search-label="$t('suggestions.search')"
+        :filters="[{ id: 'status', value: 'pending' }]"
       >
-        <template #filters> </template>
+        <template #filters>
+          <USelect
+            class="min-w-28"
+            :items="statusFilters"
+            :placeholder="$t('suggestions.filter-status')"
+            :ui="{
+              trailingIcon: 'group-data-[state=open]:rotate-180 transition-transform duration-200'
+            }"
+            :model-value="
+              dataTable?.table?.tableApi
+                ?.getColumn('status')
+                ?.getFilterValue() as Enums<'suggestion_status'>
+            "
+            @update:model-value="
+              (v) => dataTable?.table?.tableApi?.getColumn('status')?.setFilterValue(v)
+            "
+          />
+        </template>
       </DataTable>
     </template>
   </UDashboardPanel>
@@ -40,6 +58,7 @@ import type { TableColumn } from '@nuxt/ui'
 
 const { t } = useI18n()
 const supabase = useSupabaseClient()
+const dataTable = useTemplateRef('table')
 
 const {
   data: suggestions,
@@ -73,6 +92,24 @@ const eventProp = computed(() => {
   }
 })
 
+const statusFilters = computed(
+  (): { label: string; value: Enums<'suggestion_status'> | undefined }[] => [
+    {
+      label: t('suggestion.pending'),
+      value: 'pending'
+    },
+    {
+      label: t('suggestion.approved'),
+      value: 'approved'
+    },
+    {
+      label: t('suggestion.rejected'),
+      value: 'rejected'
+    },
+    { label: t('general.all'), value: undefined }
+  ]
+)
+
 const toast = useToast()
 const userStore = useUserStore()
 const { actionCell, sortableColumn } = useTable()
@@ -83,6 +120,7 @@ const columns = computed((): TableColumn<Tables<'suggestions'>>[] => [
   {
     accessorKey: 'type',
     cell: ({ row }) => translateSuggestionType(row.original.type),
+    filterFn: 'equals',
     header: ({ column }) => sortableColumn(column, t('suggestion.type'))
   },
   {
@@ -103,53 +141,56 @@ const columns = computed((): TableColumn<Tables<'suggestions'>>[] => [
   {
     accessorKey: 'status',
     cell: ({ row }) => translateSuggestionStatus(row.original.status),
+    filterFn: 'equals',
     header: ({ column }) => sortableColumn(column, t('suggestion.status'))
   },
   {
     cell: ({ row }) =>
-      actionCell([
-        { label: t('general.actions'), type: 'label' },
-        // {
-        //   icon: 'i-lucide:list',
-        //   label: t('suggestion.view'),
-        //   onSelect() {
-        //     suggestion.value = row.original
-        //     openSuggestion.value = true
-        //   }
-        // },
-        ...(userStore.can('suggestions.update') &&
-        row.original.status === 'pending' &&
-        row.original.user_id !== userStore.user?.id
-          ? [
-              { type: 'separator' as const },
-              {
-                icon: 'i-lucide:pencil',
-                label: t('suggestion.review'),
-                onSelect() {
-                  suggestion.value = row.original
-                  openSuggestion.value = true
-                }
-              }
-            ]
-          : []),
-        ...(row.original.status === 'pending' && row.original.user_id === userStore.user?.id
-          ? [
-              { type: 'separator' as const },
-              {
-                color: 'error' as const,
-                icon: 'i-lucide:trash',
-                label: t('suggestion.delete'),
-                onSelect() {
-                  // TODO: Implement delete functionality
-                  toast.add({
-                    description: 'The suggestion has been deleted.',
-                    title: 'Suggestion deleted'
-                  })
-                }
-              }
-            ]
-          : [])
-      ]),
+      row.original.status === 'pending'
+        ? actionCell([
+            { label: t('general.actions'), type: 'label' },
+            // {
+            //   icon: 'i-lucide:list',
+            //   label: t('suggestion.view'),
+            //   onSelect() {
+            //     suggestion.value = row.original
+            //     openSuggestion.value = true
+            //   }
+            // },
+            ...(userStore.can('suggestions.update') &&
+            row.original.status === 'pending' &&
+            row.original.user_id !== userStore.user?.id
+              ? [
+                  { type: 'separator' as const },
+                  {
+                    icon: 'i-lucide:pencil',
+                    label: t('suggestion.review'),
+                    onSelect() {
+                      suggestion.value = row.original
+                      openSuggestion.value = true
+                    }
+                  }
+                ]
+              : []),
+            ...(row.original.status === 'pending' && row.original.user_id === userStore.user?.id
+              ? [
+                  { type: 'separator' as const },
+                  {
+                    color: 'error' as const,
+                    icon: 'i-lucide:trash',
+                    label: t('suggestion.delete'),
+                    onSelect() {
+                      // TODO: Implement delete functionality
+                      toast.add({
+                        description: 'The suggestion has been deleted.',
+                        title: 'Suggestion deleted'
+                      })
+                    }
+                  }
+                ]
+              : [])
+          ])
+        : '',
     id: 'actions'
   }
 ])

@@ -58,6 +58,7 @@
     class="shrink-0"
     :columns="columns"
     :loading="pending"
+    :column-filters="filters"
     :pagination-options="{ getPaginationRowModel: getPaginationRowModel() }"
     :ui="{
       base: 'table-fixed border-separate border-spacing-0',
@@ -82,6 +83,7 @@
 import type { DropdownMenuItem, TableColumn, TableData } from '@nuxt/ui'
 
 import {
+  type ColumnFiltersState,
   getPaginationRowModel,
   type PaginationState,
   type VisibilityState
@@ -92,6 +94,7 @@ defineProps<{
   columns: TableColumn<T>[]
   data?: T[]
   empty?: string
+  filters?: ColumnFiltersState
   pending?: boolean
   refresh?: () => Promise<void>
   searchLabel?: string

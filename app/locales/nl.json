@@ -205,6 +205,7 @@
   },
   "suggestions": {
     "description": "",
+    "filter-status": "Filter status",
     "not-found": "Geen suggesties gevonden",
     "search": "Zoek suggesties...",
     "title": "Suggesties"
