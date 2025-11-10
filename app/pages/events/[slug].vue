@@ -7,6 +7,12 @@
         </template>
 
         <template #right>
+          <LazySuggestionsAddModal
+            v-if="event && can('suggestions.create')"
+            :event="eventProp"
+            type="event.update"
+            :target="event.slug"
+          />
           <LazyTranslateModal
             v-if="event && locale !== 'en' && can('translations.create')"
             type="event"
@@ -70,6 +76,12 @@ const localePath = useLocalePath()
 const { translate } = useTranslations()
 const supabase = useSupabaseClient()
 const slug = useRouteParams<string>('slug')
+
+const eventProp = computed(() => ({
+  ...event.value,
+  end_precision: event.value?.end_precision ?? undefined,
+  start_precision: event.value?.start_precision ?? undefined
+}))
 
 const { data: event } = await useAsyncData(`event-${slug.value}`, async () => {
   const { data } = await supabase

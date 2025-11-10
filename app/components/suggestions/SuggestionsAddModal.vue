@@ -4,20 +4,36 @@
     :title="$t('suggestion.new')"
     description="Add a new suggestion to the database"
   >
-    <UButton icon="i-lucide:plus" :label="$t('suggestion.new')" />
+    <UButton v-if="!review" icon="i-lucide:plus" :label="$t('suggestion.new')" />
 
     <template #body>
       <LazyPeopleForm
-        v-if="open && type === 'person.create'"
+        v-if="open && (type === 'person.create' || type === 'person.update')"
         cancelable
-        @cancel="open = false"
-        @submit="onPeopleCreate"
+        :person="person"
+        :disabled="review"
+        :submit="review ? { label: $t('suggestion.approve'), icon: 'i-lucide:check' } : undefined"
+        :cancel="
+          review
+            ? { label: $t('suggestion.reject'), icon: 'i-lucide:x', color: 'error' }
+            : undefined
+        "
+        @cancel="onCancel"
+        @submit="onPeopleSubmit"
       />
       <LazyEventsForm
-        v-else-if="open && type === 'event.create'"
+        v-else-if="open && (type === 'event.create' || type === 'event.update')"
         cancelable
-        @cancel="open = false"
-        @submit="onEventsCreate"
+        :event="event"
+        :disabled="review"
+        :submit="review ? { label: $t('suggestion.approve'), icon: 'i-lucide:check' } : undefined"
+        :cancel="
+          review
+            ? { label: $t('suggestion.reject'), icon: 'i-lucide:x', color: 'error' }
+            : undefined
+        "
+        @cancel="onCancel"
+        @submit="onEventsSubmit"
       />
     </template>
   </UModal>
@@ -29,14 +45,19 @@ import type { Schema as EventsSchema } from './../events/EventsForm.vue'
 import type { Schema as PeopleSchema } from './../people/PeopleForm.vue'
 
 const props = defineProps<{
+  event?: Partial<EventsSchema>
+  person?: Partial<PeopleSchema>
+  review?: boolean
+  target?: null | string
   type: Enums<'suggestion_type'>
 }>()
 
-const open = ref(false)
+const open = defineModel<boolean>('open', { default: false })
 
 const { t } = useI18n()
 
 const router = useRouter()
+const userStore = useUserStore()
 const localePath = useLocalePath()
 const supabase = useSupabaseClient()
 
@@ -47,35 +68,85 @@ const onSuccess = () => {
   router.push(localePath('/suggestions'))
 }
 
-async function onEventsCreate(event: FormSubmitEvent<EventsSchema>) {
+const onCancel = async () => {
+  if (props.review && props.target) {
+    const { error } = await supabase
+      .from('suggestions')
+      .update({ reviewed_by: userStore.user?.id, status: 'rejected' })
+      .eq('id', parseInt(props.target))
+
+    if (error) {
+      showError({
+        description: t('feedback.could-not-save', { item: $t('general.suggestion') })
+      })
+      return
+    } else {
+      showSuccess({
+        description: t('feedback.saved-successfully', {
+          item: $t('general.suggestion')
+        })
+      })
+      refreshNuxtData('suggestions')
+    }
+  }
+
+  open.value = false
+}
+
+const onApproved = async () => {
+  try {
+    await $fetch(`/api/suggestions/${props.target}/approve`, { method: 'POST' })
+    showSuccess({
+      description: t('feedback.saved-successfully', { item: $t('general.suggestion') })
+    })
+    open.value = false
+    refreshNuxtData('suggestions')
+  } catch {
+    showError({
+      description: t('feedback.could-not-save', { item: $t('general.suggestion') })
+    })
+  }
+}
+
+async function onEventsSubmit(event: FormSubmitEvent<EventsSchema>) {
+  if (props.review) {
+    await onApproved()
+    return
+  }
+
   const { error } = await supabase
     .from('suggestions')
-    .insert({ payload: event.data, type: props.type })
+    .insert({ payload: event.data, target_slug: props.target, type: props.type })
 
   if (error) {
     showError({
-      description: t('feedback.could-not-save', { item: event.data.title })
+      description: t('feedback.could-not-save', { item: $t('general.suggestion') })
     })
   } else {
     showSuccess({
-      description: t('feedback.saved-successfully', { item: event.data.title })
+      description: t('feedback.saved-successfully', { item: $t('general.suggestion') })
     })
     onSuccess()
   }
 }
 
-async function onPeopleCreate(event: FormSubmitEvent<PeopleSchema>) {
+async function onPeopleSubmit(event: FormSubmitEvent<PeopleSchema>) {
+  if (props.review) {
+    await onApproved()
+    return
+  }
+
   const { error } = await supabase
     .from('suggestions')
-    .insert({ payload: event.data, type: props.type })
+    .insert({ payload: event.data, target_slug: props.target, type: props.type })
 
   if (error) {
     showError({
-      description: t('feedback.could-not-save', { item: event.data.name })
+      description: t('feedback.could-not-save', { item: $t('general.suggestion') })
     })
   } else {
     showSuccess({
-      description: t('feedback.saved-successfully', { item: event.data.name })
+      description: t('feedback.saved-successfully', { item: $t('general.suggestion') })
     })
     onSuccess()
   }

@@ -100,6 +100,7 @@
     "stop": "Stop",
     "stop-editing": "Stop editing",
     "submit": "Submit",
+    "suggestion": "Suggestion",
     "translate": "Translate",
     "unknown": "Unknown",
     "update": "Update",
@@ -189,10 +190,12 @@
     "website": "Website"
   },
   "suggestion": {
+    "approve": "Approve",
     "approved": "Approved",
     "delete": "Delete suggestion",
     "new": "New suggestion",
     "pending": "Pending",
+    "reject": "Reject",
     "rejected": "Rejected",
     "review": "Review suggestion",
     "status": "Status",

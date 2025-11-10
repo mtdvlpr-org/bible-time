@@ -100,6 +100,7 @@
     "stop": "Stop",
     "stop-editing": "Stop met bewerken",
     "submit": "Verzend",
+    "suggestion": "Suggestie",
     "translate": "Vertaal",
     "unknown": "Onbekend",
     "update": "Werk bij",
@@ -189,10 +190,12 @@
     "website": "Website"
   },
   "suggestion": {
+    "approve": "Keur goed",
     "approved": "Goedgekeurd",
     "delete": "Verwijder suggestie",
     "new": "Nieuwe suggestie",
     "pending": "In behandeling",
+    "reject": "Wijs af",
     "rejected": "Afgekeurd",
     "review": "Beoordeel suggestie",
     "status": "Status",

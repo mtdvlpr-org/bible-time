@@ -7,7 +7,15 @@
         </template>
 
         <template #right>
-          <!-- <LazySuggestionsAddModal v-if="can('suggestions.create')" /> -->
+          <LazySuggestionsAddModal
+            v-if="suggestion && userStore.can('suggestions.update')"
+            v-model:open="openSuggestion"
+            review
+            :event="eventProp"
+            :person="personProp"
+            :type="suggestion.type"
+            :target="`${suggestion.id}`"
+          />
         </template>
       </UDashboardNavbar>
     </template>
@@ -42,10 +50,32 @@ const {
   return data ?? []
 })
 
-const toast = useToast()
-const { actionCell, sortableColumn } = useTable()
+const openSuggestion = ref(false)
+const suggestion = ref<null | Tables<'suggestions'>>(null)
 
+const personProp = computed(() => {
+  if (!suggestion.value) return undefined
+  const person = suggestion.value.payload as Tables<'people'>
+  return {
+    ...person,
+    birth_precision: person.birth_precision ?? undefined,
+    death_precision: person.death_precision ?? undefined
+  }
+})
+
+const eventProp = computed(() => {
+  if (!suggestion.value) return undefined
+  const event = suggestion.value.payload as Tables<'events'>
+  return {
+    ...event,
+    end_precision: event.end_precision ?? undefined,
+    start_precision: event.start_precision ?? undefined
+  }
+})
+
+const toast = useToast()
 const userStore = useUserStore()
+const { actionCell, sortableColumn } = useTable()
 
 const { translate, translateSuggestionStatus, translateSuggestionType } = useTranslations()
 
@@ -62,10 +92,10 @@ const columns = computed((): TableColumn<Tables<'suggestions'>>[] => [
         return translate(deslugify(row.original.target_slug))
       }
       if (row.original.type === 'person.create') {
-        return (row.original.payload as Tables<'people'>).name
+        return (row.original.payload as TablesInsert<'people'>).name
       }
       if (row.original.type === 'event.create') {
-        return (row.original.payload as Tables<'events'>).title
+        return (row.original.payload as TablesInsert<'events'>).title
       }
     },
     header: t('suggestion.target')
@@ -79,24 +109,30 @@ const columns = computed((): TableColumn<Tables<'suggestions'>>[] => [
     cell: ({ row }) =>
       actionCell([
         { label: t('general.actions'), type: 'label' },
-        { icon: 'i-lucide:list', label: t('suggestion.view') },
-        ...(userStore.can('suggestions.update') && row.original.user_id !== userStore.user?.id
+        // {
+        //   icon: 'i-lucide:list',
+        //   label: t('suggestion.view'),
+        //   onSelect() {
+        //     suggestion.value = row.original
+        //     openSuggestion.value = true
+        //   }
+        // },
+        ...(userStore.can('suggestions.update') &&
+        row.original.status === 'pending' &&
+        row.original.user_id !== userStore.user?.id
           ? [
               { type: 'separator' as const },
               {
                 icon: 'i-lucide:pencil',
                 label: t('suggestion.review'),
                 onSelect() {
-                  // TODO: Implement edit functionality
-                  toast.add({
-                    description: 'The suggestion has been edited.',
-                    title: 'Suggestion edited'
-                  })
+                  suggestion.value = row.original
+                  openSuggestion.value = true
                 }
               }
             ]
           : []),
-        ...(row.original.user_id === userStore.user?.id
+        ...(row.original.status === 'pending' && row.original.user_id === userStore.user?.id
           ? [
               { type: 'separator' as const },
               {

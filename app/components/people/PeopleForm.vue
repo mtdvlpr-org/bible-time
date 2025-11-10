@@ -1,24 +1,32 @@
 <template>
-  <UForm :state="state" :schema="schema" class="space-y-4" @submit="onSubmit">
-    <LazyUFormField
-      v-if="!person"
+  <UForm :state="state" :schema="schema" class="space-y-4" :disabled="disabled" @submit="onSubmit">
+    <UFormField
       required
       name="name"
       :label="fields.name.label"
       :placeholder="fields.name.placeholder"
       :description="$t('validation.provide-in-language', { language: $t('i18n.english') })"
     >
-      <UInput v-model="state.name" class="w-full" @change="state.slug = slugify(state.name)" />
-    </LazyUFormField>
-    <LazyUFormField
-      v-if="!person"
+      <UInput
+        v-model="state.name"
+        class="w-full"
+        :disabled="disabled || !!person"
+        @change="state.slug = slugify(state.name)"
+      />
+    </UFormField>
+    <UFormField
       required
       name="slug"
       :label="$t('general.slug')"
       description="The unique identifier for this person in the URL."
     >
-      <UInput v-model="state.slug" class="w-full" @input="normalizeSlug" />
-    </LazyUFormField>
+      <UInput
+        v-model="state.slug"
+        class="w-full"
+        :disabled="disabled || !!person"
+        @input="normalizeSlug"
+      />
+    </UFormField>
     <UFormField
       :label="$t('general.aliases')"
       :description="$t('validation.provide-in-language', { language: $t('i18n.english') })"
@@ -103,6 +111,7 @@
         color="neutral"
         variant="subtle"
         :label="$t('general.cancel')"
+        v-bind="cancel"
         @click="emit('cancel')"
       />
       <UButton
@@ -122,7 +131,9 @@ import type { ButtonProps, FormSubmitEvent } from '@nuxt/ui'
 import { z } from 'zod'
 
 const props = defineProps<{
+  cancel?: ButtonProps
   cancelable?: boolean
+  disabled?: boolean
   noAvatar?: boolean
   onSubmit: (event: FormSubmitEvent<Schema>) => Promise<void>
   person?: Partial<Schema>

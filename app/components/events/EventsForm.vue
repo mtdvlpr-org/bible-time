@@ -1,24 +1,32 @@
 <template>
-  <UForm :state="state" :schema="schema" class="space-y-4" @submit="onSubmit">
-    <LazyUFormField
-      v-if="!event"
+  <UForm :state="state" :schema="schema" class="space-y-4" :disabled="disabled" @submit="onSubmit">
+    <UFormField
       required
       name="title"
       :label="$t('event.title')"
       :placeholder="fields.name.placeholder"
       :description="$t('validation.provide-in-language', { language: $t('i18n.english') })"
     >
-      <UInput v-model="state.title" class="w-full" @change="state.slug = slugify(state.title)" />
-    </LazyUFormField>
-    <LazyUFormField
-      v-if="!event"
+      <UInput
+        v-model="state.title"
+        class="w-full"
+        :disabled="disabled || !!event"
+        @change="state.slug = slugify(state.title)"
+      />
+    </UFormField>
+    <UFormField
       required
       name="slug"
       :label="$t('general.slug')"
       description="The unique identifier for this event in the URL."
     >
-      <UInput v-model="state.slug" class="w-full" @input="normalizeSlug" />
-    </LazyUFormField>
+      <UInput
+        v-model="state.slug"
+        class="w-full"
+        :disabled="disabled || !!event"
+        @input="normalizeSlug"
+      />
+    </UFormField>
     <LazyUFormField v-if="!noCover" name="cover_url" :label="$t('event.cover-url')">
       <UInput
         v-model="state.cover_url"
@@ -94,6 +102,7 @@
         color="neutral"
         variant="subtle"
         :label="$t('general.cancel')"
+        v-bind="cancel"
         @click="emit('cancel')"
       />
       <UButton
@@ -113,7 +122,9 @@ import type { ButtonProps, FormSubmitEvent } from '@nuxt/ui'
 import { z } from 'zod'
 
 const props = defineProps<{
+  cancel?: ButtonProps
   cancelable?: boolean
+  disabled?: boolean
   event?: Partial<Schema>
   noCover?: boolean
   onSubmit: (event: FormSubmitEvent<Schema>) => Promise<void>

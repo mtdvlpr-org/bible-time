@@ -7,6 +7,12 @@
         </template>
 
         <template #right>
+          <LazySuggestionsAddModal
+            v-if="person && can('suggestions.create')"
+            :person="personProp"
+            type="person.update"
+            :target="person.slug"
+          />
           <LazyTranslateModal
             v-if="person && locale !== 'en' && can('translations.create')"
             type="person"
@@ -71,6 +77,12 @@ const localePath = useLocalePath()
 const { translate } = useTranslations()
 const supabase = useSupabaseClient()
 const slug = useRouteParams<string>('slug')
+
+const personProp = computed(() => ({
+  ...person.value,
+  birth_precision: person.value?.birth_precision ?? undefined,
+  death_precision: person.value?.death_precision ?? undefined
+}))
 
 const { data: person } = await useAsyncData(`person-${slug.value}`, async () => {
   const { data } = await supabase
