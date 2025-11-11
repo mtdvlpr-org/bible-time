@@ -11,6 +11,8 @@ import { iconBaseUrl, maskableSizes, transparentSizes } from './app/utils/assets
 export default defineNuxtConfig({
   alias: { '#server': fileURLToPath(new URL('./server', import.meta.url)) },
 
+  colorMode: { fallback: 'light', preference: 'system' },
+
   compatibilityDate: '2024-07-11',
 
   css: ['~/assets/css/main.css'],
@@ -43,8 +45,6 @@ export default defineNuxtConfig({
     '@vueuse/nuxt',
     'pinia-plugin-persistedstate/nuxt'
   ],
-
-  // image: { alias: { wol: 'https://wol.jw.org' }, domains: ['wol.jw.org'] },
 
   netlify: { headers: { enabled: true }, redirects: { enabled: true } },
 
@@ -89,12 +89,6 @@ export default defineNuxtConfig({
   schemaOrg: { identity: defineOrganization({ name: process.env.NUXT_SITE_NAME || 'BibleTime' }) },
 
   seo: { fallbackTitle: false },
-
-  site: {
-    logo: '/brand/logo-horizontal.svg',
-    name: process.env.NUXT_SITE_NAME || 'BibleTime',
-    url: process.env.NUXT_SITE_URL || 'http://localhost:3000'
-  },
 
   sitemap: {
     sources: ['/api/__sitemap__/urls?type=events', '/api/__sitemap__/urls?type=people']

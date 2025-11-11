@@ -19,7 +19,7 @@
             :style="{ lineClamp: description ? 2 : 3 }"
             style="display: block; text-overflow: ellipsis"
           >
-            {{ title }}
+            {{ title || 'BibleTime' }}
           </h1>
           <p
             v-if="description"
@@ -30,30 +30,9 @@
             {{ description }}
           </p>
         </div>
-        <div v-if="Boolean(icon)" style="width: 30%" class="flex justify-end">
-          <IconComponent :name="icon" size="250px" style="margin: 0 auto; opacity: 0.7" />
-        </div>
       </div>
       <div class="flex flex-row justify-center items-center text-left w-full">
-        <AppLogo v-if="siteLogo" />
-        <template v-else>
-          <svg
-            width="50"
-            height="50"
-            class="mr-3"
-            viewBox="0 0 200 200"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              transform="translate(100 100)"
-              :fill="theme.includes('#') ? theme : `#${theme}`"
-              d="M62.3,-53.9C74.4,-34.5,73.5,-9,67.1,13.8C60.6,36.5,48.7,56.5,30.7,66.1C12.7,75.7,-11.4,74.8,-31.6,65.2C-51.8,55.7,-67.9,37.4,-73.8,15.7C-79.6,-6,-75.1,-31.2,-61.1,-51C-47.1,-70.9,-23.6,-85.4,0.8,-86C25.1,-86.7,50.2,-73.4,62.3,-53.9Z"
-            />
-          </svg>
-          <p v-if="siteName" class="font-bold" style="font-size: 25px">
-            {{ siteName }}
-          </p>
-        </template>
+        <AppLogo style="height: 120px; width: 484px" />
       </div>
     </div>
   </div>
@@ -64,26 +43,21 @@
  */
 
 import { useOgImageRuntimeConfig } from '#og-image/app/utils'
-import { useSiteConfig } from '#site-config/app/composables'
-import { computed, defineComponent, h, resolveComponent } from 'vue'
+import { computed } from 'vue'
 
 // convert to typescript props
 const props = withDefaults(
   defineProps<{
+    avatar?: string
     colorMode?: 'dark' | 'light'
     description?: string
-    icon?: boolean | string
-    siteLogo?: string
-    siteName?: string
     theme?: string
     title?: string
   }>(),
   {
+    avatar: 'https://wol.jw.org/en/wol/mp/r1/lp-e/w13/2013/1210',
     colorMode: undefined,
     description: undefined,
-    icon: undefined,
-    siteLogo: undefined,
-    siteName: undefined,
     theme: '#0f356e',
     title: 'title'
   }
@@ -131,26 +105,4 @@ const themeRgb = computed(() => {
     ?.map((v) => Number.parseInt(v, 16))
     .join(', ')
 })
-
-const siteConfig = useSiteConfig()
-const siteName = computed(() => {
-  return props.siteName || siteConfig.name
-})
-const siteLogo = computed(() => {
-  return props.siteLogo || siteConfig.logo
-})
-
-const IconComponent = runtimeConfig.hasNuxtIcon
-  ? resolveComponent('Icon')
-  : defineComponent({
-      render() {
-        return h('div', 'missing @nuxt/icon')
-      }
-    })
-if (typeof props.icon === 'string' && !runtimeConfig.hasNuxtIcon && import.meta.dev) {
-  console.warn('Please install `@nuxt/icon` to use icons with the fallback OG Image component.')
-
-  console.log('\nnpx nuxi module add icon\n')
-  // create simple div renderer component
-}
 </script>

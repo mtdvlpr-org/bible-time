@@ -28,7 +28,12 @@ useHead({
 })
 
 useSeoMeta({
-  description: props.error.statusMessage,
+  description: props.error.statusMessage || props.error.message,
   title: props.error.statusCode
+})
+
+defineOgImageComponent('Page', {
+  description: props.error.statusMessage || props.error.message,
+  title: props.error.statusCode.toString()
 })
 </script>
