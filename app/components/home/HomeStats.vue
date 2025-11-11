@@ -36,7 +36,7 @@ type Table = {
   to: string
 }
 
-type TableKey = 'events' | 'people'
+type TableKey = 'events' | 'people' | 'profiles' | 'suggestions'
 
 const tables = computed((): Table[] => [
   {
@@ -50,26 +50,22 @@ const tables = computed((): Table[] => [
     key: 'events',
     title: t('events.title'),
     to: localePath('/events')
+  },
+  {
+    icon: 'i-lucide:lightbulb',
+    key: 'suggestions',
+    title: t('suggestions.title'),
+    to: localePath('/suggestions')
+  },
+  {
+    icon: 'i-lucide:user-check',
+    key: 'profiles',
+    title: t('general.profiles'),
+    to: localePath('/settings/profile')
   }
 ])
 
-const supabase = useSupabaseClient()
-
-const { data: stats } = await useLazyAsyncData(
-  'stats',
-  async () => {
-    const [peopleResult, eventsResult] = await Promise.all([
-      supabase.from('people').select('*', { count: 'exact', head: true }),
-      supabase.from('events').select('*', { count: 'exact', head: true })
-    ])
-
-    const counts: Record<TableKey, number> = {
-      events: eventsResult.count ?? 0,
-      people: peopleResult.count ?? 0
-    }
-
-    return counts
-  },
-  { default: () => ({ events: 0, people: 0 }) }
-)
+const { data: stats } = await useLazyFetch<Record<TableKey, number>>('/api/stats', {
+  default: () => ({ events: 0, people: 0, profiles: 0, suggestions: 0 })
+})
 </script>

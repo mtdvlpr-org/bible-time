@@ -113,7 +113,7 @@ const links = computed((): NavigationMenuItem[][] => [
       to: localePath('/events')
     },
     {
-      icon: 'i-lucide:user-pen',
+      icon: 'i-lucide:lightbulb',
       label: t('suggestions.title'),
       onSelect: () => {
         open.value = false
