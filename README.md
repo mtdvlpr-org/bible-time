@@ -1,64 +1,64 @@
-# Nuxt Dashboard Template
+# BibleTime
 
-[![Nuxt UI](https://img.shields.io/badge/Made%20with-Nuxt%20UI-00DC82?logo=nuxt&labelColor=020420)](https://ui.nuxt.com)
+BibleTime is a web app that provides an overview of Biblical people and events. It is built as a progressive web app (PWA) using Nuxt 4 and TypeScript.
 
-Get started with the Nuxt dashboard template with multiple pages, collapsible sidebar, keyboard shortcuts, light & dark more, command palette and more, powered by [Nuxt UI](https://ui.nuxt.com).
+This repository contains the source code for the site and the developer tools to run, build and extend it.
 
-- [Live demo](https://dashboard-template.nuxt.dev/)
-- [Documentation](https://ui.nuxt.com/docs/getting-started/installation/nuxt)
+## What it does
 
-<a href="https://dashboard-template.nuxt.dev/" target="_blank">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://ui.nuxt.com/assets/templates/nuxt/dashboard-dark.png">
-    <source media="(prefers-color-scheme: light)" srcset="https://ui.nuxt.com/assets/templates/nuxt/dashboard-light.png">
-    <img alt="Nuxt Dashboard Template" src="https://ui.nuxt.com/assets/templates/nuxt/dashboard-light.png">
-  </picture>
-</a>
+- Browse and search Biblical people with basic biographical details.
+- Browse events and view event pages that can reference people.
+- Suggest edits or additions via the suggestions workflow.
+- Supports English and Dutch (i18n).
 
-> The dashboard template for Vue is on https://github.com/nuxt-ui-templates/dashboard-vue.
+## Who is this for
 
-## Quick Start
+This README is written for general users and contributors who want to understand what the project does and how to get help. If you're a developer who wants to run or modify the code, please see `CONTRIBUTING.md` for setup and developer guidance.
 
-```bash [Terminal]
-npm create nuxt@latest -- -t github:nuxt-ui-templates/dashboard
-```
+## Quick overview
 
-## Deploy your own
+- Tech: Nuxt 4 (Vue 3), TypeScript, Pinia, Supabase, PWA support
+- Data and auth: Supabase (server integration present in `server/` and `utils/supabase.ts`)
+- State: Pinia with persisted state
+- Internationalization: English and Dutch
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-name=dashboard&repository-url=https%3A%2F%2Fgithub.com%2Fnuxt-ui-templates%2Fdashboard&demo-image=https%3A%2F%2Fui.nuxt.com%2Fassets%2Ftemplates%2Fnuxt%2Fdashboard-dark.png&demo-url=https%3A%2F%2Fdashboard-template.nuxt.dev%2F&demo-title=Nuxt%20Dashboard%20Template&demo-description=A%20dashboard%20template%20with%20multi-column%20layout%20for%20building%20sophisticated%20admin%20interfaces.)
+## Try it locally (developer steps)
 
-## Setup
+Developers: follow `CONTRIBUTING.md` for full local setup instructions. In summary:
 
-Make sure to install the dependencies:
+1. Install Node.js (see `package.json` engines) and pnpm.
+2. Clone the repo and run `pnpm install`.
+3. Start the dev server with `pnpm dev` and open http://localhost:3000.
 
-```bash
-pnpm install
-```
+## Project status
 
-## Development Server
+- License: MIT — see `LICENSE`
+- Support: only the latest version of the project is supported. See `SECURITY.md` for details on supported versions and reporting vulnerabilities.
 
-Start the development server on `http://localhost:3000`:
+## Where to get help
 
-```bash
-pnpm dev
-```
+See `SUPPORT.md` for how to report bugs, request features, or ask for help. For development-related contributions, please follow `CONTRIBUTING.md`.
 
-## Production
+## Project layout (high-level)
 
-Build the application for production:
+- `app/` — Nuxt application code (pages, components, layouts, locales)
+- `server/` — server API routes and server utilities
+- `shared/` — generated and shared TypeScript types
+- `public/` — static assets and branding (logo, icons)
+- `utils/`, `shared/utils/` — helper utilities and formatters
 
-```bash
-pnpm build
-```
+## Useful scripts
 
-Locally preview production build:
+See `package.json` for the exact list. Common commands:
 
-```bash
-pnpm preview
-```
+- `pnpm dev` — start development server
+- `pnpm build` — build production bundle
+- `pnpm preview` — preview production build locally
+- `pnpm lint` / `pnpm lint:fix` — run ESLint
+- `pnpm typecheck` — TypeScript checks
+- `pnpm test` — run tests (placeholder)
+- `pnpm supabase:types` — generate Supabase types (requires supabase CLI and credentials)
 
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+---
 
-## Renovate integration
-
-Install [Renovate GitHub app](https://github.com/apps/renovate/installations/select_target) on your repository and you are good to go.
+Thanks for checking out BibleTime! If you'd like to contribute, start with `CONTRIBUTING.md` and say hello in an issue or discussion.
