@@ -84,7 +84,7 @@ const props = withDefaults(
     icon: undefined,
     siteLogo: undefined,
     siteName: undefined,
-    theme: '#00dc82',
+    theme: '#0f356e',
     title: 'title'
   }
 )

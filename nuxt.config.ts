@@ -30,8 +30,6 @@ export default defineNuxtConfig({
     strategy: 'prefix'
   },
 
-  // image: { alias: { wol: 'https://wol.jw.org' }, domains: ['wol.jw.org'] },
-
   modules: [
     '@netlify/nuxt',
     '@nuxt/eslint',
@@ -46,9 +44,9 @@ export default defineNuxtConfig({
     'pinia-plugin-persistedstate/nuxt'
   ],
 
-  netlify: { headers: { enabled: true }, redirects: { enabled: true } },
+  // image: { alias: { wol: 'https://wol.jw.org' }, domains: ['wol.jw.org'] },
 
-  // nitro: { netlify: { images: { remote_images: ['https://wol.jw.org/*'] } }, preset: 'netlify' },
+  netlify: { headers: { enabled: true }, redirects: { enabled: true } },
 
   pwa: {
     devOptions: {
@@ -80,6 +78,8 @@ export default defineNuxtConfig({
     registerWebManifestInRouteRules: true
   },
 
+  // nitro: { netlify: { images: { remote_images: ['https://wol.jw.org/*'] } }, preset: 'netlify' },
+
   routeRules: { '/api/**': { cors: true } },
 
   runtimeConfig: {
@@ -89,6 +89,12 @@ export default defineNuxtConfig({
   schemaOrg: { identity: defineOrganization({ name: process.env.NUXT_SITE_NAME || 'BibleTime' }) },
 
   seo: { fallbackTitle: false },
+
+  site: {
+    logo: '/brand/logo-horizontal.svg',
+    name: process.env.NUXT_SITE_NAME || 'BibleTime',
+    url: process.env.NUXT_SITE_URL || 'http://localhost:3000'
+  },
 
   sitemap: {
     sources: ['/api/__sitemap__/urls?type=events', '/api/__sitemap__/urls?type=people']

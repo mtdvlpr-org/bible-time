@@ -35,7 +35,7 @@
         </div>
       </div>
       <div class="flex flex-row justify-center items-center text-left w-full">
-        <img v-if="siteLogo" height="30" :src="siteLogo" />
+        <AppLogo v-if="siteLogo" />
         <template v-else>
           <svg
             width="50"
@@ -84,7 +84,7 @@ const props = withDefaults(
     icon: undefined,
     siteLogo: undefined,
     siteName: undefined,
-    theme: '#00dc82',
+    theme: '#0f356e',
     title: 'title'
   }
 )
