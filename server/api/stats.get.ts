@@ -13,7 +13,7 @@ export default defineEventHandler(async (event) => {
   return {
     events: eventsResult.count ?? 0,
     people: peopleResult.count ?? 0,
-    profiles: profilesResult.count ?? 0,
-    suggestions: suggestionsResult.count ?? 0
-  }
+    suggestions: suggestionsResult.count ?? 0,
+    users: profilesResult.count ?? 0
+  } satisfies Record<StatKey, number>
 })

@@ -31,12 +31,10 @@ const localePath = useLocalePath()
 
 type Table = {
   icon: string
-  key: TableKey
+  key: StatKey
   title: string
   to: string
 }
-
-type TableKey = 'events' | 'people' | 'profiles' | 'suggestions'
 
 const tables = computed((): Table[] => [
   {
@@ -53,7 +51,7 @@ const tables = computed((): Table[] => [
   },
   {
     icon: 'i-lucide:user-check',
-    key: 'profiles',
+    key: 'users',
     title: t('general.users'),
     to: localePath('/settings/profile')
   },
@@ -65,7 +63,7 @@ const tables = computed((): Table[] => [
   }
 ])
 
-const { data: stats } = await useLazyFetch<Record<TableKey, number>>('/api/stats', {
-  default: () => ({ events: 0, people: 0, profiles: 0, suggestions: 0 })
+const { data: stats } = await useLazyFetch<Record<StatKey, number>>('/api/stats', {
+  default: () => ({ events: 0, people: 0, suggestions: 0, users: 0 })
 })
 </script>
