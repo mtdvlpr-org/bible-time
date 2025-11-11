@@ -52,16 +52,16 @@ const tables = computed((): Table[] => [
     to: localePath('/events')
   },
   {
+    icon: 'i-lucide:user-check',
+    key: 'profiles',
+    title: t('general.users'),
+    to: localePath('/settings/profile')
+  },
+  {
     icon: 'i-lucide:lightbulb',
     key: 'suggestions',
     title: t('suggestions.title'),
     to: localePath('/suggestions')
-  },
-  {
-    icon: 'i-lucide:user-check',
-    key: 'profiles',
-    title: t('general.profiles'),
-    to: localePath('/settings/profile')
   }
 ])
 
