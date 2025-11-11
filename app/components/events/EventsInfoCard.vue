@@ -47,8 +47,9 @@ const props = defineProps<{
 
 const { data: event } = useNuxtData<Tables<'events'>>(`event-${props.slug}`)
 
-const { translate } = useTranslations()
+const { t } = useI18n()
 const { formatYear } = useDate()
+const { translate } = useTranslations()
 
 const eventProp = computed(() => ({
   ...event.value,
@@ -88,8 +89,7 @@ async function onSubmit(submitEvent: FormSubmitEvent<Schema>) {
     event.value = previousData
     showError({ description: error.message })
   } else {
-    // TODO: i18n
-    showSuccess({ description: 'Event updated successfully.' })
+    showSuccess({ description: t('feedback.saved-successfully', { item: t('event.noun') }) })
   }
 }
 </script>

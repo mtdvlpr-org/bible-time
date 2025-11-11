@@ -77,13 +77,13 @@ const onCancel = async () => {
 
     if (error) {
       showError({
-        description: t('feedback.could-not-save', { item: $t('general.suggestion') })
+        description: t('feedback.could-not-save', { item: $t('suggestion.noun') })
       })
       return
     } else {
       showSuccess({
         description: t('feedback.saved-successfully', {
-          item: $t('general.suggestion')
+          item: $t('suggestion.noun')
         })
       })
       refreshNuxtData('suggestions')
@@ -97,13 +97,13 @@ const onApproved = async () => {
   try {
     await $fetch(`/api/suggestions/${props.target}/approve`, { method: 'POST' })
     showSuccess({
-      description: t('feedback.saved-successfully', { item: $t('general.suggestion') })
+      description: t('feedback.saved-successfully', { item: $t('suggestion.noun') })
     })
     open.value = false
     refreshNuxtData('suggestions')
   } catch {
     showError({
-      description: t('feedback.could-not-save', { item: $t('general.suggestion') })
+      description: t('feedback.could-not-save', { item: $t('suggestion.noun') })
     })
   }
 }
@@ -120,11 +120,11 @@ async function onEventsSubmit(event: FormSubmitEvent<EventsSchema>) {
 
   if (error) {
     showError({
-      description: t('feedback.could-not-save', { item: $t('general.suggestion') })
+      description: t('feedback.could-not-save', { item: $t('suggestion.noun') })
     })
   } else {
     showSuccess({
-      description: t('feedback.saved-successfully', { item: $t('general.suggestion') })
+      description: t('feedback.saved-successfully', { item: $t('suggestion.noun') })
     })
     onSuccess()
   }
@@ -142,11 +142,11 @@ async function onPeopleSubmit(event: FormSubmitEvent<PeopleSchema>) {
 
   if (error) {
     showError({
-      description: t('feedback.could-not-save', { item: $t('general.suggestion') })
+      description: t('feedback.could-not-save', { item: $t('suggestion.noun') })
     })
   } else {
     showSuccess({
-      description: t('feedback.saved-successfully', { item: $t('general.suggestion') })
+      description: t('feedback.saved-successfully', { item: $t('suggestion.noun') })
     })
     onSuccess()
   }

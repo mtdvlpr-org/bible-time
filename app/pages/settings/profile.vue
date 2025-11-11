@@ -25,7 +25,7 @@
         required
         name="display_name"
         :label="$t('person.name')"
-        description="How you want to be displayed to other users."
+        :description="$t('auth.name-description')"
         class="flex max-sm:flex-col justify-between items-start gap-4"
       >
         <UInput v-model="profile.display_name" autocomplete="off" />
@@ -154,4 +154,8 @@ const onSubmit = async (event: FormSubmitEvent<ProfileSchema>) => {
     })
   }
 }
+
+useSeoMeta({
+  title: t('settings.profile')
+})
 </script>

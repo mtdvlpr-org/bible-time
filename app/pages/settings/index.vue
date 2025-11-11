@@ -11,14 +11,14 @@
     <UPageCard variant="subtle">
       <UFormField
         :label="$t('settings.language')"
-        description="The preferred language of the application."
+        :description="$t('settings.language-description')"
         class="flex max-sm:flex-col justify-between items-start gap-4"
       >
         <LocaleSelect />
       </UFormField>
       <UFormField
         :label="$t('settings.appearance')"
-        description="The preferred appearance of the application."
+        :description="$t('settings.appearance-description')"
         class="flex max-sm:flex-col justify-between items-start gap-4"
       >
         <UDropdownMenu
@@ -99,7 +99,7 @@
       </UFormField>
       <UFormField
         :label="$t('settings.theme')"
-        description="The preferred color theme of the application."
+        :description="$t('settings.theme-description')"
         class="flex max-sm:flex-col justify-between items-start gap-4"
       >
         <UColorModeSelect />

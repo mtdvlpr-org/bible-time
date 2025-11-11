@@ -1,10 +1,6 @@
 <template>
   <div class="flex flex-col gap-4 sm:gap-6 lg:gap-12 w-full lg:max-w-2xl mx-auto">
-    <UPageCard
-      variant="subtle"
-      :title="$t('auth.email')"
-      description="Change the email address associated with your account."
-    >
+    <UPageCard variant="subtle" :title="$t('auth.email')" :description="$t('auth.change-email')">
       <UForm
         :state="email"
         :schema="emailSchema"
@@ -30,7 +26,11 @@
       </UForm>
     </UPageCard>
 
-    <UPageCard variant="subtle" :title="$t('auth.password')" description="Change your password.">
+    <UPageCard
+      variant="subtle"
+      :title="$t('auth.password')"
+      :description="$t('auth.change-password')"
+    >
       <AuthPasswordForm
         class="max-w-xs"
         :submit="{ class: 'w-fit', label: $t('general.update') }"
@@ -39,8 +39,8 @@
 
     <UPageCard
       :title="$t('auth.account')"
+      :description="$t('auth.delete-account-description')"
       class="bg-linear-to-tl from-error/10 from-5% to-default"
-      description="No longer want to use our service? You can delete your account here. This action is not reversible. All information related to this account will be deleted permanently."
     >
       <template #footer>
         <UButton color="error" :label="$t('general.delete')" />
@@ -83,4 +83,8 @@ const onSubmit = async (event: FormSubmitEvent<EmailSchema>) => {
     })
   }
 }
+
+useSeoMeta({
+  title: t('settings.security')
+})
 </script>

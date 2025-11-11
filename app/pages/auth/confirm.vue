@@ -1,6 +1,5 @@
 <template>
-  <!-- TODO: i18n -->
-  <div>Waiting for login...</div>
+  <div>{{ $t('auth.waiting-for-login') }}</div>
 </template>
 
 <script setup lang="ts">

@@ -148,8 +148,9 @@ const removeRelatedEvent = async (slug: string) => {
       ...person.value,
       event_relations: person.value.event_relations.filter((rel) => rel.events.slug !== slug)
     }
-    // TODO: i18n
-    showSuccess({ description: 'Successfully removed related event.' })
+    showSuccess({
+      description: t('feedback.deleted-successfully', { item: t('relation.related-event') })
+    })
   }
 }
 
@@ -176,8 +177,9 @@ const onSubmit = async () => {
   if (message) {
     showError({ description: message })
   } else {
-    // TODO: i18n
-    showSuccess({ description: 'Successfully added related event.' })
+    showSuccess({
+      description: t('feedback.saved-successfully', { item: t('relation.related-event') })
+    })
     selectedEvent.value = undefined
     selectedRelation.value = undefined
   }

@@ -201,26 +201,21 @@ const cookie = useCookie('cookie-consent')
 onMounted(() => {
   if (cookie.value === 'accepted') return
 
-  // TODO: i18n
   toast.add({
     actions: [
       {
         color: 'neutral',
-        label: 'Accept',
+        label: t('general.accept'),
         onClick: () => {
           cookie.value = 'accepted'
         },
         variant: 'outline'
       },
-      {
-        color: 'neutral',
-        label: 'Opt out',
-        variant: 'ghost'
-      }
+      { color: 'neutral', label: t('general.opt-out'), variant: 'ghost' }
     ],
     close: false,
     duration: 0,
-    title: 'We use first-party cookies to enhance your experience on our website.'
+    title: t('general.cookie-description')
   })
 })
 </script>

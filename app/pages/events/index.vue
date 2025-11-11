@@ -24,6 +24,13 @@
         :search-label="$t('events.search')"
       />
     </template>
+    <LazyConfirmModal
+      v-if="can('events.delete') && deleteEvent"
+      v-model="confirmDelete"
+      :message="$t('feedback.confirm-delete', { item: deleteEvent.title })"
+      @cancel="onCancelDelete"
+      @confirm="onConfirmDelete"
+    />
   </UDashboardPanel>
 </template>
 <script setup lang="ts">
@@ -42,9 +49,34 @@ const {
   return data ?? []
 })
 
-const toast = useToast()
 const { formatYear } = useDate()
+const { showError, showSuccess } = useFlash()
 const { actionCell, avatarCell, sortableColumn } = useTable()
+
+const confirmDelete = ref(false)
+const deleteEvent = ref<null | Tables<'events'>>(null)
+
+const onCancelDelete = () => {
+  confirmDelete.value = false
+  deleteEvent.value = null
+}
+
+const onConfirmDelete = async () => {
+  if (!deleteEvent.value) return
+
+  const { error } = await supabase.from('people').delete().eq('id', deleteEvent.value.id)
+
+  if (error) {
+    showError({ description: t('feedback.could-not-delete', { item: deleteEvent.value.title }) })
+  } else {
+    showSuccess({
+      description: t('feedback.deleted-successfully', { item: deleteEvent.value.title })
+    })
+
+    confirmDelete.value = false
+    deleteEvent.value = null
+  }
+}
 
 const { translate } = useTranslations()
 
@@ -77,11 +109,8 @@ const columns = computed((): TableColumn<Tables<'events'>>[] => [
                 icon: 'i-lucide:trash',
                 label: t('event.delete'),
                 onSelect() {
-                  // TODO: Implement delete functionality
-                  toast.add({
-                    description: 'The event has been deleted.',
-                    title: 'Event deleted'
-                  })
+                  deleteEvent.value = row.original
+                  confirmDelete.value = true
                 }
               }
             ]

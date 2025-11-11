@@ -28,7 +28,7 @@ Developers: follow `CONTRIBUTING.md` for full local setup instructions. In summa
 
 1. Install Node.js (see `package.json` engines) and pnpm.
 2. Clone the repo and run `pnpm install`.
-3. Start the dev server with `pnpm dev` and open http://localhost:3000.
+3. Start the dev server with `pnpm dev` and open <http://localhost:3000>.
 
 ## Project status
 

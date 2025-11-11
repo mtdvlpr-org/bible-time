@@ -190,8 +190,9 @@ const removeRelatedPerson = async (slug: string) => {
       related_one: item.value.related_one.filter((rel) => rel.people.slug !== slug),
       related_two: item.value.related_two?.filter((rel) => rel.people.slug !== slug)
     }
-    // TODO: i18n
-    showSuccess({ description: 'Successfully removed related person.' })
+    showSuccess({
+      description: t('feedback.deleted-successfully', { item: t('relation.related-person') })
+    })
   }
 }
 
@@ -251,8 +252,9 @@ const onSubmit = async () => {
   if (message) {
     showError({ description: message })
   } else {
-    // TODO: i18n
-    showSuccess({ description: 'Successfully added related person.' })
+    showSuccess({
+      description: t('feedback.saved-successfully', { item: t('relation.related-person') })
+    })
     selectedPerson.value = undefined
     selectedRelation.value = undefined
   }

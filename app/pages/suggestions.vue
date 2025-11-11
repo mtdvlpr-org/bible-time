@@ -51,6 +51,17 @@
         </template>
       </DataTable>
     </template>
+    <LazyConfirmModal
+      v-if="
+        deleteSuggestion &&
+        deleteSuggestion.status === 'pending' &&
+        userStore.user?.id !== deleteSuggestion.user_id
+      "
+      v-model="confirmDelete"
+      :message="$t('feedback.confirm-delete', { item: $t('suggestion.noun') })"
+      @cancel="onCancelDelete"
+      @confirm="onConfirmDelete"
+    />
   </UDashboardPanel>
 </template>
 <script setup lang="ts">
@@ -110,9 +121,34 @@ const statusFilters = computed(
   ]
 )
 
-const toast = useToast()
 const userStore = useUserStore()
+const { showError, showSuccess } = useFlash()
 const { actionCell, sortableColumn } = useTable()
+
+const confirmDelete = ref(false)
+const deleteSuggestion = ref<null | Tables<'suggestions'>>(null)
+
+const onCancelDelete = () => {
+  confirmDelete.value = false
+  deleteSuggestion.value = null
+}
+
+const onConfirmDelete = async () => {
+  if (!deleteSuggestion.value) return
+
+  const { error } = await supabase.from('people').delete().eq('id', deleteSuggestion.value.id)
+
+  if (error) {
+    showError({ description: t('feedback.could-not-delete', { item: t('suggestion.noun') }) })
+  } else {
+    showSuccess({
+      description: t('feedback.deleted-successfully', { item: t('suggestion.noun') })
+    })
+
+    confirmDelete.value = false
+    deleteSuggestion.value = null
+  }
+}
 
 const { translate, translateSuggestionStatus, translateSuggestionType } = useTranslations()
 
@@ -180,11 +216,8 @@ const columns = computed((): TableColumn<Tables<'suggestions'>>[] => [
                     icon: 'i-lucide:trash',
                     label: t('suggestion.delete'),
                     onSelect() {
-                      // TODO: Implement delete functionality
-                      toast.add({
-                        description: 'The suggestion has been deleted.',
-                        title: 'Suggestion deleted'
-                      })
+                      deleteSuggestion.value = row.original
+                      confirmDelete.value = true
                     }
                   }
                 ]

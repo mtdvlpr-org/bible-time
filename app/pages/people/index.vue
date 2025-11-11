@@ -38,6 +38,13 @@
         </template>
       </DataTable>
     </template>
+    <LazyConfirmModal
+      v-if="can('people.delete') && deletePerson"
+      v-model="confirmDelete"
+      :message="$t('feedback.confirm-delete', { item: deletePerson.name })"
+      @cancel="onCancelDelete"
+      @confirm="onConfirmDelete"
+    />
   </UDashboardPanel>
 </template>
 <script setup lang="ts">
@@ -57,15 +64,40 @@ const {
   return data ?? []
 })
 
-const toast = useToast()
 const { fields } = useForm()
 const { formatYear } = useDate()
+const { showError, showSuccess } = useFlash()
 const { actionCell, avatarCell, sortableColumn } = useTable()
 
 const genderFilters = computed((): { label: string; value: Enums<'gender'> | undefined }[] => [
   ...fields.gender.items,
   { label: t('general.all'), value: undefined }
 ])
+
+const confirmDelete = ref(false)
+const deletePerson = ref<null | Tables<'people'>>(null)
+
+const onCancelDelete = () => {
+  confirmDelete.value = false
+  deletePerson.value = null
+}
+
+const onConfirmDelete = async () => {
+  if (!deletePerson.value) return
+
+  const { error } = await supabase.from('people').delete().eq('id', deletePerson.value.id)
+
+  if (error) {
+    showError({ description: t('feedback.could-not-delete', { item: deletePerson.value.name }) })
+  } else {
+    showSuccess({
+      description: t('feedback.deleted-successfully', { item: deletePerson.value.name })
+    })
+
+    confirmDelete.value = false
+    deletePerson.value = null
+  }
+}
 
 const { translate } = useTranslations()
 
@@ -113,11 +145,7 @@ const columns = computed((): TableColumn<Tables<'people'>>[] => [
                 icon: 'i-lucide:trash',
                 label: t('person.delete'),
                 onSelect() {
-                  // TODO: Implement delete functionality
-                  toast.add({
-                    description: 'The person has been deleted.',
-                    title: 'Person deleted'
-                  })
+                  deletePerson.value = row.original
                 }
               }
             ]

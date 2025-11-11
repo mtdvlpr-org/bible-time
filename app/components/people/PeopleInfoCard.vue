@@ -106,8 +106,7 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
     person.value = previousData
     showError({ description: error.message })
   } else {
-    // TODO: i18n
-    showSuccess({ description: 'Person updated successfully.' })
+    showSuccess({ description: t('feedback.saved-successfully', { item: t('person.noun') }) })
   }
 }
 </script>

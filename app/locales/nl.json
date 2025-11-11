@@ -4,15 +4,19 @@
     "already-have-account": "Heb je al een account?",
     "by-signing-in": "Door in te loggen, ga je akkoord met onze",
     "by-signing-up": "Door je aan te melden, ga je akkoord met onze",
+    "change-email": "Wijzig het e-mailadres dat aan je account is gekoppeld.",
+    "change-password": "Wijzig uw wachtwoord.",
     "check-your-email-for-instructions": "Er is een e-mail verzonden met verdere instructies.",
     "confirm-password": "Bevestig wachtwoord",
     "create-account": "Account aanmaken",
     "create-an-account": "Maak een account aan",
+    "delete-account-description": "Wil je niet langer gebruik maken van onze service? \nJe kunt je account hier verwijderen. \nDeze actie is niet omkeerbaar. \nAlle informatie met betrekking tot dit account wordt permanent verwijderd.",
     "email": "E-mail",
     "forgot-password": "Wachtwoord vergeten?",
     "forgot-password-description": "Stuur een e-mail om je wachtwoord opnieuw in te stellen.",
     "login": "Log in",
     "login-description": "Log in op je account.",
+    "name-description": "Hoe je wilt worden weergegeven aan andere gebruikers.",
     "new-password": "Nieuw wachtwoord",
     "no-account": "Nog geen account?",
     "or": "of",
@@ -23,6 +27,7 @@
     "sign-up": "Meld je aan",
     "sign-up-description": "Maak een nieuw account aan.",
     "terms-of-service": "Algemene voorwaarden",
+    "waiting-for-login": "Wachten op login...",
     "welcome-back": "Welkom terug"
   },
   "date": {
@@ -45,6 +50,7 @@
     "edit": "Bewerk gebeurtenis",
     "end-year": "Eindejaar",
     "new": "Nieuw gebeurtenis",
+    "noun": "Gebeurtenis",
     "start-year": "Beginjaar",
     "title": "Titel",
     "translate": "Vertaal gebeurtenis",
@@ -57,6 +63,9 @@
     "title": "Gebeurtenissen"
   },
   "feedback": {
+    "are-you-sure": "Weet je het zeker?",
+    "confirm-action": "Bevestig actie",
+    "confirm-delete": "Weet je zeker dat je {item} wilt verwijderen?",
     "could-not-delete": "{item} kon niet worden verwijderd.",
     "could-not-save": "{item} kon niet worden opgeslagen.",
     "deleted-successfully": "{item} is succesvol verwijderd.",
@@ -71,6 +80,7 @@
     "warning": "Waarschuwing"
   },
   "general": {
+    "accept": "Accepteer",
     "actions": "Acties",
     "add": "Voeg toe",
     "alias": "Alias",
@@ -82,6 +92,7 @@
     "clear": "Reset",
     "close": "Sluit",
     "confirm": "Bevestig",
+    "cookie-description": "Wij gebruiken first-party cookies om je ervaring op onze website te verbeteren.",
     "create": "Maak aan",
     "delete": "Verwijder",
     "description": "Beschrijving",
@@ -92,6 +103,7 @@
     "new": "Nieuw",
     "no": "Nee",
     "no-description": "Geen beschrijving opgegeven",
+    "opt-out": "Afwijzen",
     "other": "Ander",
     "reset": "Herstel",
     "save": "Sla op",
@@ -100,7 +112,6 @@
     "stop": "Stop",
     "stop-editing": "Stop met bewerken",
     "submit": "Verzend",
-    "suggestion": "Suggestie",
     "translate": "Vertaal",
     "unknown": "Onbekend",
     "update": "Werk bij",
@@ -141,6 +152,7 @@
     "mother": "Moeder",
     "name": "Naam",
     "new": "Nieuw persoon",
+    "noun": "Persoon",
     "translate": "Vertaal persoon",
     "view": "Bekijk persoon"
   },
@@ -171,16 +183,19 @@
   },
   "settings": {
     "appearance": "Uiterlijk",
+    "appearance-description": "Het gewenste uiterlijk van de applicatie.",
     "dark": "Donker",
     "description": "Beheer je persoonlijke instellingen.",
     "general": "Algemeen",
     "language": "Taal",
+    "language-description": "De voorkeurstaal van de applicatie.",
     "light": "Licht",
     "log-out": "Log uit",
     "profile": "Profiel",
     "security": "Beveiliging",
     "system": "Systeem",
     "theme": "Thema",
+    "theme-description": "Het favoriete kleurthema van de applicatie.",
     "title": "Instellingen"
   },
   "source": {
@@ -195,6 +210,7 @@
     "approved": "Goedgekeurd",
     "delete": "Verwijder suggestie",
     "new": "Nieuwe suggestie",
+    "noun": "Suggestie",
     "pending": "In behandeling",
     "reject": "Wijs af",
     "rejected": "Afgekeurd",
@@ -205,7 +221,7 @@
     "view": "Bekijk suggestie"
   },
   "suggestions": {
-    "description": "",
+    "description": "Een overzicht van suggesties voor verbetering.",
     "filter-status": "Filter status",
     "not-found": "Geen suggesties gevonden",
     "search": "Zoek suggesties...",

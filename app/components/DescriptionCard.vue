@@ -36,7 +36,7 @@ const props = defineProps<{
 const { data: item } = useNuxtData<Tables<'events'> | Tables<'people'>>(
   `${props.type}-${props.slug}`
 )
-const { locale, localeProperties } = useI18n()
+const { locale, localeProperties, t } = useI18n()
 
 const localeDescription = computed(() => {
   return item.value?.description?.[locale.value] ?? null
@@ -72,8 +72,9 @@ const onSubmit = async () => {
     // Revert description on error
     item.value.description = previousDescription
   } else {
-    // TODO: i18n
-    showSuccess({ description: 'Description updated successfully.' })
+    showSuccess({
+      description: t('feedback.saved-successfully', { item: t('general.description') })
+    })
   }
 }
 </script>
