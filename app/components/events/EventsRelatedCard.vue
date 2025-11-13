@@ -84,7 +84,7 @@ const { t } = useI18n()
 const { translate, translateRelation } = useTranslations()
 
 const supabase = useSupabaseClient()
-const selectedEvent = ref<Omit<Tables<'events'>, 'description'> | undefined>()
+const selectedEvent = shallowRef<Omit<Tables<'events'>, 'description'> | undefined>()
 const selectedRelation = ref<Enums<'event_relation'> | undefined>()
 
 const items = computed((): Omit<Tables<'events'>, 'description'>[] => {

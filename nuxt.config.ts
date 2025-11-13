@@ -78,9 +78,9 @@ export default defineNuxtConfig({
     registerWebManifestInRouteRules: true
   },
 
-  // nitro: { netlify: { images: { remote_images: ['https://wol.jw.org/*'] } }, preset: 'netlify' },
-
   routeRules: { '/api/**': { cors: true } },
+
+  // nitro: { netlify: { images: { remote_images: ['https://wol.jw.org/*'] } }, preset: 'netlify' },
 
   runtimeConfig: {
     public: { siteName: process.env.NUXT_SITE_NAME, siteUrl: process.env.NUXT_SITE_URL }
@@ -103,5 +103,24 @@ export default defineNuxtConfig({
     redirect: false,
     redirectOptions: { callback: '/auth/confirm', include: ['/settings/**'], login: '/auth/login' },
     types: '~~/shared/types/database.types.ts'
+  },
+
+  vite: {
+    build: {
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            supabase: [
+              '@supabase/auth-js',
+              '@supabase/functions-js',
+              '@supabase/postgrest-js',
+              '@supabase/realtime-js',
+              '@supabase/storage-js',
+              '@supabase/supabase-js'
+            ]
+          }
+        }
+      }
+    }
   }
 })

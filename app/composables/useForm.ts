@@ -143,7 +143,10 @@ export default function () {
       z
         .int(t('validation.invalid', { field }))
         .min(-4026, t('validation.min', { field, size: -4026 }))
-        .max(2025, t('validation.max', { field, size: 2025 }))
+        .max(
+          new Date().getFullYear(),
+          t('validation.max', { field, size: new Date().getFullYear() })
+        )
         .refine((v) => v !== 0, t('validation.not-zero', { field }))
   } as const
 

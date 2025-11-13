@@ -18,7 +18,7 @@
       required
       name="slug"
       :label="$t('general.slug')"
-      description="The unique identifier for this event in the URL."
+      :description="$t('general.slug-description')"
     >
       <UInput
         v-model="state.slug"
@@ -36,7 +36,7 @@
         :cover="state.cover_url ? { src: state.cover_url, alt: '' } : undefined"
       >
         <template v-if="state.cover_url?.length" #trailing>
-          <UButton
+          <LazyUButton
             size="sm"
             variant="link"
             color="neutral"
@@ -51,7 +51,7 @@
       class="w-full"
       name="start_year"
       :label="$t('event.start-year')"
-      :description="state.start_year ? undefined : 'A negative number means before Christ'"
+      :description="$t('date.negative-description')"
     >
       <UInputNumber
         v-model="state.start_year"
@@ -75,7 +75,7 @@
       class="w-full"
       name="end_year"
       :label="$t('event.end-year')"
-      :description="state.end_year ? undefined : 'A negative number means before Christ'"
+      :description="$t('date.negative-description')"
     >
       <UInputNumber
         v-model="state.end_year"

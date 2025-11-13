@@ -18,7 +18,7 @@
       required
       name="slug"
       :label="$t('general.slug')"
-      description="The unique identifier for this person in the URL."
+      :description="$t('general.slug-description')"
     >
       <UInput
         v-model="state.slug"
@@ -42,7 +42,7 @@
         :avatar="state.avatar_url ? { src: state.avatar_url, alt: '' } : undefined"
       >
         <template v-if="state.avatar_url?.length" #trailing>
-          <UButton
+          <LazyUButton
             size="sm"
             variant="link"
             color="neutral"
@@ -60,7 +60,7 @@
       class="w-full"
       name="birth_year"
       :label="$t('person.birth-year')"
-      :description="state.birth_year ? undefined : 'A negative number means before Christ'"
+      :description="$t('date.negative-description')"
     >
       <UInputNumber
         v-model="state.birth_year"
@@ -84,7 +84,7 @@
       class="w-full"
       name="death_year"
       :label="$t('person.death-year')"
-      :description="state.death_year ? undefined : 'A negative number means before Christ'"
+      :description="$t('date.negative-description')"
     >
       <UInputNumber
         v-model="state.death_year"

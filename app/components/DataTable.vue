@@ -88,7 +88,6 @@ import {
   type PaginationState,
   type VisibilityState
 } from '@tanstack/vue-table'
-import { upperFirst } from 'scule'
 
 defineProps<{
   columns: TableColumn<T>[]
@@ -105,7 +104,7 @@ const table = useTemplateRef('table')
 const columnVisibility = ref<undefined | VisibilityState>()
 const pagination = ref<PaginationState>({ pageIndex: 0, pageSize: 10 })
 
-const formatTableId = (id: string) => upperFirst(id.replaceAll('_', ' '))
+const formatTableId = (id: string) => capitalize(id.replaceAll('_', ' '))
 
 defineExpose({ table })
 </script>

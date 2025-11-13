@@ -34,7 +34,7 @@ export const useUserStore = defineStore('user', {
         .single()
 
       if (error) {
-        supabaseService.handleError(error, status, statusText)
+        handleSupabaseError(error, status, statusText)
       } else if (profile) {
         this.user = {
           avatar_url: profile.avatar_url

@@ -2,7 +2,7 @@
   <UModal
     v-model:open="open"
     :title="$t('suggestion.new')"
-    description="Add a new suggestion to the database"
+    :description="$t('suggestion.new-description')"
   >
     <UButton v-if="!review" icon="i-lucide:plus" :label="$t('suggestion.new')" />
 

@@ -15,8 +15,8 @@
           required
           name="name"
           :description="name"
-          :label="fields.name.label"
           :placeholder="fields.name.placeholder"
+          :label="type === 'person' ? $t('person.name') : $t('event.title')"
         >
           <UInput v-model="state.name" class="w-full" />
         </UFormField>
@@ -110,11 +110,11 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
 
   if (error) {
     showError({
-      description: t('feedback.could-not-save', { item: event.data.name })
+      description: t('feedback.could-not-save', { item: t('general.translation') })
     })
   } else {
     showSuccess({
-      description: t('feedback.saved-successfully', { item: event.data.name })
+      description: t('feedback.saved-successfully', { item: t('general.translation') })
     })
     open.value = false
     i18nStore.addTranslation(locale.value, props.name, event.data.name)

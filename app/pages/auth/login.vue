@@ -1,7 +1,6 @@
 <template>
   <UAuthForm
     loading-auto
-    :providers="[]"
     :fields="fields"
     :schema="schema"
     icon="i-lucide:lock"
@@ -58,11 +57,7 @@ watch(user, (val) => {
 
 const { fields: allFields, rules } = useForm()
 
-const fields = [
-  allFields.email,
-  { ...allFields.password, autocomplete: 'current-password' }
-  //allFields.rememberMe
-]
+const fields = [allFields.email, { ...allFields.password, autocomplete: 'current-password' }]
 
 const schema = z.object({
   email: rules.email,

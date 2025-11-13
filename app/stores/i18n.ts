@@ -22,7 +22,7 @@ export const useI18nStore = defineStore('i18n', {
       } = await supabase.from('translations').select('key, value').eq('lang', locale)
 
       if (error) {
-        supabaseService.handleError(error, status, statusText)
+        handleSupabaseError(error, status, statusText)
       } else if (translations) {
         this.translations[locale] = translations.reduce<Record<string, string>>(
           (acc, { key, value }) => {

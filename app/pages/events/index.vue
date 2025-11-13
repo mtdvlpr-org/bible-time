@@ -27,7 +27,7 @@
     <LazyConfirmModal
       v-if="can('events.delete') && deleteEvent"
       v-model="confirmDelete"
-      :message="$t('feedback.confirm-delete', { item: deleteEvent.title })"
+      :message="$t('feedback.confirm-delete', { item: translate(deleteEvent.title) })"
       @cancel="onCancelDelete"
       @confirm="onConfirmDelete"
     />
@@ -54,7 +54,7 @@ const { showError, showSuccess } = useFlash()
 const { actionCell, avatarCell, sortableColumn } = useTable()
 
 const confirmDelete = ref(false)
-const deleteEvent = ref<null | Tables<'events'>>(null)
+const deleteEvent = shallowRef<null | Tables<'events'>>(null)
 
 const onCancelDelete = () => {
   confirmDelete.value = false
@@ -67,10 +67,12 @@ const onConfirmDelete = async () => {
   const { error } = await supabase.from('people').delete().eq('id', deleteEvent.value.id)
 
   if (error) {
-    showError({ description: t('feedback.could-not-delete', { item: deleteEvent.value.title }) })
+    showError({
+      description: t('feedback.could-not-delete', { item: translate(deleteEvent.value.title) })
+    })
   } else {
     showSuccess({
-      description: t('feedback.deleted-successfully', { item: deleteEvent.value.title })
+      description: t('feedback.deleted-successfully', { item: translate(deleteEvent.value.title) })
     })
 
     confirmDelete.value = false

@@ -37,17 +37,13 @@ const supabase = useSupabaseClient()
 const { showError, showSuccess } = useFlash()
 
 async function onSubmit(payload: FormSubmitEvent<Schema>) {
-  const { error } = await supabase.auth.updateUser({
-    password: payload.data.password
-  })
+  const { error } = await supabase.auth.updateUser({ password: payload.data.password })
   if (error) {
     showError({ description: error.message })
   } else {
     if (props.onSuccess) await props.onSuccess()
     showSuccess({
-      description: t('feedback.saved-successfully', {
-        item: t('auth.password')
-      })
+      description: t('feedback.saved-successfully', { item: t('auth.password') })
     })
   }
 }

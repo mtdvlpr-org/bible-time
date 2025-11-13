@@ -106,7 +106,9 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
     person.value = previousData
     showError({ description: error.message })
   } else {
-    showSuccess({ description: t('feedback.saved-successfully', { item: t('person.noun') }) })
+    showSuccess({
+      description: t('feedback.saved-successfully', { item: translate(person.value.name) })
+    })
   }
 }
 </script>

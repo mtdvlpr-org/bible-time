@@ -109,7 +109,7 @@ const { t } = useI18n()
 const { translate, translateRelation } = useTranslations()
 
 const supabase = useSupabaseClient()
-const selectedPerson = ref<Omit<Tables<'people'>, 'description'> | undefined>()
+const selectedPerson = shallowRef<Omit<Tables<'people'>, 'description'> | undefined>()
 const selectedRelation = ref<RelationKind | undefined>()
 
 const items = computed((): Omit<Tables<'people'>, 'description'>[] => {

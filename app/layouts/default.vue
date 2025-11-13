@@ -195,13 +195,13 @@ const groups = computed((): CommandPaletteGroup[] => [
   }
 ])
 
-const toast = useToast()
+const { show } = useFlash()
 const cookie = useCookie('cookie-consent')
 
 onMounted(() => {
   if (cookie.value === 'accepted') return
 
-  toast.add({
+  show({
     actions: [
       {
         color: 'neutral',
@@ -215,6 +215,7 @@ onMounted(() => {
     ],
     close: false,
     duration: 0,
+    id: 'cookie-consent',
     title: t('general.cookie-description')
   })
 })

@@ -41,7 +41,7 @@
     <LazyConfirmModal
       v-if="can('people.delete') && deletePerson"
       v-model="confirmDelete"
-      :message="$t('feedback.confirm-delete', { item: deletePerson.name })"
+      :message="$t('feedback.confirm-delete', { item: translate(deletePerson.name) })"
       @cancel="onCancelDelete"
       @confirm="onConfirmDelete"
     />
@@ -75,7 +75,7 @@ const genderFilters = computed((): { label: string; value: Enums<'gender'> | und
 ])
 
 const confirmDelete = ref(false)
-const deletePerson = ref<null | Tables<'people'>>(null)
+const deletePerson = shallowRef<null | Tables<'people'>>(null)
 
 const onCancelDelete = () => {
   confirmDelete.value = false
@@ -88,10 +88,12 @@ const onConfirmDelete = async () => {
   const { error } = await supabase.from('people').delete().eq('id', deletePerson.value.id)
 
   if (error) {
-    showError({ description: t('feedback.could-not-delete', { item: deletePerson.value.name }) })
+    showError({
+      description: t('feedback.could-not-delete', { item: translate(deletePerson.value.name) })
+    })
   } else {
     showSuccess({
-      description: t('feedback.deleted-successfully', { item: deletePerson.value.name })
+      description: t('feedback.deleted-successfully', { item: translate(deletePerson.value.name) })
     })
 
     confirmDelete.value = false

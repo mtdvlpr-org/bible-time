@@ -81,7 +81,7 @@ const {
 })
 
 const openSuggestion = ref(false)
-const suggestion = ref<null | Tables<'suggestions'>>(null)
+const suggestion = shallowRef<null | Tables<'suggestions'>>(null)
 
 const personProp = computed(() => {
   if (!suggestion.value) return undefined
@@ -126,7 +126,7 @@ const { showError, showSuccess } = useFlash()
 const { actionCell, sortableColumn } = useTable()
 
 const confirmDelete = ref(false)
-const deleteSuggestion = ref<null | Tables<'suggestions'>>(null)
+const deleteSuggestion = shallowRef<null | Tables<'suggestions'>>(null)
 
 const onCancelDelete = () => {
   confirmDelete.value = false
@@ -185,14 +185,6 @@ const columns = computed((): TableColumn<Tables<'suggestions'>>[] => [
       row.original.status === 'pending'
         ? actionCell([
             { label: t('general.actions'), type: 'label' },
-            // {
-            //   icon: 'i-lucide:list',
-            //   label: t('suggestion.view'),
-            //   onSelect() {
-            //     suggestion.value = row.original
-            //     openSuggestion.value = true
-            //   }
-            // },
             ...(userStore.can('suggestions.update') &&
             row.original.status === 'pending' &&
             row.original.user_id !== userStore.user?.id

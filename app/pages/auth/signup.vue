@@ -1,7 +1,6 @@
 <template>
   <UAuthForm
     loading-auto
-    :providers="[]"
     :fields="fields"
     :schema="schema"
     icon="i-lucide:user"

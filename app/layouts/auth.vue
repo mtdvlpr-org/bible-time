@@ -4,9 +4,9 @@
       size="xl"
       color="neutral"
       variant="subtle"
+      :to="$localePath('/')"
       icon="i-lucide:chevron-left"
       class="absolute left-8 top-8 rounded-full z-10"
-      @click="router.back()"
     />
     <LocaleSelect class="absolute right-8 top-8 z-10" />
 
@@ -15,6 +15,3 @@
     </UPageCard>
   </div>
 </template>
-<script setup lang="ts">
-const router = useRouter()
-</script>

@@ -4,8 +4,14 @@ export default function () {
   const { t } = useI18n()
   const toast = useToast()
 
+  const show = (options: Partial<Toast>) => {
+    // Prevent duplicate toasts with the same ID
+    if (options.id && toast.toasts.value.some((toast) => toast.id === options.id)) return
+    toast.add(options)
+  }
+
   const showError = (options: Partial<Toast>) => {
-    toast.add({
+    show({
       color: 'error',
       icon: 'i-lucide:circle-alert',
       title: t('feedback.something-went-wrong'),
@@ -14,7 +20,7 @@ export default function () {
   }
 
   const showInfo = (options: Partial<Toast>) => {
-    toast.add({
+    show({
       color: 'info',
       icon: 'i-lucide:info',
       title: t('feedback.info'),
@@ -23,7 +29,7 @@ export default function () {
   }
 
   const showWarning = (options: Partial<Toast>) => {
-    toast.add({
+    show({
       color: 'warning',
       icon: 'i-lucide:triangle-alert',
       title: t('feedback.warning'),
@@ -32,7 +38,7 @@ export default function () {
   }
 
   const showSuccess = (options: Partial<Toast>) => {
-    toast.add({
+    show({
       color: 'success',
       icon: 'i-lucide:circle-check',
       title: t('feedback.success'),
@@ -41,6 +47,7 @@ export default function () {
   }
 
   return {
+    show,
     showError,
     showInfo,
     showSuccess,

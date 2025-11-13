@@ -17,7 +17,6 @@
           icon="i-lucide-image"
           :src="current ?? undefined"
           class="w-28 h-28 md:w-32 md:h-32"
-          :class="{ ' pointer-events-none': !edit }"
         />
         <LazyUAvatar
           v-if="state.url && state.url !== current"
@@ -26,7 +25,6 @@
           :src="state.url"
           icon="i-lucide-image"
           class="w-28 h-28 md:w-32 md:h-32"
-          :class="{ ' pointer-events-none': !edit }"
         />
       </div>
       <UForm :state="state" :schema="schema" class="space-y-4" @submit="onSubmit">
@@ -41,7 +39,7 @@
             placeholder="https://example.com/avatar.jpg"
           >
             <template v-if="state.url?.length" #trailing>
-              <UButton
+              <LazyUButton
                 size="sm"
                 variant="link"
                 color="neutral"

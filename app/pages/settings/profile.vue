@@ -90,7 +90,7 @@ const profileSchema = z.object({
 
 type ProfileSchema = z.output<typeof profileSchema>
 
-const avatarFile = ref<File | null>(null)
+const avatarFile = shallowRef<File | null>(null)
 const fileInput = useTemplateRef('fileRef')
 const avatarPreview = ref(userStore.user?.avatar_url ?? '')
 

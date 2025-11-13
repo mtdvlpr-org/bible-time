@@ -1,9 +1,5 @@
 <template>
-  <UModal
-    v-model:open="open"
-    :title="$t('event.new')"
-    description="Add a new event to the database"
-  >
+  <UModal v-model:open="open" :title="$t('event.new')" :description="$t('event.new-description')">
     <UButton icon="i-lucide:plus" :label="$t('event.new')" />
 
     <template #body>
