@@ -10,13 +10,9 @@ import { iconBaseUrl, maskableSizes, transparentSizes } from './app/utils/assets
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   alias: { '#server': fileURLToPath(new URL('./server', import.meta.url)) },
-
   colorMode: { fallback: 'light', preference: 'system' },
-
   compatibilityDate: '2024-07-11',
-
   css: ['~/assets/css/main.css'],
-
   future: { typescriptBundlerResolution: true },
 
   i18n: {
@@ -43,6 +39,7 @@ export default defineNuxtConfig({
     '@pinia/nuxt',
     '@vite-pwa/nuxt',
     '@vueuse/nuxt',
+    '@sentry/nuxt/module',
     'pinia-plugin-persistedstate/nuxt'
   ],
 
@@ -83,10 +80,20 @@ export default defineNuxtConfig({
   // nitro: { netlify: { images: { remote_images: ['https://wol.jw.org/*'] } }, preset: 'netlify' },
 
   runtimeConfig: {
-    public: { siteName: process.env.NUXT_SITE_NAME, siteUrl: process.env.NUXT_SITE_URL }
+    public: {
+      sentry: { dsn: process.env.SENTRY_DSN },
+      siteName: process.env.NUXT_SITE_NAME,
+      siteUrl: process.env.NUXT_SITE_URL
+    }
   },
 
   schemaOrg: { identity: defineOrganization({ name: process.env.NUXT_SITE_NAME || 'BibleTime' }) },
+  sentry: {
+    authToken: process.env.SENTRY_AUTH_TOKEN,
+    autoInjectServerSentry: 'top-level-import',
+    org: process.env.SENTRY_ORG,
+    project: process.env.SENTRY_PROJECT
+  },
 
   seo: { fallbackTitle: false },
 
@@ -98,6 +105,8 @@ export default defineNuxtConfig({
     //   people: { sources: ['/api/__sitemap__/urls?type=people'] }
     // }
   },
+
+  sourcemap: { client: 'hidden' },
 
   supabase: {
     redirect: false,

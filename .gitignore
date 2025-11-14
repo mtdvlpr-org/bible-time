@@ -34,3 +34,9 @@ public/brand/*
 !public/brand/logo.svg
 !public/brand/logo-mono.svg
 !public/brand/logo-horizontal.svg
+
+# Sentry Config File
+.env.sentry-build-plugin
+
+# MCP Config File
+.vscode/mcp.json
