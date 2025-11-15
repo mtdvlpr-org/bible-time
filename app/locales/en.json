@@ -29,6 +29,10 @@
     "waiting-for-login": "Waiting for login...",
     "welcome-back": "Welcome back"
   },
+  "contact": {
+    "description": "Get in contact with the maintainers.",
+    "title": "Contact"
+  },
   "date": {
     "after": "After",
     "bce": "B.C.E.",

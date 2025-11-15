@@ -12,15 +12,15 @@
       <tbody>
         <tr>
           <td>Account data</td>
-          <td>Until deletion</td>
+          <td>Until user deletion</td>
         </tr>
         <tr>
           <td>Avatar images</td>
-          <td>Until deletion</td>
+          <td>Until user deletion</td>
         </tr>
         <tr>
-          <td>Knowledge base contributions</td>
-          <td>Permanent; anonymized on deletion</td>
+          <td>User contributions</td>
+          <td>Indefinite</td>
         </tr>
         <tr>
           <td>Sentry error logs</td>
@@ -28,7 +28,7 @@
         </tr>
         <tr>
           <td>Netlify logs</td>
-          <td>Approx. 30 days</td>
+          <td>~30 days</td>
         </tr>
         <tr>
           <td>Cookies</td>

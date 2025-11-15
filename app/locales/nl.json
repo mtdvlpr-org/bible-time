@@ -29,6 +29,10 @@
     "waiting-for-login": "Wachten op login...",
     "welcome-back": "Welkom terug"
   },
+  "contact": {
+    "description": "Neem contact op met de beheerders.",
+    "title": "Contact"
+  },
   "date": {
     "after": "Na",
     "bce": "v.G.T.",

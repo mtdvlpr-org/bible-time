@@ -97,6 +97,7 @@
       <li>Sentry (EU)</li>
       <li>Netlify (US) — only IP and minimal metadata</li>
     </ul>
+
     <h3>Retention</h3>
     <ul>
       <li>Account data: until deletion</li>
@@ -104,14 +105,36 @@
       <li>Knowledge base contributions: permanent, anonymized on deletion</li>
     </ul>
 
-    <h3>Your Rights</h3>
+    <h3>User Rights</h3>
+    <p>You have the right to:</p>
+    <ul>
+      <li>Access your data</li>
+      <li>Correct your data</li>
+      <li>Delete your account via the UI</li>
+      <li>Request data export</li>
+      <li>Restrict processing</li>
+      <li>Object to processing based on legitimate interests</li>
+      <li>File a complaint with the Dutch DPA (Autoriteit Persoonsgegevens)</li>
+    </ul>
+
+    <h3>Account Deletion</h3>
+    <p>Users can delete their account directly through the BibleTime interface.</p>
+    <p>When deleted:</p>
+    <ul>
+      <li>Email, display name, avatar, and profile details are removed</li>
+      <li>Contributions are anonymized</li>
+      <li>Timestamps remain</li>
+    </ul>
+
+    <h3>Public Storage of Avatars</h3>
     <p>
-      Access, correct, delete, request portability, object. Contact
-      <a href="https://github.com/mtdvlpr/bible-time">mtdvlpr</a>
+      Avatar images are stored in a public Supabase bucket. Users should not upload sensitive
+      images.
     </p>
 
-    <h3>Deletion</h3>
-    <p>Delete account in-app; profile data removed, contributions anonymized.</p>
+    <h3>Contact</h3>
+    <p>For privacy questions or requests:</p>
+    <p><a href="https://github.com/mtdvlpr/bible-time">mtdvlpr</a></p>
   </div>
 </template>
 <script setup lang="ts">

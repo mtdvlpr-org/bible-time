@@ -152,7 +152,28 @@ const links = computed((): NavigationMenuItem[][] => [
     }
   ],
   [
-    // Links pushed to the bottom
+    {
+      icon: 'i-lucide:file-text',
+      label: t('legal.title'),
+      to: localePath('/legal')
+    },
+    {
+      icon: 'i-lucide:mail',
+      label: t('contact.title'),
+      to: localePath('/contact')
+    },
+    {
+      icon: 'i-lucide-message-circle',
+      label: 'Feedback',
+      target: '_blank',
+      to: 'https://github.com/mtdvlpr/bible-time/discussions'
+    },
+    {
+      icon: 'i-lucide-info',
+      label: 'Help & Support',
+      target: '_blank',
+      to: 'https://github.com/mtdvlpr/bible-time/issues'
+    }
   ]
 ])
 

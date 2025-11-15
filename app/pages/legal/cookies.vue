@@ -15,7 +15,7 @@
       <tbody>
         <tr>
           <td>sb-*-auth-token</td>
-          <td>Authentication session token (Supabase)</td>
+          <td>Authentication session token</td>
           <td>Essential</td>
         </tr>
         <tr>
@@ -30,7 +30,7 @@
         </tr>
         <tr>
           <td>i18n</td>
-          <td>Cache translations</td>
+          <td>Translations cache</td>
           <td>Essential</td>
         </tr>
         <tr>

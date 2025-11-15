@@ -27,6 +27,12 @@ const localePath = useLocalePath()
 const links = computed((): NavigationMenuItem[][] => [
   [
     {
+      exact: true,
+      icon: 'i-lucide:file-text',
+      label: t('legal.title'),
+      to: localePath('/legal')
+    },
+    {
       icon: 'i-lucide:shield-user',
       label: t('legal.privacy'),
       to: localePath('/legal/privacy')
