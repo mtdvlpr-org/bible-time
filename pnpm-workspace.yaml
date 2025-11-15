@@ -7,6 +7,7 @@ ignoredBuiltDependencies:
   - vue-demi
 
 onlyBuiltDependencies:
+  - '@sentry/cli'
   - protobufjs
   - sharp
   - supabase

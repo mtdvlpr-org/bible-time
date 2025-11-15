@@ -26,7 +26,6 @@
     "reset-password-description": "Reset je wachtwoord om weer toegang te krijgen tot je account.",
     "sign-up": "Meld je aan",
     "sign-up-description": "Maak een nieuw account aan.",
-    "terms-of-service": "Algemene voorwaarden",
     "waiting-for-login": "Wachten op login...",
     "welcome-back": "Welkom terug"
   },
@@ -127,6 +126,15 @@
   },
   "i18n": {
     "english": "Engels"
+  },
+  "legal": {
+    "cookies": "",
+    "deletion": "Gegevens verwijderen",
+    "description": "",
+    "privacy": "Privacybeleid",
+    "retention": "Gegevensretentie",
+    "terms": "Gebruiksvoorwaarden",
+    "title": "Juridisch"
   },
   "nuxtSiteConfig": {
     "description": "Een overzicht van Bijbelse personen en gebeurtenissen.",

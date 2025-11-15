@@ -19,7 +19,8 @@
 
     <template #footer>
       {{ $t('auth.by-signing-up') }}
-      <ULink to="#" class="text-primary font-medium">{{ $t('auth.terms-of-service') }}</ULink
+      <ULink class="text-primary font-medium" :to="$localePath('/legal/terms')">
+        {{ $t('legal.terms') }} </ULink
       >.
     </template>
   </UAuthForm>

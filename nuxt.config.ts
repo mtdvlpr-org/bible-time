@@ -39,7 +39,6 @@ export default defineNuxtConfig({
     '@pinia/nuxt',
     '@vite-pwa/nuxt',
     '@vueuse/nuxt',
-    '@sentry/nuxt/module',
     'pinia-plugin-persistedstate/nuxt'
   ],
 
@@ -81,19 +80,12 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     public: {
-      sentry: { dsn: process.env.SENTRY_DSN },
       siteName: process.env.NUXT_SITE_NAME,
       siteUrl: process.env.NUXT_SITE_URL
     }
   },
 
   schemaOrg: { identity: defineOrganization({ name: process.env.NUXT_SITE_NAME || 'BibleTime' }) },
-  sentry: {
-    authToken: process.env.SENTRY_AUTH_TOKEN,
-    autoInjectServerSentry: 'top-level-import',
-    org: process.env.SENTRY_ORG,
-    project: process.env.SENTRY_PROJECT
-  },
 
   seo: { fallbackTitle: false },
 
@@ -105,8 +97,6 @@ export default defineNuxtConfig({
     //   people: { sources: ['/api/__sitemap__/urls?type=people'] }
     // }
   },
-
-  sourcemap: { client: 'hidden' },
 
   supabase: {
     redirect: false,

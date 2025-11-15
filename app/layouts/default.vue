@@ -211,7 +211,14 @@ onMounted(() => {
         },
         variant: 'outline'
       },
-      { color: 'neutral', label: t('general.opt-out'), variant: 'ghost' }
+      {
+        color: 'neutral',
+        label: t('legal.cookies'),
+        onClick: () => {
+          navigateTo(localePath('/legal/cookies'))
+        },
+        variant: 'ghost'
+      }
     ],
     close: false,
     duration: 0,
