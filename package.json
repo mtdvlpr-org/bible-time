@@ -14,11 +14,11 @@
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
     "lint:types": "nuxt typecheck",
-    "lint:commit": "commitlint --edit",
+    "lint:commit": "commitlint -g config/commitlint.config.ts --edit",
     "test:unit": "echo OK",
     "test:e2e": "echo OK",
     "test": "pnpm test:unit && pnpm test:e2e",
-    "generate:pwa-assets": "pwa-assets-generator",
+    "generate:pwa-assets": "pwa-assets-generator -c config/pwa-assets.config.ts",
     "generate:supabase-types": "supabase gen types --lang=typescript --project-id pasnnzlggfefuzwhbakl > shared/database-generated.types.ts",
     "postinstall": "pnpm prepare:husky && pnpm prepare:nuxt"
   },
