@@ -79,6 +79,7 @@ export default defineNuxtConfig({
   // nitro: { netlify: { images: { remote_images: ['https://wol.jw.org/*'] } }, preset: 'netlify' },
 
   runtimeConfig: {
+    githubToken: process.env.GITHUB_TOKEN,
     public: {
       siteName: process.env.NUXT_SITE_NAME,
       siteUrl: process.env.NUXT_SITE_URL
