@@ -75,7 +75,9 @@ export const useUserStore = defineStore('user', {
       }
     }
   },
-  persist: true,
+  persist: {
+    storage: piniaPluginPersistedstate.cookies({ sameSite: 'strict', secure: true })
+  },
   state: (): State => ({
     permissions: {
       admin: [],
