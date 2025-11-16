@@ -6,6 +6,12 @@ import { defineOrganization } from 'nuxt-schema-org/schema'
 import type { AppLocale } from './shared/types/general.types'
 
 import { iconBaseUrl, maskableSizes, transparentSizes } from './app/utils/assets'
+import { repository } from './package.json'
+
+const [repoOwner, repoName] = repository.url
+  .replace(/^(git\+)?https:\/\/github\.com\//, '')
+  .replace(/\.git$/, '')
+  .split('/')
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
@@ -81,6 +87,8 @@ export default defineNuxtConfig({
   runtimeConfig: {
     githubToken: process.env.GITHUB_TOKEN,
     public: {
+      repoName,
+      repoOwner,
       siteName: process.env.NUXT_SITE_NAME,
       siteUrl: process.env.NUXT_SITE_URL
     }

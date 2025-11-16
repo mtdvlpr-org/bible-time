@@ -10,7 +10,7 @@
   "i18n-ally.sortKeys": true,
   "i18n-ally.keepFulfilled": true,
   "i18n-ally.keystyle": "nested",
-  "tailwindCSS.classAttributes": ["class", "ui"],
+  "tailwindCSS.classAttributes": ["class", "ui", "active-class", "inactive-class"],
   "tailwindCSS.experimental.classRegex": [["ui:\\s*{([^)]*)\\s*}", "(?:'|\"|`)([^']*)(?:'|\"|`)"]],
   "typescript.tsdk": "node_modules/typescript/lib",
   "i18n-ally.extract.ignored": ["*"],

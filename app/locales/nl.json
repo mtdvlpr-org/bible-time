@@ -31,7 +31,13 @@
   },
   "contact": {
     "description": "Neem contact op met de beheerders.",
-    "title": "Contact"
+    "message": "Bericht",
+    "message-public": "Dit bericht zal openbaar zijn. \nVoeg geen gevoelige informatie toe.",
+    "open-ticket": "Open ticket",
+    "subject": "Onderwerp",
+    "ticket-created": "Er is een ticket voor je aangemaakt op een openbaar forum.",
+    "title": "Contact",
+    "us": "Nee, contact op"
   },
   "date": {
     "after": "Na",
@@ -113,6 +119,7 @@
     "reset": "Herstel",
     "save": "Sla op",
     "search": "Zoeken...",
+    "send": "Verstuur",
     "slug": "Slug",
     "slug-description": "",
     "stop": "Stop",

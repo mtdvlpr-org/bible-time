@@ -31,7 +31,13 @@
   },
   "contact": {
     "description": "Get in contact with the maintainers.",
-    "title": "Contact"
+    "message": "Message",
+    "message-public": "This message will be public. Don't include sensitive information.",
+    "open-ticket": "Open ticket",
+    "subject": "Subject",
+    "ticket-created": "A ticket has been created for you on a public forum.",
+    "title": "Contact",
+    "us": "Contact Us"
   },
   "date": {
     "after": "After",
@@ -113,6 +119,7 @@
     "reset": "Reset",
     "save": "Save",
     "search": "Search...",
+    "send": "Send",
     "slug": "Slug",
     "slug-description": "A unique identifier that's used in the URL.",
     "stop": "Stop",

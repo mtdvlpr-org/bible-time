@@ -2,11 +2,11 @@
   "name": "bible-time",
   "version": "1.0.0",
   "description": "An overview of Biblical people and events.",
-  "homepage": "https://github.com/mtdvlpr/bible-time#readme",
+  "homepage": "https://github.com/mtdvlpr-org/bible-time#readme",
   "license": "(MIT OR Apache-2.0)",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mtdvlpr/bible-time.git"
+    "url": "git+https://github.com/mtdvlpr-org/bible-time.git"
   },
   "private": true,
   "type": "module",
