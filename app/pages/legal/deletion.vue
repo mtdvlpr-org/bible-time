@@ -1,7 +1,7 @@
 <template>
   <div class="content">
     <h2>Data Deletion Instructions</h2>
-    <p>Last updated: 14 November 2025</p>
+    <p>{{ $t('date.last-updated') }}: 14 November 2025</p>
     <p>Users can delete their account directly in the BibleTime app. Upon deletion:</p>
     <ul>
       <li>Profile data (email, display name, avatar) is permanently deleted</li>

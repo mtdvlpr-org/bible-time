@@ -1,7 +1,7 @@
 <template>
   <div class="content">
-    <h2>Privacy Policy</h2>
-    <p>Last updated: 14 November 2025</p>
+    <h2>{{ $t('legal.privacy') }}</h2>
+    <p>{{ $t('date.last-updated') }}: 14 November 2025</p>
 
     <h3>Who We Are</h3>
     <p>BibleTime (“we”, “us”, “our”) is operated by:</p>

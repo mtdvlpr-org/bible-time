@@ -1,7 +1,7 @@
 <template>
   <div class="content">
-    <h2>Cookie Notice</h2>
-    <p>Last updated: 14 November 2025</p>
+    <h2>{{ $t('legal.cookies') }}</h2>
+    <p>{{ $t('date.last-updated') }}: 14 November 2025</p>
     <p>BibleTime uses only essential, first-party cookies. No analytics or advertising cookies.</p>
     <h3>Cookies Used</h3>
     <table>

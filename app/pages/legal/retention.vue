@@ -1,7 +1,7 @@
 <template>
   <div class="content">
     <h2>Data Retention Policy</h2>
-    <p>Last updated: 14 November 2025</p>
+    <p>{{ $t('date.last-updated') }}: 14 November 2025</p>
     <table>
       <thead>
         <tr>

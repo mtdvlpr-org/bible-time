@@ -1,10 +1,7 @@
 <template>
   <div class="content">
-    <h2>Legal Information</h2>
-    <p>Last updated: 14 November 2025</p>
-    <p>
-      This page provides quick access to all legal documents governing the use of our website and
-      explains how your data is handled.
-    </p>
+    <h2>{{ $t('legal.information') }}</h2>
+    <p>{{ $t('date.last-updated') }}: 14 November 2025</p>
+    <p>{{ $t('legal.overview-page') }}</p>
   </div>
 </template>
