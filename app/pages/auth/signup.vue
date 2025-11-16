@@ -33,7 +33,7 @@ import { z } from 'zod'
 
 definePageMeta({ layout: 'auth' })
 
-const { t } = useI18n()
+const { locale, t } = useI18n()
 
 const { fields: allFields, rules } = useForm()
 
@@ -53,7 +53,7 @@ const { showError, showSuccess } = useFlash()
 async function onSubmit(payload: FormSubmitEvent<Schema>) {
   const { error } = await supabase.auth.signUp({
     email: payload.data.email,
-    options: { data: { display_name: payload.data.name } },
+    options: { data: { display_name: payload.data.name, locale: locale.value } },
     password: payload.data.password
   })
 
