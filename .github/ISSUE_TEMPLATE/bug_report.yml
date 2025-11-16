@@ -1,5 +1,5 @@
 name: Bug Report
-description: File a bug report.
+description: Report a problem so we can try to fix it
 title: "[Bug]: "
 labels: ["Status: Triage"]
 type: 🐛 Bug
@@ -7,22 +7,54 @@ body:
   - type: markdown
     attributes:
       value: |
+        ### Please read the following:
         Thanks for taking the time to fill out this bug report!
-  - type: input
-    id: contact
-    attributes:
-      label: Contact Details
-      description: How can we get in touch with you if we need more info?
-      placeholder: ex. email@example.com
-    validations:
-      required: false
+
+        Before submitting a bug report, please make sure you have searched through the existing issues to make sure your bug report is not a duplicate.
+        If your bug report is still valid, please change the title of this issue to reflect your bug report and fill out the fields below.
   - type: textarea
     id: what-happened
     attributes:
       label: What happened?
-      description: Also tell us, what did you expect to happen?
+      description: Describe the bug.
       placeholder: Tell us what you see!
-      value: "A bug happened!"
+    validations:
+      required: true
+  - type: textarea
+    id: to-reproduce
+    attributes:
+      label: To Reproduce
+      description: Steps to reproduce the behavior.
+      placeholder: |
+        1. Go to '...'
+        2. Click on '....'
+        3. Do '....'
+        4. See error
+      value: |
+        1. Go to '...'
+        2. Click on '....'
+        3. Do '....'
+        4. See error
+    validations:
+      required: true
+  - type: textarea
+    id: whats-expected
+    attributes:
+      label: What did you expect to happen?
+      description: Describe what you expected to happen.
+      placeholder: I expected this to happen...
+    validations:
+      required: true
+  - type: dropdown
+    id: devices
+    attributes:
+      label: What devices are you seeing the problem on?
+      multiple: true
+      options:
+        - PC
+        - Laptop
+        - Tablet
+        - Smartphone
     validations:
       required: true
   - type: dropdown
@@ -35,17 +67,33 @@ body:
         - Chrome
         - Safari
         - Microsoft Edge
+    validations:
+      required: true
   - type: textarea
     id: logs
     attributes:
       label: Relevant log output
-      description: Please copy and paste any relevant log output. This will be automatically formatted into code, so no need for backticks.
+      description: | 
+        Please copy and paste any relevant log output.
+        To open the inspector, hit <kbd>Ctrl</kbd> <kbd>⇧ Shift</kbd> <kbd>I</kbd> (<kbd>⌘ Command</kbd> <kbd>⌥ Option</kbd> <kbd>I</kbd> for macOS).
       render: shell
-  - type: checkboxes
-    id: terms
+  - type: textarea
+    id: screenshots
     attributes:
-      label: Code of Conduct
-      description: By submitting this issue, you agree to follow our [Code of Conduct](https://github.com/Innovae-Handlet/handlet). 
+      label: Screenshots
+      description: If applicable, add screenshots to help explain your problem.
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional context
+      description: Add any other context about the problem here.
+  - type: checkboxes
+    id: confirmations
+    attributes:
+      label: Confirmations
+      description: By submitting this issue, you agree to follow our [Code of Conduct](https://github.com/mtdvlpr-org/bible-time/CODE_OF_CONDUCT.md). 
       options:
         - label: I agree to follow this project's Code of Conduct
+          required: true
+        - label: I confirm that I have searched through the existing issues to make sure my bug report is not a duplicate.
           required: true
