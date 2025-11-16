@@ -17,6 +17,24 @@
       >.
     </template>
 
+    <template #validation>
+      <UFormField required name="human">
+        <UCheckbox
+          :disabled="!!captchaToken"
+          :model-value="!!captchaToken"
+          :label="$t('auth.i-am-not-robot')"
+          @click="captcha?.execute()"
+        />
+      </UFormField>
+      <VueHcaptcha
+        ref="captcha"
+        size="invisible"
+        :theme="colorMode.value"
+        :sitekey="captchaSiteKey"
+        @verify="captchaToken = $event"
+      />
+    </template>
+
     <template #footer>
       {{ $t('auth.by-signing-up') }}
       <ULink class="text-primary font-medium" :to="$localePath('/legal/terms')">
@@ -27,23 +45,38 @@
 </template>
 
 <script setup lang="ts">
-import type { FormSubmitEvent } from '@nuxt/ui'
+import type { AuthFormField, FormSubmitEvent } from '@nuxt/ui'
 
+import VueHcaptcha from '@hcaptcha/vue3-hcaptcha'
 import { z } from 'zod'
 
 definePageMeta({ layout: 'auth' })
 
-const { t } = useI18n()
+const { locale, t } = useI18n()
 
 const { fields: allFields, rules } = useForm()
 
-const fields = [allFields.name, allFields.email, allFields.password]
+const captchaToken = ref('')
+const colorMode = useColorMode()
+const captcha = useTemplateRef('captcha')
+const { captchaSiteKey } = useRuntimeConfig().public
+const fields = computed((): AuthFormField[] => [
+  allFields.name,
+  allFields.email,
+  allFields.password
+])
 
-const schema = z.object({
-  email: rules.email,
-  name: rules.name,
-  password: rules.password
-})
+const schema = z
+  .object({
+    email: rules.email,
+    human: z.boolean().optional(),
+    name: rules.name,
+    password: rules.password
+  })
+  .refine(() => !!captchaToken.value, {
+    error: t('auth.confirm-not-robot'),
+    path: ['human']
+  })
 
 type Schema = z.output<typeof schema>
 
@@ -53,7 +86,10 @@ const { showError, showSuccess } = useFlash()
 async function onSubmit(payload: FormSubmitEvent<Schema>) {
   const { error } = await supabase.auth.signUp({
     email: payload.data.email,
-    options: { data: { display_name: payload.data.name } },
+    options: {
+      captchaToken: captchaToken.value,
+      data: { display_name: payload.data.name, locale: locale.value }
+    },
     password: payload.data.password
   })
 

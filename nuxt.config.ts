@@ -85,6 +85,7 @@ export default defineNuxtConfig({
   runtimeConfig: {
     githubToken: process.env.GITHUB_TOKEN,
     public: {
+      captchaSiteKey: process.env.CAPTCHA_SITE_KEY,
       repoName,
       repoOwner,
       repoUrl,

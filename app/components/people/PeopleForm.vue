@@ -165,7 +165,7 @@ const schema = z
       return data.death_year >= data.birth_year
     },
     {
-      message: t('validation.after-or-equal-to', {
+      error: t('validation.after-or-equal-to', {
         date: t('person.birth-year'),
         field: t('person.death-year')
       }),
@@ -173,11 +173,11 @@ const schema = z
     }
   )
   .refine((data) => !data.birth_year || !!data.birth_precision, {
-    message: t('validation.required', { field: t('date.precision') }),
+    error: t('validation.required', { field: t('date.precision') }),
     path: ['birth_precision']
   })
   .refine((data) => !data.death_year || !!data.death_precision, {
-    message: t('validation.required', { field: t('date.precision') }),
+    error: t('validation.required', { field: t('date.precision') }),
     path: ['death_precision']
   })
 

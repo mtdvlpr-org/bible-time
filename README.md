@@ -55,9 +55,9 @@ See `package.json` for the exact list. Common commands:
 - `pnpm build` — build production bundle
 - `pnpm preview` — preview production build locally
 - `pnpm lint` / `pnpm lint:fix` — run ESLint
-- `pnpm typecheck` — TypeScript checks
+- `pnpm lint:types` — TypeScript checks
 - `pnpm test` — run tests (placeholder)
-- `pnpm supabase:types` — generate Supabase types (requires supabase CLI and credentials)
+- `pnpm generate:supabase:types` — generate Supabase types (requires supabase CLI and credentials)
 
 ---
 
