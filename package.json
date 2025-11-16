@@ -26,6 +26,7 @@
     "test": "pnpm test:unit && pnpm test:e2e",
     "generate:pwa-assets": "pwa-assets-generator -c config/pwa-assets.config.ts",
     "generate:supabase-types": "supabase gen types --lang=typescript --project-id pasnnzlggfefuzwhbakl > shared/database-generated.types.ts",
+    "deploy": "pnpm generate:pwa-assets && pnpm build",
     "postinstall": "pnpm prepare:husky && pnpm prepare:nuxt"
   },
   "dependencies": {
