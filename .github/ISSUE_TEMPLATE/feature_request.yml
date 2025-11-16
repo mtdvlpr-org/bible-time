@@ -7,15 +7,12 @@ body:
   - type: markdown
     attributes:
       value: |
+        ### Please read the following:
         Thanks for taking the time to fill out this feature request!
-  - type: input
-    id: contact
-    attributes:
-      label: Contact Details
-      description: How can we get in touch with you if we need more info?
-      placeholder: ex. email@example.com
-    validations:
-      required: false
+
+        Before submitting a feature request, please make sure you have searched through the existing issues to make sure your feature request is not a duplicate.
+
+        If your feature request is still valid, please change the title of this issue to reflect your feature request and fill out the fields below.
   - type: textarea
     id: desired-solution
     attributes:
@@ -28,8 +25,10 @@ body:
   - type: checkboxes
     id: terms
     attributes:
-      label: Code of Conduct
-      description: By submitting this issue, you agree to follow our [Code of Conduct](https://github.com/Innovae-Handlet/handlet). 
+      label: Confirmations
+      description: By submitting this issue, you agree to follow our [Code of Conduct](https://github.com/mtdvlpr-org/bible-time/CODE_OF_CONDUCT.md). 
       options:
         - label: I agree to follow this project's Code of Conduct
+          required: true
+        - label: I confirm that I have searched through the existing issues to make sure my feature request is not a duplicate.
           required: true
