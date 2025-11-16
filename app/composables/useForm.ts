@@ -91,7 +91,7 @@ export default function () {
         password
       })
       .refine((data) => data.password === data.confirm, {
-        message: t('validation.passwords-do-not-match'),
+        error: t('validation.passwords-do-not-match'),
         path: ['confirm']
       }),
     datePrecision: (field: string) =>

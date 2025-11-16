@@ -155,7 +155,7 @@ const schema = z
       return data.end_year >= data.start_year
     },
     {
-      message: t('validation.after-or-equal-to', {
+      error: t('validation.after-or-equal-to', {
         date: t('event.start-year'),
         field: t('event.end-year')
       }),
@@ -163,11 +163,11 @@ const schema = z
     }
   )
   .refine((data) => !data.start_year || !!data.start_precision, {
-    message: t('validation.required', { field: t('date.precision') }),
+    error: t('validation.required', { field: t('date.precision') }),
     path: ['start_precision']
   })
   .refine((data) => !data.end_year || !!data.end_precision, {
-    message: t('validation.required', { field: t('date.precision') }),
+    error: t('validation.required', { field: t('date.precision') }),
     path: ['end_precision']
   })
 
