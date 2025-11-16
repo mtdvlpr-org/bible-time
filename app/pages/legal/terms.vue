@@ -5,10 +5,7 @@
 
     <h3>Operator</h3>
     <p>BibleTime is operated by:</p>
-    <p>
-      Manoah Tervoort<br />Alkmaar, The Netherlands<br />Contact:
-      <a href="https://github.com/mtdvlpr/bible-time">mtdvlpr</a>
-    </p>
+    <p>Manoah Tervoort<br />Alkmaar, The Netherlands</p>
 
     <h3>Acceptance</h3>
     <p>By using BibleTime you agree to these Terms.</p>
@@ -28,8 +25,8 @@
     <h3>User Content & Licensing</h3>
     <p>
       All contributions are licensed under
-      <NuxtLink external to="https://creativecommons.org/publicdomain/zero/1.0/"
-        >CC0 1.0 Public Domain Dedication</NuxtLink
+      <ULink external to="https://creativecommons.org/publicdomain/zero/1.0/"
+        >CC0 1.0 Public Domain Dedication</ULink
       >. Contributions may be edited by others. License survives account deletion.
     </p>
 

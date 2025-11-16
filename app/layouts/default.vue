@@ -85,6 +85,7 @@ const userStore = useUserStore()
 await callOnce(user.value?.sub || 'profile', userStore.fetch, { mode: 'navigation' })
 
 const open = ref(false)
+const { repoUrl } = useRuntimeConfig().public
 
 const links = computed((): NavigationMenuItem[][] => [
   [
@@ -166,13 +167,13 @@ const links = computed((): NavigationMenuItem[][] => [
       icon: 'i-lucide-message-circle',
       label: 'Feedback',
       target: '_blank',
-      to: 'https://github.com/mtdvlpr/bible-time/discussions'
+      to: repoUrl + '/discussions'
     },
     {
       icon: 'i-lucide-info',
       label: 'Help & Support',
       target: '_blank',
-      to: 'https://github.com/mtdvlpr/bible-time/issues'
+      to: repoUrl + '/issues'
     }
   ]
 ])

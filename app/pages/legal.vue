@@ -95,5 +95,21 @@ useSeoMeta({
   ul {
     list-style: disc inside;
   }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-block: 1rem;
+
+    th,
+    td {
+      padding: 0.75rem;
+      text-align: left;
+    }
+
+    th {
+      font-weight: 600;
+    }
+  }
 }
 </style>

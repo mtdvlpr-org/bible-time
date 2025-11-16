@@ -9,8 +9,9 @@
       <li>Timestamps of contributions are preserved</li>
     </ul>
     <p>
-      If you cannot access your account, contact
-      <a href="https://github.com/mtdvlpr/bible-time">mtdvlpr</a>.
+      If you cannot access your account, use the
+      <ULink :to="$localePath('/contact')">{{ $t('contact.page') }}</ULink
+      >.
     </p>
   </div>
 </template>

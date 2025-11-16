@@ -9,13 +9,14 @@ const bodySchema = z.object({
 })
 
 export default defineEventHandler(async (event) => {
-  const { message, name, subject } = await readValidatedBody(event, bodySchema.parse)
+  const { email, message, name, subject } = await readValidatedBody(event, bodySchema.parse)
 
   const res = await githubRepository.createIssue(
     subject,
     `
-**Name:** ${name}
-
+<!--**Name:** ${name}-->
+<!--**Email**: ${email}-->
+**Subject:** ${subject}
 **Message:**
 ${message}
   `,

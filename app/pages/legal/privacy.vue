@@ -5,10 +5,7 @@
 
     <h3>Who We Are</h3>
     <p>BibleTime (“we”, “us”, “our”) is operated by:</p>
-    <p>
-      Manoah Tervoort<br />Alkmaar, The Netherlands<br />Contact:
-      <a href="https://github.com/mtdvlpr/bible-time">mtdvlpr</a>
-    </p>
+    <p>Manoah Tervoort<br />Alkmaar, The Netherlands<br /></p>
 
     <h3>What Data We Collect</h3>
 
@@ -133,8 +130,11 @@
     </p>
 
     <h3>Contact</h3>
-    <p>For privacy questions or requests:</p>
-    <p><a href="https://github.com/mtdvlpr/bible-time">mtdvlpr</a></p>
+    <p>
+      For privacy questions or requests, use the
+      <ULink :to="$localePath('/contact')">{{ $t('contact.page') }}</ULink
+      >.
+    </p>
   </div>
 </template>
 <script setup lang="ts">

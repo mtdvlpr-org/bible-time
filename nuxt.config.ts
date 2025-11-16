@@ -8,10 +8,8 @@ import type { AppLocale } from './shared/types/general.types'
 import { iconBaseUrl, maskableSizes, transparentSizes } from './app/utils/assets'
 import { repository } from './package.json'
 
-const [repoOwner, repoName] = repository.url
-  .replace(/^(git\+)?https:\/\/github\.com\//, '')
-  .replace(/\.git$/, '')
-  .split('/')
+const repoUrl = repository.url.replace(/^git\+/, '').replace(/\.git$/, '')
+const [repoOwner, repoName] = repository.url.replace(/^https:\/\/github\.com\//, '').split('/')
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
@@ -89,6 +87,7 @@ export default defineNuxtConfig({
     public: {
       repoName,
       repoOwner,
+      repoUrl,
       siteName: process.env.NUXT_SITE_NAME,
       siteUrl: process.env.NUXT_SITE_URL
     }
