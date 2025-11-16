@@ -43,20 +43,20 @@ pnpm install
 pnpm dev
 ```
 
-Open http://localhost:3000 in your browser.
+Open <http://localhost:3000> in your browser.
 
 ## Common tasks
 
 - Linting: `pnpm lint` (fix with `pnpm lint:fix`)
-- Type checking: `pnpm typecheck` (uses `vue-tsc` / TypeScript)
+- Type checking: `pnpm lint:types` (uses `vue-tsc` / TypeScript)
 - Build for production: `pnpm build`
 - Preview production build: `pnpm preview`
-- Generate Supabase types (requires `supabase` CLI & access): `pnpm supabase:types`
+- Generate Supabase types (requires `supabase` CLI & access): `pnpm generate:supabase:types`
 - Tests: `pnpm test` (note: test scripts are placeholders in this repo)
 
 ## Code style
 
-- ESLint and Prettier are configured. Please run `pnpm lint` and `pnpm typecheck` locally before opening a pull request.
+- ESLint and Prettier are configured. Please run `pnpm lint` and `pnpm lint:types` locally before opening a pull request.
 - Keep changes small and focused; prefer many small PRs over a single large one.
 
 ## Branching and Pull Requests
