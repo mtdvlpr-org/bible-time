@@ -154,14 +154,14 @@ const links = computed((): NavigationMenuItem[][] => [
   ],
   [
     {
-      icon: 'i-lucide:file-text',
-      label: t('legal.title'),
-      to: localePath('/legal')
-    },
-    {
       icon: 'i-lucide:mail',
       label: t('contact.title'),
       to: localePath('/contact')
+    },
+    {
+      icon: 'i-lucide:file-text',
+      label: t('legal.title'),
+      to: localePath('/legal')
     },
     {
       icon: 'i-lucide-message-circle',
