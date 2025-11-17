@@ -68,7 +68,7 @@
     "vue-tsc": "^3.1.4"
   },
   "lint-staged": {
-    "*": "pnpm lint:fix"
+    "*.{js,ts,vue}": "pnpm lint:fix"
   },
   "engines": {
     "node": ">=22.18.0",
