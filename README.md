@@ -22,6 +22,11 @@ This README is written for general users and contributors who want to understand
 - State: Pinia with persisted state
 - Internationalization: English and Dutch
 
+## Translations
+
+- **Crowdin:** The project accepts translation contributions on Crowdin: [https://crowdin.com/project/bible-time](https://crowdin.com/project/bible-time)
+- Source strings live in `app/locales/en.json` and translated locale files are stored under `app/locales/` (see `crowdin.yml` for mapping). If you'd like to help translate the site, please contribute via the Crowdin project.
+
 ## Try it locally (developer steps)
 
 Developers: follow `CONTRIBUTING.md` for full local setup instructions. In summary:
