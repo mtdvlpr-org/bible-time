@@ -255,6 +255,10 @@
     "search": "Zoek suggesties...",
     "title": "Suggesties"
   },
+  "timeline": {
+    "description": "Een tijdbalk van Bijbelse personen en gebeurtenissen.",
+    "title": "Tijdbalk"
+  },
   "validation": {
     "after-or-equal-to": "{field} moet na of gelijk zijn aan {date}.",
     "contains-lowercase": "{field} moet ten minste één kleine letter bevatten.",
