@@ -255,6 +255,10 @@
     "search": "Search suggestions...",
     "title": "Suggestions"
   },
+  "timeline": {
+    "description": "A timeline of Biblical people and events.",
+    "title": "Timeline"
+  },
   "validation": {
     "after-or-equal-to": "{field} must be after or equal to {date}.",
     "contains-lowercase": "{field} must contain at least one lowercase letter.",

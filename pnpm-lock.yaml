@@ -56,6 +56,9 @@ importers:
       pinia-plugin-persistedstate:
         specifier: ^4.7.1
         version: 4.7.1(@nuxt/kit@4.2.1(magicast@0.5.1))(@pinia/nuxt@0.11.3(magicast@0.5.1)(pinia@3.0.4(typescript@5.9.3)(vue@3.5.24(typescript@5.9.3))))(pinia@3.0.4(typescript@5.9.3)(vue@3.5.24(typescript@5.9.3)))
+      vue-timeline-chart:
+        specifier: ^4.0.1
+        version: 4.0.1(vue@3.5.24(typescript@5.9.3))
       zod:
         specifier: ^4.1.12
         version: 4.1.12
@@ -7981,6 +7984,12 @@ packages:
     resolution: {integrity: sha512-ARBedLm9YlbvQomnmq91Os7ck6efydTSpRP3nuOKCvgJOHNrhRoJDSKtee8kcL1Vf7nz6U+PMBL+hTvR3bTVQg==}
     peerDependencies:
       vue: ^3.5.0
+
+  vue-timeline-chart@4.0.1:
+    resolution: {integrity: sha512-GIHPf/TsJSN0D1S1VxuOxvIeATxY6I1E+2phnK9gEniuTuYHJT8Vm969GBjO3G1Mth2DCYFe89lMlZFB99sw5g==}
+    engines: {node: '>=18.12.0'}
+    peerDependencies:
+      vue: ^3.0.0
 
   vue-tsc@3.1.4:
     resolution: {integrity: sha512-GsRJxttj4WkmXW/zDwYPGMJAN3np/4jTzoDFQTpTsI5Vg/JKMWamBwamlmLihgSVHO66y9P7GX+uoliYxeI4Hw==}
@@ -17356,6 +17365,10 @@ snapshots:
   vue-router@4.6.3(vue@3.5.24(typescript@5.9.3)):
     dependencies:
       '@vue/devtools-api': 6.6.4
+      vue: 3.5.24(typescript@5.9.3)
+
+  vue-timeline-chart@4.0.1(vue@3.5.24(typescript@5.9.3)):
+    dependencies:
       vue: 3.5.24(typescript@5.9.3)
 
   vue-tsc@3.1.4(typescript@5.9.3):

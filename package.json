@@ -46,6 +46,7 @@
     "nuxt": "^4.2.1",
     "pinia": "^3.0.4",
     "pinia-plugin-persistedstate": "^4.7.1",
+    "vue-timeline-chart": "^4.0.1",
     "zod": "^4.1.12"
   },
   "devDependencies": {

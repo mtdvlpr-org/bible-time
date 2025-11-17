@@ -98,6 +98,14 @@ const links = computed((): NavigationMenuItem[][] => [
       to: localePath('/')
     },
     {
+      icon: 'i-lucide:chart-gantt',
+      label: t('timeline.title'),
+      onSelect: () => {
+        open.value = false
+      },
+      to: localePath('/timeline')
+    },
+    {
       icon: 'i-lucide:users',
       label: t('people.title'),
       onSelect: () => {
