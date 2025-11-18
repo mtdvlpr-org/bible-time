@@ -2,11 +2,12 @@ import type { LocaleObject } from '@nuxtjs/i18n'
 
 import { fileURLToPath } from 'node:url'
 import { defineOrganization } from 'nuxt-schema-org/schema'
+import mdPlugin, { Mode } from 'vite-plugin-markdown'
 
 import type { AppLocale } from './shared/types/general.types'
 
 import { iconBaseUrl, maskableSizes, transparentSizes } from './app/utils/assets'
-import { repository } from './package.json'
+import { repository, version } from './package.json'
 
 const repoUrl = repository.url.replace(/^git\+/, '').replace(/\.git$/, '')
 const [repoOwner, repoName] = repository.url.replace(/^https:\/\/github\.com\//, '').split('/')
@@ -90,7 +91,8 @@ export default defineNuxtConfig({
       repoOwner,
       repoUrl,
       siteName: process.env.NUXT_SITE_NAME,
-      siteUrl: process.env.NUXT_SITE_URL
+      siteUrl: process.env.NUXT_SITE_URL,
+      version
     }
   },
 
@@ -129,6 +131,7 @@ export default defineNuxtConfig({
           }
         }
       }
-    }
+    },
+    plugins: [mdPlugin({ mode: [Mode.HTML] })]
   }
 })
