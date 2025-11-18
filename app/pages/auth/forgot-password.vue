@@ -14,6 +14,24 @@
         {{ $t('auth.login') }} </ULink
       >.
     </template>
+
+    <template #validation>
+      <UFormField required name="human">
+        <UCheckbox
+          :disabled="!!captchaToken"
+          :model-value="!!captchaToken"
+          :label="$t('auth.i-am-not-robot')"
+          @click="captcha?.execute()"
+        />
+      </UFormField>
+      <VueHcaptcha
+        ref="captcha"
+        size="invisible"
+        :theme="colorMode.value"
+        :sitekey="captchaSiteKey"
+        @verify="captchaToken = $event"
+      />
+    </template>
   </UAuthForm>
 </template>
 
@@ -28,6 +46,10 @@ const { t } = useI18n()
 
 const { fields: allFields, rules } = useForm()
 
+const captchaToken = ref('')
+const colorMode = useColorMode()
+const captcha = useTemplateRef('captcha')
+const { captchaSiteKey } = useRuntimeConfig().public
 const fields = [allFields.email]
 
 const schema = z.object({ email: rules.email })
@@ -39,6 +61,7 @@ const { showError, showSuccess } = useFlash()
 
 async function onSubmit(payload: FormSubmitEvent<Schema>) {
   const { error } = await supabase.auth.resetPasswordForEmail(payload.data.email, {
+    captchaToken: captchaToken.value,
     redirectTo: window.location.origin + '/auth/reset-password'
   })
 
