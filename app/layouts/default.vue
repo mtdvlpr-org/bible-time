@@ -172,14 +172,9 @@ const links = computed((): NavigationMenuItem[][] => [
       to: localePath('/legal')
     },
     {
-      icon: 'i-lucide-message-circle',
-      label: 'Feedback',
-      target: '_blank',
-      to: repoUrl + '/discussions'
-    },
-    {
+      external: true,
       icon: 'i-lucide-info',
-      label: 'Help & Support',
+      label: t('general.help-and-support'),
       target: '_blank',
       to: repoUrl + '/issues'
     }
