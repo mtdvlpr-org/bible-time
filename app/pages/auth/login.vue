@@ -25,6 +25,24 @@
       </ULink>
     </template>
 
+    <template #validation>
+      <UFormField required name="human">
+        <UCheckbox
+          :disabled="!!captchaToken"
+          :model-value="!!captchaToken"
+          :label="$t('auth.i-am-not-robot')"
+          @click="captcha?.execute()"
+        />
+      </UFormField>
+      <VueHcaptcha
+        ref="captcha"
+        size="invisible"
+        :theme="colorMode.value"
+        :sitekey="captchaSiteKey"
+        @verify="captchaToken = $event"
+      />
+    </template>
+
     <template #footer>
       {{ $t('auth.by-signing-in') }}
       <ULink class="text-primary font-medium" :to="$localePath('/legal/terms')">
@@ -37,6 +55,7 @@
 <script setup lang="ts">
 import type { FormSubmitEvent } from '@nuxt/ui'
 
+import VueHcaptcha from '@hcaptcha/vue3-hcaptcha'
 import { z } from 'zod'
 
 definePageMeta({ layout: 'auth' })
@@ -58,6 +77,10 @@ watch(user, (val) => {
 
 const { fields: allFields, rules } = useForm()
 
+const captchaToken = ref('')
+const colorMode = useColorMode()
+const captcha = useTemplateRef('captcha')
+const { captchaSiteKey } = useRuntimeConfig().public
 const fields = [allFields.email, { ...allFields.password, autocomplete: 'current-password' }]
 
 const schema = z.object({
@@ -73,6 +96,7 @@ const supabase = useSupabaseClient()
 async function onSubmit(payload: FormSubmitEvent<Schema>) {
   const { error } = await supabase.auth.signInWithPassword({
     email: payload.data.email,
+    options: { captchaToken: captchaToken.value },
     password: payload.data.password
   })
 
