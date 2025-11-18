@@ -5,6 +5,9 @@
         <template #leading>
           <UDashboardSidebarCollapse />
         </template>
+        <template #right>
+          <ChangelogViewer />
+        </template>
       </UDashboardNavbar>
     </template>
 

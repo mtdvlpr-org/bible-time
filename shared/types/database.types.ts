@@ -172,6 +172,9 @@ export type TablesUpdate<
       : never
     : never
 
+export type TimelineEvent = Pick<Tables<'events'>, 'end_year' | 'slug' | 'start_year' | 'title'>
+export type TimelinePerson = Pick<Tables<'people'>, 'birth_year' | 'death_year' | 'name' | 'slug'>
+
 type DatabaseWithoutInternals = Omit<Database, '__InternalSupabase'>
 
 type DefaultSchema = DatabaseWithoutInternals[Extract<keyof Database, 'public'>]

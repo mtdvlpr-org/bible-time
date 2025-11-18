@@ -120,7 +120,8 @@ const onSubmit = async (event: FormSubmitEvent<ProfileSchema>) => {
   const newProfile: TablesUpdate<'profiles'> = event.data
 
   if (avatarFile.value) {
-    const fileName = `${userStore.user.id}/${avatarFile.value.name}`
+    const fileExt = avatarFile.value.name.split('.').pop()
+    const fileName = `${userStore.user.id}/avatar.${fileExt}`
     const { data, error: uploadError } = await supabase.storage
       .from('avatars')
       .upload(fileName, avatarFile.value, { upsert: true })

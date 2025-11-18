@@ -54,6 +54,15 @@ Open <http://localhost:3000> in your browser.
 - Generate Supabase types (requires `supabase` CLI & access): `pnpm generate:supabase:types`
 - Tests: `pnpm test` (note: test scripts are placeholders in this repo)
 
+## Translations
+
+- We use Crowdin to manage translations for the project. The Crowdin project is available at: [https://crowdin.com/project/bible-time](https://crowdin.com/project/bible-time)
+- The English source file is `app/locales/en.json`. Translated locale files are placed in `app/locales/` (see `crowdin.yml` which maps `app/locales/en.json` to `app/locales/%two_letters_code%.json`).
+- How to contribute:
+  - Preferred: Contribute translations using the Crowdin web interface for the project linked above.
+  - Alternative: You may open a pull request with updated locale files under `app/locales/` (follow the repo's code style and run lint/type checks).
+  - Note: Maintainers regularly sync Crowdin translations into the repository; if you need assistance, open an issue and mention the translation update.
+
 ## Code style
 
 - ESLint and Prettier are configured. Please run `pnpm lint` and `pnpm lint:types` locally before opening a pull request.

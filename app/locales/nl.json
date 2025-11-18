@@ -112,6 +112,7 @@
     "description": "Beschrijving",
     "display": "Toon",
     "edit": "Bewerk",
+    "help-and-support": "Hulp & ondersteuning",
     "loading": "Laden...",
     "manage": "Beheren",
     "new": "Nieuw",
@@ -122,6 +123,7 @@
     "reset": "Herstel",
     "save": "Sla op",
     "search": "Zoeken...",
+    "see-whats-new": "Kijk wat er nieuw is",
     "send": "Verstuur",
     "slug": "Slug",
     "slug-description": "Een unieke ID die in de URL wordt gebruikt.",
@@ -254,6 +256,10 @@
     "not-found": "Geen suggesties gevonden",
     "search": "Zoek suggesties...",
     "title": "Suggesties"
+  },
+  "timeline": {
+    "description": "Een tijdbalk van Bijbelse personen en gebeurtenissen.",
+    "title": "Tijdbalk"
   },
   "validation": {
     "after-or-equal-to": "{field} moet na of gelijk zijn aan {date}.",

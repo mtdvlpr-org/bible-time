@@ -98,6 +98,8 @@ async function onSubmit(payload: FormSubmitEvent<Schema>) {
   } else {
     showSuccess({ description: t('auth.check-your-email-for-instructions') })
   }
+  captchaToken.value = ''
+  captcha.value?.reset()
 }
 
 useSeoMeta({

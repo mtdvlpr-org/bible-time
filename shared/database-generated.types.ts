@@ -45,6 +45,13 @@ export type Database = {
             referencedRelation: "people"
             referencedColumns: ["id"]
           },
+          {
+            foreignKeyName: "event_relations_person_id_fkey"
+            columns: ["person_id"]
+            isOneToOne: false
+            referencedRelation: "people_with_children"
+            referencedColumns: ["id"]
+          },
         ]
       }
       events: {
@@ -153,10 +160,24 @@ export type Database = {
             referencedColumns: ["id"]
           },
           {
+            foreignKeyName: "people_father_fkey"
+            columns: ["father"]
+            isOneToOne: false
+            referencedRelation: "people_with_children"
+            referencedColumns: ["id"]
+          },
+          {
             foreignKeyName: "people_mother_fkey"
             columns: ["mother"]
             isOneToOne: false
             referencedRelation: "people"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "people_mother_fkey"
+            columns: ["mother"]
+            isOneToOne: false
+            referencedRelation: "people_with_children"
             referencedColumns: ["id"]
           },
         ]
@@ -186,10 +207,24 @@ export type Database = {
             referencedColumns: ["id"]
           },
           {
+            foreignKeyName: "person_relations_person_one_fkey"
+            columns: ["person_one"]
+            isOneToOne: false
+            referencedRelation: "people_with_children"
+            referencedColumns: ["id"]
+          },
+          {
             foreignKeyName: "person_relations_person_two_fkey"
             columns: ["person_two"]
             isOneToOne: false
             referencedRelation: "people"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "person_relations_person_two_fkey"
+            columns: ["person_two"]
+            isOneToOne: false
+            referencedRelation: "people_with_children"
             referencedColumns: ["id"]
           },
         ]
@@ -328,7 +363,92 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      people_with_children: {
+        Row: {
+          aliases: string[] | null
+          avatar_url: string | null
+          birth_precision: Database["public"]["Enums"]["date_precision"] | null
+          birth_year: number | null
+          children: Json | null
+          created_at: string | null
+          death_precision: Database["public"]["Enums"]["date_precision"] | null
+          death_year: number | null
+          description: Json | null
+          father: number | null
+          gender: Database["public"]["Enums"]["gender"] | null
+          id: number | null
+          mother: number | null
+          name: string | null
+          slug: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          aliases?: string[] | null
+          avatar_url?: string | null
+          birth_precision?: Database["public"]["Enums"]["date_precision"] | null
+          birth_year?: number | null
+          children?: never
+          created_at?: string | null
+          death_precision?: Database["public"]["Enums"]["date_precision"] | null
+          death_year?: number | null
+          description?: Json | null
+          father?: number | null
+          gender?: Database["public"]["Enums"]["gender"] | null
+          id?: number | null
+          mother?: number | null
+          name?: string | null
+          slug?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          aliases?: string[] | null
+          avatar_url?: string | null
+          birth_precision?: Database["public"]["Enums"]["date_precision"] | null
+          birth_year?: number | null
+          children?: never
+          created_at?: string | null
+          death_precision?: Database["public"]["Enums"]["date_precision"] | null
+          death_year?: number | null
+          description?: Json | null
+          father?: number | null
+          gender?: Database["public"]["Enums"]["gender"] | null
+          id?: number | null
+          mother?: number | null
+          name?: string | null
+          slug?: string | null
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "people_father_fkey"
+            columns: ["father"]
+            isOneToOne: false
+            referencedRelation: "people"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "people_father_fkey"
+            columns: ["father"]
+            isOneToOne: false
+            referencedRelation: "people_with_children"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "people_mother_fkey"
+            columns: ["mother"]
+            isOneToOne: false
+            referencedRelation: "people"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "people_mother_fkey"
+            columns: ["mother"]
+            isOneToOne: false
+            referencedRelation: "people_with_children"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Functions: {
       authorize: {

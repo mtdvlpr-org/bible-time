@@ -53,6 +53,14 @@
               <EventsRelatedCard :id="person.id" :edit="edit" :slug="person.slug" />
               <PeopleRelatedCard :id="person.id" :edit="edit" type="person" :slug="person.slug" />
             </div>
+
+            <BibleTimeline
+              v-if="(person.birth_year || person.death_year) && events.length + people.length > 1"
+              class="my-6"
+              :events="events"
+              :people="people"
+              :highlighted="person.slug"
+            />
           </main>
         </div>
       </div>
@@ -84,20 +92,37 @@ const personProp = computed(() => ({
   death_precision: person.value?.death_precision ?? undefined
 }))
 
+const events = computed(() => {
+  return (
+    person.value?.event_relations
+      ?.map((rel) => rel.events)
+      .filter((e) => e.start_year || e.end_year) ?? []
+  )
+})
+
+const people = computed(() => {
+  return [person.value, person.value?.mother, person.value?.father].filter(
+    (p) => !!p && (p.birth_year || p.death_year)
+  ) as TimelinePerson[]
+})
+
 const { data: person } = await useAsyncData(`person-${slug.value}`, async () => {
   const { data } = await supabase
     .from('people')
     .select(
       `*,
-    mother(name, slug, avatar_url),
-    father(name, slug, avatar_url),
-    event_relations(relation_kind, events(title, slug, cover_url)),
+    mother(name, slug, avatar_url, birth_year, death_year),
+    father(name, slug, avatar_url, birth_year, death_year),
+    event_relations(relation_kind, events(title, slug, cover_url, start_year, end_year)),
     related_one:person_relations!person_relations_person_one_fkey(relation_kind, people!person_relations_person_two_fkey(name, slug, avatar_url)),
     related_two:person_relations!person_relations_person_two_fkey(relation_kind, people!person_relations_person_one_fkey(name, slug, avatar_url))`
     )
     .eq('slug', slug.value)
     .single()
-    .overrideTypes<{ father: ShortPerson; mother: ShortPerson }>()
+    .overrideTypes<{
+      father: (ShortPerson & TimelinePerson) | undefined
+      mother: (ShortPerson & TimelinePerson) | undefined
+    }>()
   return data
 })
 
