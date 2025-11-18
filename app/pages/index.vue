@@ -6,7 +6,7 @@
           <UDashboardSidebarCollapse />
         </template>
         <template #right>
-          <ChangelogViewer />
+          <LazyChangelogViewer />
         </template>
       </UDashboardNavbar>
     </template>
