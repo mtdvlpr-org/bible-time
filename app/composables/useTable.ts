@@ -24,10 +24,13 @@ export default function () {
     })
   }
 
-  const avatarCell = (label: string, avatar: null | string) => {
+  const avatarCell = (label: string, avatar: null | string, aliases?: string[]) => {
     return h('div', { class: 'flex items-center gap-3' }, [
       h(UAvatar, { alt: '', icon: 'i-lucide-image', size: 'lg', src: avatar ?? undefined }),
-      h('div', undefined, [h('p', { class: 'font-medium text-highlighted' }, label)])
+      h('div', undefined, [
+        h('p', { class: 'font-medium text-highlighted' }, label),
+        ...(aliases?.length ? [h('p', { class: '' }, `${aliases.join(', ')}`)] : [])
+      ])
     ])
   }
 
