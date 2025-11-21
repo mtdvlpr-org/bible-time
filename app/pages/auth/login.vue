@@ -53,7 +53,7 @@
 </template>
 
 <script setup lang="ts">
-import type { FormSubmitEvent } from '@nuxt/ui'
+import type { AuthFormField, FormSubmitEvent } from '@nuxt/ui'
 
 import VueHcaptcha from '@hcaptcha/vue3-hcaptcha'
 import { z } from 'zod'
@@ -81,7 +81,10 @@ const captchaToken = ref('')
 const colorMode = useColorMode()
 const captcha = useTemplateRef('captcha')
 const { captchaSiteKey } = useRuntimeConfig().public
-const fields = [allFields.email, { ...allFields.password, autocomplete: 'current-password' }]
+const fields: AuthFormField[] = [
+  { ...allFields.email, autofocus: true },
+  { ...allFields.password, autocomplete: 'current-password' }
+]
 
 const schema = z
   .object({

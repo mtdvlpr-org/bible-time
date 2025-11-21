@@ -17,7 +17,7 @@
             :label="fields.name.label"
             :placeholder="fields.name.placeholder"
           >
-            <UInput v-model="state.name" class="w-full" />
+            <UInput v-model="state.name" class="w-full" :autofocus="!state.name" />
           </UFormField>
           <UFormField
             required
@@ -28,7 +28,7 @@
             <UInput v-model="state.email" type="email" class="w-full" />
           </UFormField>
           <UFormField required name="subject" :label="$t('contact.subject')">
-            <UInput v-model="state.subject" class="w-full" />
+            <UInput v-model="state.subject" class="w-full" :autofocus="!!state.name" />
           </UFormField>
           <UFormField
             required

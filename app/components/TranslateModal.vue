@@ -18,7 +18,7 @@
           :placeholder="fields.name.placeholder"
           :label="type === 'person' ? $t('person.name') : $t('event.title')"
         >
-          <UInput v-model="state.name" class="w-full" />
+          <UInput v-model="state.name" autofocus class="w-full" />
         </UFormField>
         <UFormField
           v-for="alias in aliases"
@@ -100,7 +100,7 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
   const { error } = await supabase
     .from('translations')
     .upsert([
-      ...(event.data.name === translation.value
+      ...(event.data.name !== translation.value
         ? [{ key: props.name, lang: locale.value, value: event.data.name }]
         : []),
       ...props.aliases
