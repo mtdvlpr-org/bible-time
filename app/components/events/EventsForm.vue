@@ -9,8 +9,8 @@
     >
       <UInput
         v-model="state.title"
-        autocapitalize="words"
         class="w-full"
+        autocapitalize="words"
         :disabled="disabled || !!event"
         :autofocus="!event && !disabled"
         @change="state.slug = slugify(state.title)"
@@ -24,31 +24,26 @@
     >
       <UInput
         v-model="state.slug"
-        autocapitalize="off"
         class="w-full"
+        autocapitalize="off"
         :disabled="disabled || !!event"
         @input="normalizeSlug"
       />
     </UFormField>
+    <UFormField
+      :label="$t('general.aliases')"
+      :description="$t('validation.provide-in-language', { language: $t('i18n.english') })"
+    >
+      <UInputTags v-model="state.aliases" class="w-full" autocapitalize="words" />
+    </UFormField>
     <LazyUFormField v-if="!noCover" name="cover_url" :label="$t('event.cover-url')">
-      <UInput
+      <InputClear
         v-model="state.cover_url"
         type="url"
         class="w-full"
         placeholder="https://example.com/cover.jpg"
         :cover="state.cover_url ? { src: state.cover_url, alt: '' } : undefined"
-      >
-        <template v-if="state.cover_url?.length" #trailing>
-          <LazyUButton
-            size="sm"
-            variant="link"
-            color="neutral"
-            icon="i-lucide:circle-x"
-            :aria-label="$t('general.clear')"
-            @click="state.cover_url = undefined"
-          />
-        </template>
-      </UInput>
+      />
     </LazyUFormField>
     <UFormField
       class="w-full"
@@ -146,7 +141,7 @@ const { fields, rules } = useForm()
 const schema = z
   .object({
     aliases: z.array(z.string()),
-    cover_url: rules.url(t('event.cover-url')).nullable(),
+    cover_url: rules.url(t('event.cover-url')).nullable().optional(),
     end_precision: rules.datePrecision(t('date.precision')).optional(),
     end_year: rules.year(t('event.end-year')).nullable(),
     slug: rules.slug,
