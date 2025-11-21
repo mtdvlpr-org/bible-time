@@ -12,6 +12,8 @@ import { repository, version } from './package.json'
 const repoUrl = repository.url.replace(/^git\+/, '').replace(/\.git$/, '')
 const [repoOwner, repoName] = repository.url.replace(/^https:\/\/github\.com\//, '').split('/')
 
+const imageOptimizationDomains: string[] = []
+
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   alias: { '#server': fileURLToPath(new URL('./server', import.meta.url)) },
@@ -33,6 +35,8 @@ export default defineNuxtConfig({
     strategy: 'prefix'
   },
 
+  image: { domains: imageOptimizationDomains, provider: 'netlify' },
+
   modules: [
     '@netlify/nuxt',
     '@nuxt/eslint',
@@ -47,7 +51,13 @@ export default defineNuxtConfig({
     'pinia-plugin-persistedstate/nuxt'
   ],
 
-  netlify: { headers: { enabled: true }, redirects: { enabled: true } },
+  netlify: {
+    headers: { enabled: true },
+    images: { enabled: true, remoteURLPatterns: imageOptimizationDomains },
+    redirects: { enabled: true }
+  },
+
+  nitro: { netlify: { images: { remote_images: imageOptimizationDomains } }, preset: 'netlify' },
 
   pwa: {
     devOptions: {
@@ -80,8 +90,6 @@ export default defineNuxtConfig({
   },
 
   routeRules: { '/api/**': { cors: true } },
-
-  // nitro: { netlify: { images: { remote_images: ['https://wol.jw.org/*'] } }, preset: 'netlify' },
 
   runtimeConfig: {
     githubToken: process.env.GITHUB_TOKEN,
