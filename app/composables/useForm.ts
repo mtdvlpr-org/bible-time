@@ -42,6 +42,7 @@ export default function () {
       type: 'select'
     },
     name: {
+      autocapitalize: 'words',
       autocomplete: 'name',
       label: t('person.name'),
       name: 'name',
