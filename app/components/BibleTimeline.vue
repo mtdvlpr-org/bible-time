@@ -6,7 +6,7 @@
     :groups="groups"
     :viewport-max="viewportMax"
     :viewport-min="viewportMin"
-    :min-viewport-duration="64000000000"
+    :min-viewport-duration="100000000000"
     @click="onClick"
   >
     <template #item="{ item }">

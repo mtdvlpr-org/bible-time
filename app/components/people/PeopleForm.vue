@@ -9,6 +9,7 @@
     >
       <UInput
         v-model="state.name"
+        autocapitalize="words"
         class="w-full"
         :disabled="disabled || !!person"
         :autofocus="!person && !disabled"
@@ -23,6 +24,7 @@
     >
       <UInput
         v-model="state.slug"
+        autocapitalize="off"
         class="w-full"
         :disabled="disabled || !!person"
         @input="normalizeSlug"
@@ -68,6 +70,7 @@
         :max="2025"
         :min="-4026"
         class="w-full"
+        inputmode="tel"
         :decrement="false"
         :increment="false"
       />
@@ -92,6 +95,7 @@
         :max="2025"
         :min="-4026"
         class="w-full"
+        inputmode="tel"
         :decrement="false"
         :increment="false"
       />

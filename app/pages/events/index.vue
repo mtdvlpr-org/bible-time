@@ -38,6 +38,7 @@ import type { TableColumn } from '@nuxt/ui'
 
 const { t } = useI18n()
 const { can } = useUserStore()
+const localePath = useLocalePath()
 const supabase = useSupabaseClient()
 
 const {
@@ -102,7 +103,11 @@ const columns = computed((): TableColumn<Tables<'events'>>[] => [
     cell: ({ row }) =>
       actionCell([
         { label: t('general.actions'), type: 'label' },
-        { icon: 'i-lucide:list', label: t('event.view'), to: `/events/${row.original.slug}` },
+        {
+          icon: 'i-lucide:list',
+          label: t('event.view'),
+          to: localePath(`/events/${row.original.slug}`)
+        },
         ...(can('events.delete')
           ? [
               { type: 'separator' as const },

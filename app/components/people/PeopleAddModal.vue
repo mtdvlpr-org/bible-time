@@ -15,6 +15,7 @@ import type { Schema } from './PeopleForm.vue'
 const open = ref(false)
 
 const { t } = useI18n()
+const localePath = useLocalePath()
 
 const supabase = useSupabaseClient()
 const { data: people } = useNuxtData<Tables<'people'>[]>('people')
@@ -36,7 +37,7 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
       actions: [
         {
           label: t('person.view'),
-          to: `/people/${created.slug}`
+          to: localePath(`/people/${created.slug}`)
         }
       ],
       description: t('feedback.saved-successfully', { item: event.data.name })
