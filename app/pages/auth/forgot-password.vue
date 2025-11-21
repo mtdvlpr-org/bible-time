@@ -36,7 +36,7 @@
 </template>
 
 <script setup lang="ts">
-import type { FormSubmitEvent } from '@nuxt/ui'
+import type { AuthFormField, FormSubmitEvent } from '@nuxt/ui'
 
 import { z } from 'zod'
 
@@ -50,7 +50,7 @@ const captchaToken = ref('')
 const colorMode = useColorMode()
 const captcha = useTemplateRef('captcha')
 const { captchaSiteKey } = useRuntimeConfig().public
-const fields = [allFields.email]
+const fields: AuthFormField[] = [{ ...allFields.email, autofocus: true }]
 
 const schema = z.object({ email: rules.email })
 

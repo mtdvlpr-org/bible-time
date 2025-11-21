@@ -12,10 +12,11 @@
 </template>
 
 <script setup lang="ts">
-import type { ButtonProps, FormSubmitEvent } from '@nuxt/ui'
+import type { AuthFormField, ButtonProps, FormSubmitEvent } from '@nuxt/ui'
 import type { z } from 'zod'
 
 const props = defineProps<{
+  autofocus?: boolean
   description?: string
   icon?: string
   onSuccess?: () => Promise<void>
@@ -27,7 +28,10 @@ const { t } = useI18n()
 
 const { fields: allFields, rules } = useForm()
 
-const fields = [{ ...allFields.password, label: t('auth.new-password') }, allFields.confirm]
+const fields: AuthFormField[] = [
+  { ...allFields.password, autofocus: props.autofocus, label: t('auth.new-password') },
+  allFields.confirm
+]
 
 const schema = rules.changePassword
 

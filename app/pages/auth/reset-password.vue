@@ -1,5 +1,6 @@
 <template>
   <AuthPasswordForm
+    autofocus
     icon="i-lucide:lock"
     :on-success="onSuccess"
     :title="$t('auth.reset-password')"

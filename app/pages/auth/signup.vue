@@ -61,7 +61,7 @@ const colorMode = useColorMode()
 const captcha = useTemplateRef('captcha')
 const { captchaSiteKey } = useRuntimeConfig().public
 const fields = computed((): AuthFormField[] => [
-  allFields.name,
+  { ...allFields.name, autofocus: true },
   allFields.email,
   allFields.password
 ])

@@ -11,6 +11,7 @@
         v-model="state.name"
         class="w-full"
         :disabled="disabled || !!person"
+        :autofocus="!person && !disabled"
         @change="state.slug = slugify(state.name)"
       />
     </UFormField>

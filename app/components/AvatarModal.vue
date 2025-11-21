@@ -34,6 +34,7 @@
         >
           <UInput
             v-model="state.url"
+            autofocus
             type="url"
             class="w-full"
             placeholder="https://example.com/avatar.jpg"

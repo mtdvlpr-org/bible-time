@@ -2,6 +2,7 @@
   <div class="flex flex-wrap items-center justify-between gap-1.5">
     <UInput
       v-model="globalFilter"
+      autofocus
       class="max-w-sm"
       icon="i-lucide:search"
       :placeholder="searchLabel ? searchLabel : $t('general.search')"
