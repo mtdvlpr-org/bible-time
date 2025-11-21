@@ -9,6 +9,7 @@
     >
       <UInput
         v-model="state.name"
+        autocapitalize="words"
         class="w-full"
         :disabled="disabled || !!person"
         :autofocus="!person && !disabled"
