@@ -10,6 +10,7 @@
             v-model="search"
             autofocus
             value-key="value"
+            inputmode="search"
             :items="searchItems"
             :placeholder="$t('general.search')"
           >

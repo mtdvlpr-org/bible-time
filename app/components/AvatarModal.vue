@@ -32,24 +32,13 @@
           name="url"
           :label="type === 'person' ? $t('person.avatar-url') : $t('event.cover-url')"
         >
-          <UInput
+          <InputClear
             v-model="state.url"
             autofocus
             type="url"
             class="w-full"
             placeholder="https://example.com/avatar.jpg"
-          >
-            <template v-if="state.url?.length" #trailing>
-              <LazyUButton
-                size="sm"
-                variant="link"
-                color="neutral"
-                icon="i-lucide:circle-x"
-                :aria-label="$t('general.clear')"
-                @click="state.url = undefined"
-              />
-            </template>
-          </UInput>
+          />
         </UFormField>
         <div class="flex justify-end gap-2">
           <UButton

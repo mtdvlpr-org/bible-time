@@ -9,8 +9,8 @@
     >
       <UInput
         v-model="state.name"
-        autocapitalize="words"
         class="w-full"
+        autocapitalize="words"
         :disabled="disabled || !!person"
         :autofocus="!person && !disabled"
         @change="state.slug = slugify(state.name)"
@@ -24,8 +24,8 @@
     >
       <UInput
         v-model="state.slug"
-        autocapitalize="off"
         class="w-full"
+        autocapitalize="off"
         :disabled="disabled || !!person"
         @input="normalizeSlug"
       />
@@ -34,27 +34,16 @@
       :label="$t('general.aliases')"
       :description="$t('validation.provide-in-language', { language: $t('i18n.english') })"
     >
-      <UInputTags v-model="state.aliases" class="w-full" />
+      <UInputTags v-model="state.aliases" class="w-full" autocapitalize="words" />
     </UFormField>
     <LazyUFormField v-if="!noAvatar" name="avatar_url" :label="$t('person.avatar-url')">
-      <UInput
+      <InputClear
         v-model="state.avatar_url"
         type="url"
         class="w-full"
         placeholder="https://example.com/avatar.jpg"
         :avatar="state.avatar_url ? { src: state.avatar_url, alt: '' } : undefined"
-      >
-        <template v-if="state.avatar_url?.length" #trailing>
-          <LazyUButton
-            size="sm"
-            variant="link"
-            color="neutral"
-            icon="i-lucide:circle-x"
-            :aria-label="$t('general.clear')"
-            @click="state.avatar_url = undefined"
-          />
-        </template>
-      </UInput>
+      />
     </LazyUFormField>
     <UFormField required name="gender" :label="fields.gender.label">
       <USelect v-model="state.gender" class="w-full" :items="fields.gender.items" />

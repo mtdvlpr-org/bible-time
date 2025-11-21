@@ -18,7 +18,7 @@
           :placeholder="fields.name.placeholder"
           :label="type === 'person' ? $t('person.name') : $t('event.title')"
         >
-          <UInput v-model="state.name" autofocus class="w-full" />
+          <UInput v-model="state.name" autofocus class="w-full" autocapitalize="words" />
         </UFormField>
         <UFormField
           v-for="alias in aliases"
@@ -27,7 +27,7 @@
           :name="`aliases.${alias}`"
           :label="$t('general.alias')"
         >
-          <UInput v-model="state.aliases[alias]" class="w-full" />
+          <UInput v-model="state.aliases[alias]" class="w-full" autocapitalize="on" />
         </UFormField>
         <div class="flex justify-end gap-2">
           <UButton
