@@ -62,7 +62,7 @@ See `package.json` for the exact list. Common commands:
 - `pnpm lint` / `pnpm lint:fix` — run ESLint
 - `pnpm lint:types` — TypeScript checks
 - `pnpm test` — run tests (placeholder)
-- `pnpm generate:supabase:types` — generate Supabase types (requires supabase CLI and credentials)
+- `pnpm generate:supabase-types` — generate Supabase types (requires supabase CLI and credentials)
 
 ---
 

@@ -16,7 +16,7 @@ Thank you for your interest in contributing to BibleTime! This guide explains th
 
 - Node.js: as specified in `package.json` engines (recommended: Node 22.x or later as the project lists >=22.18.0)
 - pnpm: the repository uses pnpm as the package manager (see `package.json` -> `packageManager`).
-- (Optional) Supabase CLI if you want to generate types or work with the Supabase project locally for the `supabase:types` script.
+- (Optional) Supabase CLI if you want to generate types or work with the Supabase project locally for the `generate:supabase-types` script.
 
 ## Local setup
 
@@ -51,7 +51,7 @@ Open <http://localhost:3000> in your browser.
 - Type checking: `pnpm lint:types` (uses `vue-tsc` / TypeScript)
 - Build for production: `pnpm build`
 - Preview production build: `pnpm preview`
-- Generate Supabase types (requires `supabase` CLI & access): `pnpm generate:supabase:types`
+- Generate Supabase types (requires `supabase` CLI & access): `pnpm generate:supabase-types`
 - Tests: `pnpm test` (note: test scripts are placeholders in this repo)
 
 ## Translations
