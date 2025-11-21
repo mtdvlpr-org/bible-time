@@ -18,13 +18,7 @@
         :label="$t('general.cancel')"
         @click="onCancel"
       />
-      <UButton
-        loading-auto
-        color="neutral"
-        :label="$t('general.confirm')"
-        v-bind="confirm"
-        @click="onConfirm"
-      />
+      <UButton color="neutral" :label="$t('general.confirm')" v-bind="confirm" @click="onConfirm" />
     </template>
   </UModal>
 </template>
