@@ -61,6 +61,7 @@
         :max="2025"
         :min="-4026"
         class="w-full"
+        inputmode="tel"
         :decrement="false"
         :increment="false"
       />
@@ -85,6 +86,7 @@
         :max="2025"
         :min="-4026"
         class="w-full"
+        inputmode="tel"
         :decrement="false"
         :increment="false"
       />
