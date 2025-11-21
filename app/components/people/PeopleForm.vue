@@ -24,6 +24,7 @@
     >
       <UInput
         v-model="state.slug"
+        autocapitalize="off"
         class="w-full"
         :disabled="disabled || !!person"
         @input="normalizeSlug"
