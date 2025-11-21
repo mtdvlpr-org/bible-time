@@ -63,12 +63,22 @@ const supabase = useSupabaseClient()
 
 const { showError, showSuccess } = useFlash()
 
-const onSuccess = () => {
-  open.value = false
-  router.push(localePath('/suggestions'))
+async function onApproved() {
+  try {
+    await $fetch(`/api/suggestions/${props.target}/approve`, { method: 'POST' })
+    showSuccess({
+      description: t('feedback.saved-successfully', { item: $t('suggestion.noun') })
+    })
+    open.value = false
+    refreshNuxtData('suggestions')
+  } catch {
+    showError({
+      description: t('feedback.could-not-save', { item: $t('suggestion.noun') })
+    })
+  }
 }
 
-const onCancel = async () => {
+async function onCancel() {
   if (props.review && props.target) {
     const { error } = await supabase
       .from('suggestions')
@@ -91,21 +101,6 @@ const onCancel = async () => {
   }
 
   open.value = false
-}
-
-const onApproved = async () => {
-  try {
-    await $fetch(`/api/suggestions/${props.target}/approve`, { method: 'POST' })
-    showSuccess({
-      description: t('feedback.saved-successfully', { item: $t('suggestion.noun') })
-    })
-    open.value = false
-    refreshNuxtData('suggestions')
-  } catch {
-    showError({
-      description: t('feedback.could-not-save', { item: $t('suggestion.noun') })
-    })
-  }
 }
 
 async function onEventsSubmit(event: FormSubmitEvent<EventsSchema>) {
@@ -150,5 +145,10 @@ async function onPeopleSubmit(event: FormSubmitEvent<PeopleSchema>) {
     })
     onSuccess()
   }
+}
+
+function onSuccess() {
+  open.value = false
+  router.push(localePath('/suggestions'))
 }
 </script>

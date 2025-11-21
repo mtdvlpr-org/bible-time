@@ -43,9 +43,16 @@
       class="bg-linear-to-tl from-error/10 from-5% to-default"
     >
       <template #footer>
-        <UButton color="error" :label="$t('general.delete')" />
+        <UButton color="error" :label="$t('general.delete')" @click="confirmDeletion = true" />
       </template>
     </UPageCard>
+
+    <ConfirmModal
+      v-model="confirmDeletion"
+      :message="$t('auth.delete-account-description')"
+      :confirm="{ color: 'error', label: $t('general.delete') }"
+      @confirm="onConfirmDeletion"
+    />
   </div>
 </template>
 <script setup lang="ts">
@@ -70,7 +77,7 @@ const { t } = useI18n()
 const { showError, showSuccess } = useFlash()
 const supabase = useSupabaseClient()
 
-const onSubmit = async (event: FormSubmitEvent<EmailSchema>) => {
+async function onSubmit(event: FormSubmitEvent<EmailSchema>) {
   const { error } = await supabase.auth.updateUser({
     email: event.data.new
   })
@@ -84,7 +91,22 @@ const onSubmit = async (event: FormSubmitEvent<EmailSchema>) => {
   }
 }
 
-useSeoMeta({
-  title: t('settings.security')
-})
+const confirmDeletion = ref(false)
+
+async function onConfirmDeletion() {
+  try {
+    await $fetch('/api/auth/account', {
+      method: 'DELETE',
+      onResponseError: (ctx) => {
+        showError({ description: ctx.error?.message })
+      }
+    })
+
+    await userStore.logout()
+  } catch {
+    // Handled in onResponseError
+  }
+}
+
+useSeoMeta({ title: t('settings.security') })
 </script>

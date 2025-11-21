@@ -188,7 +188,7 @@ const state = reactive<Partial<Schema>>({
   ...(props.person ?? {})
 })
 
-const normalizeSlug = (e: Event) => {
+function normalizeSlug(e: Event) {
   const input = e.target as HTMLInputElement
   input.value = slugify(input.value, false)
   state.slug = input.value

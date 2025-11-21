@@ -65,14 +65,14 @@ const items = computed(() => {
   return allItems
 })
 
-const onClick = (value: { event: MouseEvent; item: Item | TimelineMarker; time: number }) => {
+function onClick(value: { event: MouseEvent; item: Item | TimelineMarker; time: number }) {
   if (value.item.type === 'marker') return
   if (value.item.id) navigateTo(`/${value.item.id}`)
 }
 
 const { translate } = useTranslations()
 
-const initTimeline = () => {
+function initTimeline() {
   grouped.value = {}
   peopleWithDate.value.forEach((p) => {
     const start = yearToTimestamp(p.birth_year ?? p.death_year ?? 0, 'start')

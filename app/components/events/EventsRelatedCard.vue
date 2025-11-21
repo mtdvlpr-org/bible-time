@@ -129,32 +129,7 @@ const {
 
 const { showError, showSuccess } = useFlash()
 
-const removeRelatedEvent = async (slug: string) => {
-  if (!person.value) return
-
-  const event = allEvents.value?.find((p) => p.slug === slug)
-  if (!event) return
-
-  const { error } = await supabase
-    .from('event_relations')
-    .delete()
-    .eq('event_id', event.id)
-    .eq('person_id', props.id)
-
-  if (error) {
-    showError({ description: error.message })
-  } else {
-    person.value = {
-      ...person.value,
-      event_relations: person.value.event_relations.filter((rel) => rel.events.slug !== slug)
-    }
-    showSuccess({
-      description: t('feedback.deleted-successfully', { item: t('relation.related-event') })
-    })
-  }
-}
-
-const onSubmit = async () => {
+async function onSubmit() {
   if (!person.value || !selectedEvent.value || !selectedRelation.value) return
 
   let message = ''
@@ -182,6 +157,31 @@ const onSubmit = async () => {
     })
     selectedEvent.value = undefined
     selectedRelation.value = undefined
+  }
+}
+
+async function removeRelatedEvent(slug: string) {
+  if (!person.value) return
+
+  const event = allEvents.value?.find((p) => p.slug === slug)
+  if (!event) return
+
+  const { error } = await supabase
+    .from('event_relations')
+    .delete()
+    .eq('event_id', event.id)
+    .eq('person_id', props.id)
+
+  if (error) {
+    showError({ description: error.message })
+  } else {
+    person.value = {
+      ...person.value,
+      event_relations: person.value.event_relations.filter((rel) => rel.events.slug !== slug)
+    }
+    showSuccess({
+      description: t('feedback.deleted-successfully', { item: t('relation.related-event') })
+    })
   }
 }
 </script>

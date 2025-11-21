@@ -120,7 +120,7 @@ const items = computed<DropdownMenuItem[][]>(() => [
       icon: 'i-lucide:log-out',
       label: t('settings.log-out'),
       onSelect: () => {
-        userStore.signOut()
+        userStore.logout()
       }
     }
   ]

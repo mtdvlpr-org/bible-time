@@ -56,10 +56,10 @@ export const useUserStore = defineStore('user', {
 
       this.permissions[role] = data.map((d) => d.permission)
     },
-    async signOut() {
+    async logout() {
       this.user = null
       await useSupabaseClient().auth.signOut()
-      navigateTo('/auth/login')
+      await navigateTo('/auth/login')
     },
     updateProfile(profile: Tables<'profiles'>) {
       if (!this.user) return
