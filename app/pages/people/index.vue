@@ -52,6 +52,7 @@ import type { TableColumn } from '@nuxt/ui'
 
 const { t } = useI18n()
 const { can } = useUserStore()
+const localePath = useLocalePath()
 const supabase = useSupabaseClient()
 const dataTable = useTemplateRef('table')
 
@@ -138,7 +139,11 @@ const columns = computed((): TableColumn<Tables<'people'>>[] => [
     cell: ({ row }) =>
       actionCell([
         { label: t('general.actions'), type: 'label' },
-        { icon: 'i-lucide:list', label: t('person.view'), to: `/people/${row.original.slug}` },
+        {
+          icon: 'i-lucide:list',
+          label: t('person.view'),
+          to: localePath(`/people/${row.original.slug}`)
+        },
         ...(can('people.delete')
           ? [
               { type: 'separator' as const },
