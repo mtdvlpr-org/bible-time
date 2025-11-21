@@ -140,13 +140,13 @@ const { fields, rules } = useForm()
 
 const schema = z
   .object({
-    aliases: z.array(z.string()),
+    aliases: z.array(z.string()).optional(),
     cover_url: rules.url(t('event.cover-url')).nullable().optional(),
     end_precision: rules.datePrecision(t('date.precision')).optional(),
-    end_year: rules.year(t('event.end-year')).nullable(),
+    end_year: rules.year(t('event.end-year')).nullable().optional(),
     slug: rules.slug,
     start_precision: rules.datePrecision(t('date.precision')).optional(),
-    start_year: rules.year(t('event.start-year')).nullable(),
+    start_year: rules.year(t('event.start-year')).nullable().optional(),
     title: rules.name
   })
   .refine(
