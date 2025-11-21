@@ -89,13 +89,13 @@ const state = reactive<Partial<Schema>>({
 const previewUrl = ref('')
 const { showError } = useFlash()
 
-const onSubmit = async (event: FormSubmitEvent<Schema>) => {
+async function onSubmit(event: FormSubmitEvent<Schema>) {
   try {
     const res = await $fetch('/api/contact', {
       body: event.data,
       method: 'POST',
-      onResponseError: (e) => {
-        showError({ description: e.error?.message })
+      onResponseError: (ctx) => {
+        showError({ description: ctx.error?.message || ctx.response._data?.message })
       }
     })
 

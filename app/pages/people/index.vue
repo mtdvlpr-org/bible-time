@@ -77,12 +77,12 @@ const genderFilters = computed((): { label: string; value: Enums<'gender'> | und
 const confirmDelete = ref(false)
 const deletePerson = shallowRef<null | Tables<'people'>>(null)
 
-const onCancelDelete = () => {
+function onCancelDelete() {
   confirmDelete.value = false
   deletePerson.value = null
 }
 
-const onConfirmDelete = async () => {
+async function onConfirmDelete() {
   if (!deletePerson.value) return
 
   const { error } = await supabase.from('people').delete().eq('id', deletePerson.value.id)

@@ -47,7 +47,7 @@ const newDescription = ref(localeDescription.value)
 const { showError, showSuccess } = useFlash()
 const supabase = useSupabaseClient()
 
-const onSubmit = async () => {
+async function onSubmit() {
   if (!item.value) return
 
   // Set old and new description

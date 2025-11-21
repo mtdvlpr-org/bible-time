@@ -33,6 +33,12 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
     })
   } else {
     showSuccess({
+      actions: [
+        {
+          label: t('event.view'),
+          to: `/events/${created.slug}`
+        }
+      ],
       description: t('feedback.saved-successfully', { item: event.data.title })
     })
     open.value = false

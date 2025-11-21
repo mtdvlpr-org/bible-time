@@ -128,12 +128,12 @@ const { actionCell, sortableColumn } = useTable()
 const confirmDelete = ref(false)
 const deleteSuggestion = shallowRef<null | Tables<'suggestions'>>(null)
 
-const onCancelDelete = () => {
+function onCancelDelete() {
   confirmDelete.value = false
   deleteSuggestion.value = null
 }
 
-const onConfirmDelete = async () => {
+async function onConfirmDelete() {
   if (!deleteSuggestion.value) return
 
   const { error } = await supabase.from('people').delete().eq('id', deleteSuggestion.value.id)

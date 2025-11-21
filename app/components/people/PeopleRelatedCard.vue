@@ -31,9 +31,10 @@
             <LazyUButton
               v-if="edit"
               size="xs"
+              loading-auto
               color="error"
               icon="i-lucide:trash-2"
-              @click="removeRelatedPerson(p.slug)"
+              @click="onRemove(p)"
             />
           </div>
         </li>
@@ -69,6 +70,8 @@ interface RelatedPart {
   relation_kind: RelationKind
 }
 
+type RelatedPerson = ShortPerson & { relation_kind: RelationKind }
+
 type RelationKind = 'father' | 'mother' | Enums<'event_relation'> | Enums<'person_relation'>
 
 const props = defineProps<{
@@ -85,7 +88,7 @@ const { data: item } = useNuxtData<{
   related_two?: RelatedPart[]
 }>(`${props.type}-${props.slug}`)
 
-const people = computed(() => {
+const people = computed((): RelatedPerson[] => {
   const fromRelations =
     item.value?.related_one.concat(item.value.related_two ?? []).map((rel) => ({
       ...rel.people,
@@ -168,35 +171,18 @@ const {
 
 const { showError, showSuccess } = useFlash()
 
-const removeRelatedPerson = async (slug: string) => {
-  if (!item.value) return
-
-  const person = allPeople.value?.find((p) => p.slug === slug)
+async function onRemove(p: RelatedPerson) {
+  const person = allPeople.value?.find((p) => p.slug === p.slug)
   if (!person) return
 
-  const inOne = item.value.related_one.some((rel) => rel.people.slug === slug)
-
-  const { error } = await supabase
-    .from('person_relations')
-    .delete()
-    .eq('person_one', inOne ? props.id : person.id)
-    .eq('person_two', inOne ? person.id : props.id)
-
-  if (error) {
-    showError({ description: error.message })
+  if (p.relation_kind === 'father' || p.relation_kind === 'mother') {
+    await removeParent(p.relation_kind)
   } else {
-    item.value = {
-      ...item.value,
-      related_one: item.value.related_one.filter((rel) => rel.people.slug !== slug),
-      related_two: item.value.related_two?.filter((rel) => rel.people.slug !== slug)
-    }
-    showSuccess({
-      description: t('feedback.deleted-successfully', { item: t('relation.related-person') })
-    })
+    await removeRelatedPerson(person)
   }
 }
 
-const onSubmit = async () => {
+async function onSubmit() {
   if (!item.value || !selectedPerson.value || !selectedRelation.value) return
 
   let message = ''
@@ -257,6 +243,52 @@ const onSubmit = async () => {
     })
     selectedPerson.value = undefined
     selectedRelation.value = undefined
+  }
+}
+
+async function removeParent(parent: 'father' | 'mother') {
+  if (!item.value) return
+
+  const { error } = await supabase
+    .from('people')
+    .update(parent === 'father' ? { father: null } : { mother: null })
+    .eq('slug', props.slug)
+
+  if (error) {
+    showError({ description: error.message })
+  } else {
+    item.value = {
+      ...item.value,
+      [parent]: undefined
+    }
+    showSuccess({
+      description: t('feedback.deleted-successfully', { item: t('relation.related-person') })
+    })
+  }
+}
+
+async function removeRelatedPerson(person: Tables<'people'>) {
+  if (!item.value) return
+
+  const inOne = item.value.related_one.some((rel) => rel.people.slug === person.slug)
+
+  const { error } = await supabase
+    .from('person_relations')
+    .delete()
+    .eq('person_one', inOne ? props.id : person.id)
+    .eq('person_two', inOne ? person.id : props.id)
+
+  if (error) {
+    showError({ description: error.message })
+  } else {
+    item.value = {
+      ...item.value,
+      related_one: item.value.related_one.filter((rel) => rel.people.slug !== person.slug),
+      related_two: item.value.related_two?.filter((rel) => rel.people.slug !== person.slug)
+    }
+    showSuccess({
+      description: t('feedback.deleted-successfully', { item: t('relation.related-person') })
+    })
   }
 }
 </script>

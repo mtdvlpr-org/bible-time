@@ -70,7 +70,7 @@
     "vue-tsc": "^3.1.4"
   },
   "lint-staged": {
-    "*.{js,ts,vue}": "pnpm lint:fix"
+    "*": "eslint --fix"
   },
   "engines": {
     "node": ">=22.18.0",

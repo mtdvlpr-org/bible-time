@@ -94,11 +94,7 @@ const avatarFile = shallowRef<File | null>(null)
 const fileInput = useTemplateRef('fileRef')
 const avatarPreview = ref(userStore.user?.avatar_url ?? '')
 
-const onFileClick = () => {
-  fileInput.value?.click()
-}
-
-const onFileChange = (e: Event) => {
+function onFileChange(e: Event) {
   const input = e.target as HTMLInputElement
 
   if (!input.files?.length) return
@@ -107,14 +103,13 @@ const onFileChange = (e: Event) => {
   avatarPreview.value = URL.createObjectURL(input.files[0]!)
 }
 
-const { showError, showSuccess } = useFlash()
-
-const resetAvatar = () => {
-  avatarFile.value = null
-  avatarPreview.value = userStore.user?.avatar_url ?? ''
+function onFileClick() {
+  fileInput.value?.click()
 }
 
-const onSubmit = async (event: FormSubmitEvent<ProfileSchema>) => {
+const { showError, showSuccess } = useFlash()
+
+async function onSubmit(event: FormSubmitEvent<ProfileSchema>) {
   if (!userStore.user) return
 
   const newProfile: TablesUpdate<'profiles'> = event.data
@@ -154,6 +149,11 @@ const onSubmit = async (event: FormSubmitEvent<ProfileSchema>) => {
       description: t('feedback.saved-successfully', { item: t('settings.profile') })
     })
   }
+}
+
+function resetAvatar() {
+  avatarFile.value = null
+  avatarPreview.value = userStore.user?.avatar_url ?? ''
 }
 
 useSeoMeta({

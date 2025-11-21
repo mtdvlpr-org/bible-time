@@ -103,14 +103,14 @@ type Schema = z.output<typeof schema>
 
 const state = reactive<Partial<Schema>>({ url: url.value ?? undefined })
 
-const reset = () => {
-  url.value = props.current
-  state.url = props.current ?? undefined
+async function onSubmit(event: FormSubmitEvent<Schema>) {
+  url.value = event.data.url ?? null
   open.value = false
 }
 
-async function onSubmit(event: FormSubmitEvent<Schema>) {
-  url.value = event.data.url ?? null
+function reset() {
+  url.value = props.current
+  state.url = props.current ?? undefined
   open.value = false
 }
 </script>

@@ -56,12 +56,12 @@ const { actionCell, avatarCell, sortableColumn } = useTable()
 const confirmDelete = ref(false)
 const deleteEvent = shallowRef<null | Tables<'events'>>(null)
 
-const onCancelDelete = () => {
+function onCancelDelete() {
   confirmDelete.value = false
   deleteEvent.value = null
 }
 
-const onConfirmDelete = async () => {
+async function onConfirmDelete() {
   if (!deleteEvent.value) return
 
   const { error } = await supabase.from('people').delete().eq('id', deleteEvent.value.id)
