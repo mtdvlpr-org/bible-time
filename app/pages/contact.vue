@@ -94,8 +94,8 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
     const res = await $fetch('/api/contact', {
       body: event.data,
       method: 'POST',
-      onResponseError: (e) => {
-        showError({ description: e.error?.message })
+      onResponseError: (ctx) => {
+        showError({ description: ctx.error?.message || ctx.response._data?.message })
       }
     })
 

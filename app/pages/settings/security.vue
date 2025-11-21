@@ -98,7 +98,7 @@ async function onConfirmDeletion() {
     await $fetch('/api/auth/account', {
       method: 'DELETE',
       onResponseError: (ctx) => {
-        showError({ description: ctx.error?.message })
+        showError({ description: ctx.error?.message || ctx.response._data?.message })
       }
     })
 

@@ -83,10 +83,15 @@ const captcha = useTemplateRef('captcha')
 const { captchaSiteKey } = useRuntimeConfig().public
 const fields = [allFields.email, { ...allFields.password, autocomplete: 'current-password' }]
 
-const schema = z.object({
-  email: rules.email,
-  password: z.string(t('validation.required', { field: t('auth.password') }))
-})
+const schema = z
+  .object({
+    email: rules.email,
+    password: z.string(t('validation.required', { field: t('auth.password') }))
+  })
+  .refine(() => !!captchaToken.value, {
+    error: t('auth.confirm-not-robot'),
+    path: ['human']
+  })
 
 type Schema = z.output<typeof schema>
 
