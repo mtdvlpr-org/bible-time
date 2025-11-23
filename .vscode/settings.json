@@ -18,5 +18,37 @@
     "app\\pages\\events\\[slug].vue": [
       "*,related_one:event_relations(relation_kind, people(name, slug, avatar_url))"
     ]
-  }
+  },
+  "cSpell.words": [
+    "amos",
+    "corinthians",
+    "deuteronomy",
+    "ecclesiastes",
+    "ephesians",
+    "ezekiel",
+    "ezra",
+    "galatians",
+    "habakkuk",
+    "haggai",
+    "hebrews",
+    "hosea",
+    "isaiah",
+    "james",
+    "jeremiah",
+    "jonah",
+    "joshua",
+    "jude",
+    "leviticus",
+    "luke",
+    "micah",
+    "nahum",
+    "nehemiah",
+    "obadiah",
+    "philippians",
+    "samuel",
+    "thessalonians",
+    "titus",
+    "zechariah",
+    "zephaniah"
+  ]
 }
