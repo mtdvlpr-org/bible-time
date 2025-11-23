@@ -8,7 +8,6 @@
         <template #right>
           <UInputMenu
             v-model="search"
-            autofocus
             value-key="value"
             inputmode="search"
             :items="searchItems"

@@ -2,7 +2,6 @@
   <div class="flex flex-wrap items-center justify-between gap-1.5">
     <InputClear
       v-model="globalFilter"
-      autofocus
       class="max-w-sm"
       inputmode="search"
       icon="i-lucide:search"
