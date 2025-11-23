@@ -18,6 +18,21 @@ export default function () {
     }
   }
 
+  const translateSourceType = (type: Enums<'source_kind'>): string => {
+    switch (type) {
+      case 'article':
+        return t('source.article')
+      case 'bible_verse':
+        return t('source.bible-verse')
+      case 'other':
+        return t('general.other')
+      case 'video':
+        return t('source.video')
+      case 'website':
+        return t('source.website')
+    }
+  }
+
   const translateSuggestionType = (type: Enums<'suggestion_type'>): string => {
     switch (type) {
       case 'event.create':
@@ -60,7 +75,7 @@ export default function () {
     }
   }
 
-  const translateBook = (id: number, short = false) => {
+  const translateBook = (id: number, short = false): string => {
     switch (id) {
       case 1:
         return short ? t('bible.abbreviations.genesis') : t('bible.books.genesis')
@@ -203,6 +218,7 @@ export default function () {
     translate,
     translateBook,
     translateRelation,
+    translateSourceType,
     translateSuggestionStatus,
     translateSuggestionType
   }

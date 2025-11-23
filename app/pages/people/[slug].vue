@@ -36,8 +36,9 @@
       <div v-if="person" class="prose max-w-none">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
           <!-- Left column: avatar & quick facts -->
-          <aside class="md:col-span-1">
+          <aside class="md:col-span-1 grid gap-4">
             <PeopleInfoCard :edit="edit" :slug="person.slug" />
+            <SourceCard :id="person.id" :edit="edit" type="person" :slug="person.slug" />
           </aside>
 
           <!-- Main content: description and related content -->
@@ -111,6 +112,7 @@ const { data: person } = await useAsyncData(`person-${slug.value}`, async () => 
     .from('people')
     .select(
       `*,
+    sources:person_sources(source_kind, value),
     mother(name, slug, avatar_url, birth_year, death_year),
     father(name, slug, avatar_url, birth_year, death_year),
     event_relations(relation_kind, events(title, slug, cover_url, start_year, end_year)),
