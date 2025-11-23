@@ -35,7 +35,7 @@ export default defineNuxtConfig({
     strategy: 'prefix'
   },
 
-  image: { domains: imageOptimizationDomains, provider: 'netlify' },
+  image: { domains: imageOptimizationDomains, provider: 'none' },
 
   modules: [
     '@netlify/nuxt',
