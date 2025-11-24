@@ -54,6 +54,35 @@ export type Database = {
           },
         ]
       }
+      event_sources: {
+        Row: {
+          event_id: number
+          id: number
+          source_kind: Database["public"]["Enums"]["source_kind"]
+          value: string
+        }
+        Insert: {
+          event_id: number
+          id?: number
+          source_kind: Database["public"]["Enums"]["source_kind"]
+          value: string
+        }
+        Update: {
+          event_id?: number
+          id?: number
+          source_kind?: Database["public"]["Enums"]["source_kind"]
+          value?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "event_sources_event_id_fkey"
+            columns: ["event_id"]
+            isOneToOne: false
+            referencedRelation: "events"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       events: {
         Row: {
           aliases: string[]
@@ -229,6 +258,42 @@ export type Database = {
           },
         ]
       }
+      person_sources: {
+        Row: {
+          id: number
+          person_id: number
+          source_kind: Database["public"]["Enums"]["source_kind"]
+          value: string
+        }
+        Insert: {
+          id?: number
+          person_id: number
+          source_kind: Database["public"]["Enums"]["source_kind"]
+          value: string
+        }
+        Update: {
+          id?: number
+          person_id?: number
+          source_kind?: Database["public"]["Enums"]["source_kind"]
+          value?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "person_sources_person_id_fkey"
+            columns: ["person_id"]
+            isOneToOne: false
+            referencedRelation: "people"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "person_sources_person_id_fkey"
+            columns: ["person_id"]
+            isOneToOne: false
+            referencedRelation: "people_with_children"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       profiles: {
         Row: {
           avatar_url: string | null
@@ -279,7 +344,7 @@ export type Database = {
           target_slug: string | null
           type: Database["public"]["Enums"]["suggestion_type"]
           updated_at: string
-          user_id: string
+          user_id: string | null
         }
         Insert: {
           created_at?: string
@@ -291,7 +356,7 @@ export type Database = {
           target_slug?: string | null
           type: Database["public"]["Enums"]["suggestion_type"]
           updated_at?: string
-          user_id?: string
+          user_id?: string | null
         }
         Update: {
           created_at?: string
@@ -303,7 +368,7 @@ export type Database = {
           target_slug?: string | null
           type?: Database["public"]["Enums"]["suggestion_type"]
           updated_at?: string
-          user_id?: string
+          user_id?: string | null
         }
         Relationships: [
           {
@@ -341,7 +406,15 @@ export type Database = {
           updated_by?: string | null
           value?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "translations_updated_by_fkey"
+            columns: ["updated_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       user_roles: {
         Row: {
@@ -483,7 +556,7 @@ export type Database = {
         | "contemporary"
         | "other"
         | "sibling"
-      source_kind: "book" | "article" | "website" | "video" | "other"
+      source_kind: "bible_verse" | "article" | "website" | "video" | "other"
       suggestion_status: "pending" | "approved" | "rejected"
       suggestion_type:
         | "person.create"
@@ -638,7 +711,7 @@ export const Constants = {
       event_relation: ["participant", "author", "other"],
       gender: ["male", "female", "unknown"],
       person_relation: ["friend", "spouse", "contemporary", "other", "sibling"],
-      source_kind: ["book", "article", "website", "video", "other"],
+      source_kind: ["bible_verse", "article", "website", "video", "other"],
       suggestion_status: ["pending", "approved", "rejected"],
       suggestion_type: [
         "person.create",
