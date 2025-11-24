@@ -3,7 +3,7 @@ type State = {
   user: null | {
     avatar_url: null | string
     display_name: string
-    email: string
+    email: string | undefined
     id: string
     role: Enums<'app_role'>
   }
