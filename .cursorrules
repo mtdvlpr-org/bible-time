@@ -1,0 +1,452 @@
+# BibleTime - AI Code Generation Rules
+
+This file contains rules and best practices for AI code generation in the BibleTime project. Follow these guidelines strictly when generating code.
+
+## Project Overview
+
+- **Framework**: Nuxt 4 (Vue 3)
+- **Language**: TypeScript
+- **Package Manager**: pnpm
+- **State Management**: Pinia with persisted state
+- **UI Framework**: Nuxt UI (Tailwind CSS)
+- **Database**: Supabase
+- **Internationalization**: @nuxtjs/i18n (English and Dutch)
+
+## Vue 3 & Composition API Rules
+
+### Component Structure
+
+- **ALWAYS** use `<script setup lang="ts">` - never use Options API or separate `<script>` blocks
+- Component file order MUST be: `<template>`, `<script setup>`, `<style>` (enforced by ESLint)
+- Use `defineProps<T>()` with TypeScript interfaces for props
+- Use `defineEmits<T>()` with TypeScript type definitions for emits
+- Use `defineModel<T>()` for two-way binding with v-model
+- Use `defineOptions()` if you need to set component options (name, inheritAttrs, etc.)
+
+### Component Example
+
+```vue
+<template>
+  <div>
+    <!-- Template content -->
+  </div>
+</template>
+
+<script setup lang="ts">
+interface Props {
+  title: string
+  description?: string
+}
+
+const props = defineProps<Props>()
+
+const emit = defineEmits<{
+  (e: 'update'): void
+  (e: 'delete', id: string): void
+}>()
+
+const model = defineModel<boolean>({ required: true })
+</script>
+```
+
+### Reactivity
+
+- Use `ref()` for primitive values and objects that need reactivity
+- Use `reactive()` sparingly (prefer `ref()` for objects)
+- Use `computed()` for derived state
+- Use `watch()` and `watchEffect()` for side effects
+- Prefer `readonly()` when exposing reactive state that shouldn't be mutated
+
+### Template Best Practices
+
+- Use PascalCase for component names in templates: `<MyComponent />`
+- Use PascalCase for component file names: `MyComponent.vue`
+- Always use `v-bind` shorthand when possible: `:prop="value"` not `v-bind:prop="value"`
+- Use `v-if` for conditional rendering, `v-show` for toggling visibility
+- Use `useTemplateRef()` composable for template refs:
+  ```vue
+  <template>
+    <div ref="myElement">Content</div>
+  </template>
+  <script setup lang="ts">
+  const myElement = useTemplateRef<HTMLDivElement>('myElement')
+  </script>
+  ```
+
+## Nuxt 4 Specific Rules
+
+### Auto-Imports
+
+- **DO NOT** manually import Nuxt auto-imported functions:
+  - `ref`, `computed`, `watch`, `onMounted`, `useTemplateRef`, etc. (Vue)
+  - `useRouter`, `useRoute`, `navigateTo`, `useHead`, `useSeoMeta` (Nuxt)
+  - `useFetch`, `useAsyncData`, `$fetch` (Nuxt)
+  - `useSupabaseClient`, `useSupabaseUser`, `useSupabaseSession` (Supabase)
+  - `useI18n`, `useLocalePath`, `useSwitchLocalePath` (i18n)
+  - `defineStore`, `storeToRefs` (Pinia)
+
+### Composables
+
+- Create composables in `app/composables/` directory
+- Name composables with `use` prefix: `useMyComposable.ts`
+- Export default function that returns an object with the composable API
+- Use TypeScript interfaces for return types when complex
+- Example:
+
+```typescript
+// app/composables/useMyComposable.ts
+export default function () {
+  const { t } = useI18n()
+
+  const doSomething = () => {
+    // implementation
+  }
+
+  return {
+    doSomething
+  }
+}
+```
+
+### Data Fetching
+
+1. **useFetch**: Use for standard data fetching with SSR, caching, and reactive URL updates
+
+   ```typescript
+   const { data, pending, error } = await useFetch('/api/endpoint')
+   ```
+
+2. **useAsyncData**: Use for complex data fetching logic (multiple API calls, custom caching)
+
+   ```typescript
+   const { data, pending, error } = await useAsyncData('key', async () => {
+     // complex logic
+   })
+   ```
+
+3. **$fetch**: Use for client-side requests in event handlers or when SSR is not needed
+
+   ```typescript
+   const data = await $fetch('/api/endpoint')
+   ```
+
+4. **Server-only fetching**: Set `server: false` to fetch only on client
+5. **Lazy fetching**: Set `lazy: true` to defer non-critical data fetching
+
+### Server API Routes
+
+- Place server API routes in `server/api/` directory
+- Use `.get.ts`, `.post.ts`, `.put.ts`, `.delete.ts` extensions for HTTP methods
+- Use `defineEventHandler()` from h3
+- Example:
+
+```typescript
+// server/api/example.get.ts
+export default defineEventHandler(async (event) => {
+  // Server-side logic
+  return { data: 'example' }
+})
+```
+
+### Pages and Routing
+
+- Use file-based routing in `app/pages/` directory
+- Use `[slug].vue` for dynamic routes
+- Use `navigateTo()` for programmatic navigation
+- Use `useRoute()` to access route params and query
+- Use `useRouter()` for router instance (rarely needed)
+
+### Middleware
+
+- Create middleware in `app/middleware/` directory
+- Use `.global.ts` suffix for global middleware
+- Example:
+
+```typescript
+// app/middleware/auth.global.ts
+export default defineNuxtRouteMiddleware((to) => {
+  // Middleware logic
+})
+```
+
+### Layouts
+
+- Create layouts in `app/layouts/` directory
+- Use `<NuxtLayout>` or `setPageLayout()` to apply layouts
+- Default layout is `default.vue`
+
+### SEO and Meta
+
+- Use `useHead()` for head management
+- Use `useSeoMeta()` for SEO meta tags
+- **DO NOT** use `<NuxtImage>` or `<NuxtPicture>` directly - always use Nuxt UI components that handle images (e.g., `<UAvatar>` for avatars)
+- Use Nuxt Icons module for icons (not icon fonts or SVGs)
+
+### Configuration
+
+- Use `useRuntimeConfig()` for runtime configuration (server and client)
+- Use `app.config.ts` for app theme configuration (client-only)
+- Access public config: `const config = useRuntimeConfig().public`
+
+## TypeScript Rules
+
+### Type Definitions
+
+- **ALWAYS** use `interface` over `type` for object shapes (better extendability)
+- **NEVER** use `enum` - use const objects or union types instead
+- Use `satisfies` operator for type checking without widening types
+- Use generic types when appropriate
+- Define types in `shared/types/` for shared types
+- Use generated Supabase types from `shared/types/database.types.ts`
+
+### Type Examples
+
+```typescript
+// ✅ Good - Interface
+interface User {
+  id: string
+  name: string
+  email?: string
+}
+
+// ❌ Bad - Type alias for object
+type User = {
+  id: string
+  name: string
+}
+
+// ✅ Good - Const object instead of enum
+const UserRole = {
+  ADMIN: 'admin',
+  USER: 'user'
+} as const
+
+type UserRole = (typeof UserRole)[keyof typeof UserRole]
+
+// ❌ Bad - Enum
+enum UserRole {
+  ADMIN = 'admin',
+  USER = 'user'
+}
+```
+
+### Type Safety
+
+- Always type function parameters and return types
+- Use `as const` for literal types
+- Use type guards when needed
+- Avoid `any` - use `unknown` and type narrowing instead
+- Use `@ts-expect-error` or `@ts-ignore` sparingly with comments explaining why
+
+## Code Style Rules
+
+### ESLint Configuration
+
+- Follow the project's ESLint configuration in `eslint.config.mjs`
+- Vue components must use `<script setup lang="ts">`
+- Attributes should be ordered alphabetically
+- Use Prettier for formatting (configured via ESLint)
+
+### Naming Conventions
+
+- **Components**: PascalCase file names: `MyComponent.vue`
+- **Composables**: `use` prefix, PascalCase: `useMyComposable.ts`
+- **Utilities**: camelCase: `myUtility.ts`
+- **Stores**: camelCase with `use` prefix: `useMyStore.ts`
+- **Types/Interfaces**: PascalCase: `MyType`, `MyInterface`
+- **Constants**: UPPER_SNAKE_CASE: `MAX_ITEMS`
+- **Variables/Functions**: camelCase: `myVariable`, `myFunction()`
+
+### File Structure
+
+- Components: `app/components/` (use subdirectories for organization)
+- Composables: `app/composables/`
+- Pages: `app/pages/`
+- Layouts: `app/layouts/`
+- Middleware: `app/middleware/`
+- Stores: `app/stores/`
+- Utils: `app/utils/` (client-side) or `shared/utils/` (shared)
+- Server API: `server/api/`
+- Server Utils: `server/utils/`
+- Types: `shared/types/`
+
+### Import Organization
+
+- Group imports: external packages, then internal modules
+- Use absolute imports when possible (Nuxt auto-imports handle most cases)
+- Use `#components` alias for component imports when needed
+- Use `#server` alias for server-only imports
+
+## Pinia Store Rules
+
+### Store Structure
+
+- Use `defineStore()` with setup syntax (preferred) or options syntax
+- Name stores with `use` prefix: `useUserStore`
+- Place stores in `app/stores/` directory
+- Use persisted state plugin for client-side persistence
+- Example:
+
+```typescript
+// app/stores/user.ts
+export const useUserStore = defineStore('user', {
+  state: () => ({
+    user: null as User | null
+  }),
+  actions: {
+    async fetchUser() {
+      // Implementation
+    }
+  },
+  persist: {
+    storage: piniaPluginPersistedstate.cookies({ sameSite: 'strict', secure: true })
+  }
+})
+```
+
+### Store Usage
+
+- Access stores in components: `const userStore = useUserStore()`
+- Use `storeToRefs()` to destructure reactive state
+- Call actions directly: `userStore.fetchUser()`
+
+## Internationalization (i18n)
+
+### Translation Usage
+
+- Always use `useI18n()` composable: `const { t, locale } = useI18n()`
+- Use translation keys in templates: `{{ $t('key.path') }}`
+- Use translation function in scripts: `t('key.path')`
+- Translation files are in `app/locales/` (en.json, nl.json)
+- Use Crowdin for translation contributions
+
+### Translation Patterns
+
+```typescript
+// In component
+const { t } = useI18n()
+const title = t('page.title')
+
+// In template
+<h1>{{ $t('page.title') }}</h1>
+```
+
+## Supabase Integration
+
+### Client Usage
+
+- Use `useSupabaseClient()` for database operations
+- Use `useSupabaseUser()` for current user
+- Use `useSupabaseSession()` for session data
+- Always handle errors properly
+- Use generated types from `shared/types/database.types.ts`
+
+### Server Usage
+
+- Use `serverSupabaseService` in server API routes
+- Never expose service role keys to client
+- Use RLS (Row Level Security) policies
+
+### Error Handling
+
+- Use `handleSupabaseError()` from `app/utils/supabase.ts` for client errors
+- Use `supabaseService.handleError()` from `server/utils/supabase.ts` for server errors
+
+## UI Components (Nuxt UI)
+
+### Component Usage
+
+- Use Nuxt UI components: `<UButton>`, `<UInput>`, `<UModal>`, etc.
+- Follow Nuxt UI documentation for component props
+- Use Tailwind CSS classes for styling
+- Use `Lazy` prefix for lazy loading: `<LazyMyComponent />`
+
+### Styling
+
+- Use Tailwind CSS utility classes
+- Mobile-first responsive design
+- Use Nuxt UI color system
+- Custom styles in `app/assets/css/main.css`
+
+## Performance Best Practices
+
+### Code Splitting
+
+- Use `Lazy` prefix for components: `<LazyHeavyComponent />`
+- Use dynamic imports for heavy dependencies
+- Split vendor chunks appropriately (see `nuxt.config.ts`)
+
+### Optimization
+
+- Use `v-memo` for expensive list rendering
+- Use `v-once` for static content
+- Optimize images through Nuxt UI components (e.g., `<UAvatar>`) - do not use `<NuxtImage>` directly
+- Use `useLazyAsyncData` for non-critical data
+
+## Security Best Practices
+
+### Environment Variables
+
+- Never commit secrets or credentials
+- Use `useRuntimeConfig()` for environment variables
+- Server-only variables in `runtimeConfig` (not in `public`)
+- Client-accessible variables in `runtimeConfig.public`
+
+### Authentication
+
+- Use Supabase Auth for authentication
+- Protect routes with middleware
+- Check permissions in stores: `userStore.can('permission')`
+
+## Testing Considerations
+
+- Test scripts are placeholders in this project
+- When adding tests, use Vitest (Nuxt's default)
+- Test composables in isolation
+- Test components with Vue Test Utils
+
+## Common Patterns
+
+### Form Handling
+
+- Use Zod for validation (see `app/composables/useForm.ts`)
+- Use `useForm()` composable for form fields and validation rules
+- Handle form submission with proper error handling
+
+### Error Handling
+
+- Use `useFlash()` composable for user feedback
+- Show error messages: `showError({ description: 'Error message' })`
+- Show success messages: `showSuccess({ description: 'Success message' })`
+
+### Table Components
+
+- Use `useTable()` composable for table utilities
+- Use TanStack Table (via Nuxt UI DataTable)
+- Implement sorting, filtering, and pagination
+
+## Code Quality Checklist
+
+Before generating code, ensure:
+
+- [ ] Uses `<script setup lang="ts">`
+- [ ] Uses TypeScript interfaces (not types) for object shapes
+- [ ] No enums - use const objects or union types
+- [ ] Properly typed props, emits, and return values
+- [ ] Uses Nuxt auto-imports (no manual imports needed)
+- [ ] Follows naming conventions
+- [ ] Uses composables for reusable logic
+- [ ] Uses i18n for all user-facing strings
+- [ ] Handles errors appropriately
+- [ ] Uses Nuxt UI components
+- [ ] Mobile-first responsive design
+- [ ] Follows ESLint rules
+- [ ] Uses `satisfies` for type checking when appropriate
+
+## References
+
+- Nuxt 4 Documentation: https://nuxt.com
+- Vue 3 Documentation: https://vuejs.org
+- Nuxt UI Documentation: https://ui.nuxt.com
+- Supabase Documentation: https://supabase.com/docs
+- TypeScript Documentation: https://www.typescriptlang.org/docs

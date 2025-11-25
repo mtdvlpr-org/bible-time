@@ -1,69 +1,50 @@
 # BibleTime
 
-BibleTime is a web app that provides an overview of Biblical people and events. It is built as a progressive web app (PWA) using Nuxt 4 and TypeScript.
-
-This repository contains the source code for the site and the developer tools to run, build and extend it.
+BibleTime is a web app that provides an overview of Biblical people and events. Explore the lives of Biblical figures, discover historical events, and see how they connect through time.
 
 ## What it does
 
-- Browse and search Biblical people with basic biographical details.
-- Browse events and view event pages that can reference people.
-- Suggest edits or additions via the suggestions workflow.
-- Supports English and Dutch (i18n).
+- **Browse Biblical people** - Search and explore detailed information about people mentioned in the Bible
+- **Explore events** - Discover Biblical events and see how they relate to different people
+- **Timeline view** - Visualize Biblical history through an interactive timeline
+- **Suggest improvements** - Help improve the content by suggesting edits or additions
+- **Multiple languages** - Available in English and Dutch, with more languages coming soon
 
-## Who is this for
+## Getting started
 
-This README is written for general users and contributors who want to understand what the project does and how to get help. If you're a developer who wants to run or modify the code, please see `CONTRIBUTING.md` for setup and developer guidance.
+BibleTime is a progressive web app (PWA), which means you can use it in your web browser or install it on your device for a more app-like experience.
 
-## Quick overview
+## Contributing
 
-- Tech: Nuxt 4 (Vue 3), TypeScript, Pinia, Supabase, PWA support
-- Data and auth: Supabase (server integration present in `server/` and `utils/supabase.ts`)
-- State: Pinia with persisted state
-- Internationalization: English and Dutch
+We welcome contributions! Whether you're a developer, translator, or content contributor, there are many ways to help improve BibleTime.
 
-## Translations
+### For developers
 
-- **Crowdin:** The project accepts translation contributions on Crowdin: [https://crowdin.com/project/bible-time](https://crowdin.com/project/bible-time)
-- Source strings live in `app/locales/en.json` and translated locale files are stored under `app/locales/` (see `crowdin.yml` for mapping). If you'd like to help translate the site, please contribute via the Crowdin project.
+If you're interested in contributing code, fixing bugs, or adding new features, please see [CONTRIBUTING.md](CONTRIBUTING.md) for detailed setup instructions and development guidelines.
 
-## Try it locally (developer steps)
+### For translators
 
-Developers: follow `CONTRIBUTING.md` for full local setup instructions. In summary:
+We're always looking for help translating BibleTime into more languages! If you'd like to contribute translations, please see the [Translations section in CONTRIBUTING.md](CONTRIBUTING.md#translations) for details on how to get started. We use Crowdin to manage translations, making it easy to contribute even if you're not familiar with code.
 
-1. Install Node.js (see `package.json` engines) and pnpm.
-2. Clone the repo and run `pnpm install`.
-3. Start the dev server with `pnpm dev` and open <http://localhost:3000>.
+### Other ways to contribute
 
-## Project status
+- Report bugs or suggest features (see [SUPPORT.md](SUPPORT.md))
+- Suggest content improvements through the app's suggestion feature
+- Help improve documentation
+- Share feedback and ideas
 
-- License: MIT — see `LICENSE`
-- Support: only the latest version of the project is supported. See `SECURITY.md` for details on supported versions and reporting vulnerabilities.
+## Getting help
 
-## Where to get help
+- **Need help using the app?** See [SUPPORT.md](SUPPORT.md) for how to report issues or ask questions
+- **Found a security issue?** Please see [SECURITY.md](SECURITY.md) for how to report vulnerabilities responsibly
+- **Have questions about contributing?** Check out [CONTRIBUTING.md](CONTRIBUTING.md) or open an issue
 
-See `SUPPORT.md` for how to report bugs, request features, or ask for help. For development-related contributions, please follow `CONTRIBUTING.md`.
+## Project information
 
-## Project layout (high-level)
-
-- `app/` — Nuxt application code (pages, components, layouts, locales)
-- `server/` — server API routes and server utilities
-- `shared/` — generated and shared TypeScript types
-- `public/` — static assets and branding (logo, icons)
-- `utils/`, `shared/utils/` — helper utilities and formatters
-
-## Useful scripts
-
-See `package.json` for the exact list. Common commands:
-
-- `pnpm dev` — start development server
-- `pnpm build` — build production bundle
-- `pnpm preview` — preview production build locally
-- `pnpm lint` / `pnpm lint:fix` — run ESLint
-- `pnpm lint:types` — TypeScript checks
-- `pnpm test` — run tests (placeholder)
-- `pnpm generate:supabase-types` — generate Supabase types (requires supabase CLI and credentials)
+- **License**: MIT — see [LICENSE](LICENSE) for details
+- **Support**: Only the latest version of the project is actively supported
+- **Code of Conduct**: Please read [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) before participating
 
 ---
 
-Thanks for checking out BibleTime! If you'd like to contribute, start with `CONTRIBUTING.md` and say hello in an issue or discussion.
+Thanks for checking out BibleTime! We're excited to have you here. If you'd like to contribute, start with [CONTRIBUTING.md](CONTRIBUTING.md) and feel free to say hello in an issue or discussion.

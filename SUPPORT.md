@@ -2,11 +2,14 @@
 
 If you need help using BibleTime or running the project locally, there are a few ways to get assistance:
 
-1. GitHub Issues
+1. **Contact Form**
+   - Use the contact form in the app (available at `/contact` or `/en/contact`) for general inquiries or feedback.
+
+2. **GitHub Issues**
    - Open an issue for bugs or feature requests: provide a clear title, description, and steps to reproduce.
    - Include helpful context: browser/OS, Node and pnpm versions, and any server logs or console output.
 
-2. GitHub Discussions
+3. **GitHub Discussions**
    - For general questions, design ideas, or help getting started, use Discussions (if enabled) to have community conversations.
 
 What to include in a bug report
