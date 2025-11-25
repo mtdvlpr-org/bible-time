@@ -22,7 +22,7 @@ Thank you for your interest in contributing to BibleTime! This guide explains th
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/mtdvlpr-org/bible-time.git
+git clone git@github.com:mtdvlpr-org/bible-time.git
 cd bible-time
 ```
 
