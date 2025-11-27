@@ -51,11 +51,13 @@ export default function () {
   }
 
   const translateRelation = (
-    relation: 'father' | 'mother' | Enums<'event_relation'> | Enums<'person_relation'>
+    relation: 'child' | 'father' | 'mother' | Enums<'event_relation'> | Enums<'person_relation'>
   ): string => {
     switch (relation) {
       case 'author':
         return t('relation.author')
+      case 'child':
+        return t('relation.child')
       case 'contemporary':
         return t('relation.contemporary')
       case 'father':

@@ -57,6 +57,7 @@
 
             <BibleTimeline
               v-if="(person.birth_year || person.death_year) && events.length + people.length > 1"
+              :key="events.length + people.length"
               class="my-6"
               :events="events"
               :people="people"
@@ -102,9 +103,12 @@ const events = computed(() => {
 })
 
 const people = computed(() => {
-  return [person.value, person.value?.mother, person.value?.father].filter(
-    (p) => !!p && (p.birth_year || p.death_year)
-  ) as TimelinePerson[]
+  return [
+    person.value?.father,
+    person.value?.mother,
+    person.value,
+    ...(children.value ?? [])
+  ].filter((p) => !!p && (p.birth_year || p.death_year)) as TimelinePerson[]
 })
 
 const { data: person } = await useAsyncData(`person-${slug.value}`, async () => {
@@ -126,6 +130,26 @@ const { data: person } = await useAsyncData(`person-${slug.value}`, async () => 
       mother: (ShortPerson & TimelinePerson) | undefined
     }>()
   return data
+})
+
+const {
+  data: children,
+  execute: fetchChildren,
+  status
+} = await useLazyAsyncData(`children-${slug.value}`, async () => {
+  if (!person.value) return []
+  const { data } = await supabase
+    .from('people')
+    .select('name, slug, avatar_url, birth_year, death_year')
+    .or(`father.eq.${person.value.id},mother.eq.${person.value.id}`)
+
+  return data ?? []
+})
+
+watchImmediate(person, (val) => {
+  if (val && status.value === 'idle') {
+    fetchChildren()
+  }
 })
 
 const name = computed(() => (person.value ? translate(person.value.name) : '404'))
