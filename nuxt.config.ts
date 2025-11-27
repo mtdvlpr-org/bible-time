@@ -28,8 +28,8 @@ export default defineNuxtConfig({
     detectBrowserLanguage: { cookieKey: 'i18n_locale', useCookie: true },
     langDir: 'locales',
     locales: [
-      { code: 'en', dir: 'ltr', file: 'en.json', language: 'en-US', name: 'English' },
-      { code: 'nl', dir: 'ltr', file: 'nl.json', language: 'nl-NL', name: 'Nederlands' }
+      { code: 'en', dir: 'ltr', file: 'en.json', jw: 'E', language: 'en-US', name: 'English' },
+      { code: 'nl', dir: 'ltr', file: 'nl.json', jw: 'O', language: 'nl-NL', name: 'Nederlands' }
     ] satisfies LocaleObject<AppLocale>[],
     restructureDir: 'app',
     strategy: 'prefix'

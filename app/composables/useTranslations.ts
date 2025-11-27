@@ -1,5 +1,5 @@
 export default function () {
-  const { locale, t } = useI18n()
+  const { locale, localeProperties, t } = useI18n()
   const i18nStore = useI18nStore()
 
   const translate = (key: string, fallback = true) => {
@@ -48,6 +48,17 @@ export default function () {
       case 'translation.update':
         return t('general.translate')
     }
+  }
+
+  const translateSource = (source: string): string => {
+    if (!source.includes('jw.org/finder') && !source.includes('wtlocale=')) {
+      return source
+    }
+
+    const url = new URL(source)
+    url.searchParams.set('wtlocale', localeProperties.value.jw)
+
+    return url.toString()
   }
 
   const translateRelation = (
@@ -232,6 +243,7 @@ export default function () {
     translate,
     translateBook,
     translateRelation,
+    translateSource,
     translateSourceType,
     translateSuggestionStatus,
     translateSuggestionType

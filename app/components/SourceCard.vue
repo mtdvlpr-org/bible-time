@@ -97,14 +97,14 @@ const sources = computed(
                 : 'i-lucide:link',
           id: s.id,
           label: translateSourceType(s.source_kind),
-          to: s.value
+          to: translateSource(s.value)
         }
       }
     }) ?? []
 )
 
 const { locale, t } = useI18n()
-const { formatBibleVerse, translateSourceType } = useTranslations()
+const { formatBibleVerse, translateSource, translateSourceType } = useTranslations()
 
 const supabase = useSupabaseClient()
 const { showError, showSuccess } = useFlash()
