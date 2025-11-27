@@ -36,8 +36,9 @@
       <div v-if="person" class="prose max-w-none">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
           <!-- Left column: avatar & quick facts -->
-          <aside class="md:col-span-1">
+          <aside class="md:col-span-1 grid gap-4">
             <PeopleInfoCard :edit="edit" :slug="person.slug" />
+            <SourceCard :id="person.id" :edit="edit" type="person" :slug="person.slug" />
           </aside>
 
           <!-- Main content: description and related content -->
@@ -56,6 +57,7 @@
 
             <BibleTimeline
               v-if="(person.birth_year || person.death_year) && events.length + people.length > 1"
+              :key="events.length + people.length"
               class="my-6"
               :events="events"
               :people="people"
@@ -101,9 +103,12 @@ const events = computed(() => {
 })
 
 const people = computed(() => {
-  return [person.value, person.value?.mother, person.value?.father].filter(
-    (p) => !!p && (p.birth_year || p.death_year)
-  ) as TimelinePerson[]
+  return [
+    person.value?.father,
+    person.value?.mother,
+    person.value,
+    ...(children.value ?? [])
+  ].filter((p) => !!p && (p.birth_year || p.death_year)) as TimelinePerson[]
 })
 
 const { data: person } = await useAsyncData(`person-${slug.value}`, async () => {
@@ -111,6 +116,7 @@ const { data: person } = await useAsyncData(`person-${slug.value}`, async () => 
     .from('people')
     .select(
       `*,
+    sources:person_sources(id, source_kind, value),
     mother(name, slug, avatar_url, birth_year, death_year),
     father(name, slug, avatar_url, birth_year, death_year),
     event_relations(relation_kind, events(title, slug, cover_url, start_year, end_year)),
@@ -124,6 +130,26 @@ const { data: person } = await useAsyncData(`person-${slug.value}`, async () => 
       mother: (ShortPerson & TimelinePerson) | undefined
     }>()
   return data
+})
+
+const {
+  data: children,
+  execute: fetchChildren,
+  status
+} = await useLazyAsyncData(`children-${slug.value}`, async () => {
+  if (!person.value) return []
+  const { data } = await supabase
+    .from('people')
+    .select('name, slug, avatar_url, birth_year, death_year')
+    .or(`father.eq.${person.value.id},mother.eq.${person.value.id}`)
+
+  return data ?? []
+})
+
+watchImmediate(person, (val) => {
+  if (val && status.value === 'idle') {
+    fetchChildren()
+  }
 })
 
 const name = computed(() => (person.value ? translate(person.value.name) : '404'))

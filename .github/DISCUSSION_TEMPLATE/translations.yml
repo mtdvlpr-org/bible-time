@@ -12,8 +12,8 @@ body:
     attributes:
       label: What language do you speak?
       description: |
-        Try to include the native name and English name.
-        For example: Nederlands/Dutch or Español/Spanish
+        Try to include the native name, English name and JW locale code.
+        For example: Nederlands/Dutch/O or Español/Spanish/S
       placeholder: I would like to help translate the project into ...
       value: I would like to help translate the project into ...
     validations:

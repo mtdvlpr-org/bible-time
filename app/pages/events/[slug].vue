@@ -36,7 +36,7 @@
       <div v-if="event" class="prose max-w-none">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
           <!-- Left column: avatar & quick facts -->
-          <aside class="md:col-span-1">
+          <aside class="md:col-span-1 grid gap-4">
             <EventsInfoCard :edit="edit" :slug="event.slug" />
           </aside>
 
@@ -50,6 +50,7 @@
             />
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+              <SourceCard :id="event.id" :edit="edit" type="event" :slug="event.slug" />
               <PeopleRelatedCard :id="event.id" :edit="edit" type="event" :slug="event.slug" />
             </div>
           </main>
@@ -86,7 +87,11 @@ const eventProp = computed(() => ({
 const { data: event } = await useAsyncData(`event-${slug.value}`, async () => {
   const { data } = await supabase
     .from('events')
-    .select('*,related_one:event_relations(relation_kind, people(name, slug, avatar_url))')
+    .select(
+      `*,
+      sources:event_sources(id, source_kind, value),
+      related_one:event_relations(relation_kind, people(name, slug, avatar_url))`
+    )
     .eq('slug', slug.value)
     .single()
   return data

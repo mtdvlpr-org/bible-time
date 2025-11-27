@@ -107,7 +107,12 @@ const { translate } = useTranslations()
 const columns = computed((): TableColumn<Tables<'people'>>[] => [
   {
     accessorKey: 'name',
-    cell: ({ row }) => avatarCell(translate(row.original.name), row.original.avatar_url),
+    cell: ({ row }) =>
+      avatarCell(
+        translate(row.original.name),
+        row.original.avatar_url,
+        row.original.aliases.map((a) => translate(a))
+      ),
     header: t('person.name')
   },
   {

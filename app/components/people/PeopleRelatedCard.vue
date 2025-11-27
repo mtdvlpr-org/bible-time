@@ -29,7 +29,7 @@
               </div>
             </ULink>
             <LazyUButton
-              v-if="edit"
+              v-if="edit && p.relation_kind !== 'child'"
               size="xs"
               loading-auto
               color="error"
@@ -72,7 +72,12 @@ interface RelatedPart {
 
 type RelatedPerson = ShortPerson & { relation_kind: RelationKind }
 
-type RelationKind = 'father' | 'mother' | Enums<'event_relation'> | Enums<'person_relation'>
+type RelationKind =
+  | 'child'
+  | 'father'
+  | 'mother'
+  | Enums<'event_relation'>
+  | Enums<'person_relation'>
 
 const props = defineProps<{
   edit?: boolean
@@ -87,6 +92,8 @@ const { data: item } = useNuxtData<{
   related_one: RelatedPart[]
   related_two?: RelatedPart[]
 }>(`${props.type}-${props.slug}`)
+
+const { data: children } = useNuxtData<ShortPerson[]>(`children-${props.slug}`)
 
 const people = computed((): RelatedPerson[] => {
   const fromRelations =
@@ -105,7 +112,11 @@ const people = computed((): RelatedPerson[] => {
   }
 
   // show parents first, then other relations
-  return [...parents, ...fromRelations]
+  return [
+    ...parents,
+    ...fromRelations,
+    ...(children.value?.map((c) => ({ ...c, relation_kind: 'child' as const })) ?? [])
+  ]
 })
 
 const { t } = useI18n()
@@ -241,8 +252,7 @@ async function onSubmit() {
     showSuccess({
       description: t('feedback.saved-successfully', { item: t('relation.related-person') })
     })
-    selectedPerson.value = undefined
-    selectedRelation.value = undefined
+    selectedPerson.value = selectedRelation.value = undefined
   }
 }
 

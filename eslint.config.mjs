@@ -26,6 +26,7 @@ export default withNuxt(
     }
   },
   eslintPluginPrettierRecommended,
+  { rules: { 'prettier/prettier': ['error', { endOfLine: 'auto' }] } },
   globalIgnores(['shared/database-generated.types.ts'])
 ).overrideRules({
   'vue/attributes-order': ['warn', { alphabetical: true, sortLineLength: true }],

@@ -1,7 +1,7 @@
 name: Bug Report
 description: Report a problem so we can try to fix it
-title: "[Bug]: "
-labels: ["Status: Triage"]
+title: '[Bug]: '
+labels: ['Status: Triage']
 type: 🐛 Bug
 body:
   - type: markdown
@@ -73,7 +73,7 @@ body:
     id: logs
     attributes:
       label: Relevant log output
-      description: | 
+      description: |
         Please copy and paste any relevant log output.
         To open the inspector, hit <kbd>Ctrl</kbd> <kbd>⇧ Shift</kbd> <kbd>I</kbd> (<kbd>⌘ Command</kbd> <kbd>⌥ Option</kbd> <kbd>I</kbd> for macOS).
       render: shell
@@ -91,7 +91,7 @@ body:
     id: confirmations
     attributes:
       label: Confirmations
-      description: By submitting this issue, you agree to follow our [Code of Conduct](https://github.com/mtdvlpr-org/bible-time/CODE_OF_CONDUCT.md). 
+      description: By submitting this issue, you agree to follow our [Code of Conduct](https://github.com/mtdvlpr-org/bible-time/blob/main/CODE_OF_CONDUCT.md).
       options:
         - label: I agree to follow this project's Code of Conduct
           required: true

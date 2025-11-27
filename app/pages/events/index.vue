@@ -86,7 +86,12 @@ const { translate } = useTranslations()
 const columns = computed((): TableColumn<Tables<'events'>>[] => [
   {
     accessorKey: 'title',
-    cell: ({ row }) => avatarCell(translate(row.original.title), row.original.cover_url),
+    cell: ({ row }) =>
+      avatarCell(
+        translate(row.original.title),
+        row.original.cover_url,
+        row.original.aliases.map((a) => translate(a))
+      ),
     header: t('event.title')
   },
   {

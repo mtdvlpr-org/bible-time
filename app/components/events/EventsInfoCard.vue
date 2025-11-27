@@ -82,7 +82,10 @@ async function onSubmit(submitEvent: FormSubmitEvent<Schema>) {
   event.value = newData
 
   // Send update to Supabase
-  const { error } = await supabase.from('events').update(submitEvent.data).eq('slug', props.slug)
+  const { error } = await supabase
+    .from('events')
+    .update({ ...submitEvent.data, cover_url: newAvatar.value })
+    .eq('slug', props.slug)
 
   if (error) {
     // Revert optimistic update
@@ -92,6 +95,7 @@ async function onSubmit(submitEvent: FormSubmitEvent<Schema>) {
     showSuccess({
       description: t('feedback.saved-successfully', { item: translate(event.value.title) })
     })
+    refreshNuxtData('events')
   }
 }
 </script>
