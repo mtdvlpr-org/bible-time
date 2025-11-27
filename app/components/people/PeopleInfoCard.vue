@@ -99,7 +99,10 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
   person.value = newData
 
   // Send update to Supabase
-  const { error } = await supabase.from('people').update(event.data).eq('slug', props.slug)
+  const { error } = await supabase
+    .from('people')
+    .update({ ...event.data, avatar_url: newAvatar.value })
+    .eq('slug', props.slug)
 
   if (error) {
     // Revert optimistic update
@@ -109,6 +112,7 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
     showSuccess({
       description: t('feedback.saved-successfully', { item: translate(person.value.name) })
     })
+    refreshNuxtData('people')
   }
 }
 </script>
