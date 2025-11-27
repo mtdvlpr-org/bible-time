@@ -241,8 +241,7 @@ async function onSubmit() {
     showSuccess({
       description: t('feedback.saved-successfully', { item: t('relation.related-person') })
     })
-    selectedPerson.value = undefined
-    selectedRelation.value = undefined
+    selectedPerson.value = selectedRelation.value = undefined
   }
 }
 

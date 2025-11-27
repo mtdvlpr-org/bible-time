@@ -89,7 +89,7 @@ const { data: event } = await useAsyncData(`event-${slug.value}`, async () => {
     .from('events')
     .select(
       `*,
-      sources:event_sources(source_kind, value),
+      sources:event_sources(id, source_kind, value),
       related_one:event_relations(relation_kind, people(name, slug, avatar_url))`
     )
     .eq('slug', slug.value)

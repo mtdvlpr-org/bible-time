@@ -170,6 +170,7 @@
       "zephaniah": "Zefanja"
     },
     "chapter": "Hoofdstuk",
+    "until": "Tot",
     "verse": "Vers"
   },
   "contact": {
@@ -372,6 +373,7 @@
     "article": "Artikel",
     "bible-verse": "Bijbelvers",
     "no-sources": "Geen bronnen",
+    "noun": "Bron",
     "sources": "Bronnen",
     "type": "Brontype",
     "video": "Video",

@@ -170,6 +170,7 @@
       "zephaniah": "Zephaniah"
     },
     "chapter": "Chapter",
+    "until": "Until",
     "verse": "Verse"
   },
   "contact": {
@@ -372,6 +373,7 @@
     "article": "Article",
     "bible-verse": "Bible verse",
     "no-sources": "No sources",
+    "noun": "Source",
     "sources": "Sources",
     "type": "Source type",
     "video": "Video",

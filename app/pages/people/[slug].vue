@@ -112,7 +112,7 @@ const { data: person } = await useAsyncData(`person-${slug.value}`, async () => 
     .from('people')
     .select(
       `*,
-    sources:person_sources(source_kind, value),
+    sources:person_sources(id, source_kind, value),
     mother(name, slug, avatar_url, birth_year, death_year),
     father(name, slug, avatar_url, birth_year, death_year),
     event_relations(relation_kind, events(title, slug, cover_url, start_year, end_year)),

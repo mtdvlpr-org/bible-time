@@ -155,8 +155,7 @@ async function onSubmit() {
     showSuccess({
       description: t('feedback.saved-successfully', { item: t('relation.related-event') })
     })
-    selectedEvent.value = undefined
-    selectedRelation.value = undefined
+    selectedEvent.value = selectedRelation.value = undefined
   }
 }
 
