@@ -176,7 +176,7 @@ const links = computed((): NavigationMenuItem[][] => [
       icon: 'i-lucide-info',
       label: t('general.help-and-support'),
       target: '_blank',
-      to: repoUrl
+      to: repoUrl + '#readme'
     }
   ]
 ])
