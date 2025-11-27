@@ -38,7 +38,6 @@
           <!-- Left column: avatar & quick facts -->
           <aside class="md:col-span-1 grid gap-4">
             <EventsInfoCard :edit="edit" :slug="event.slug" />
-            <SourceCard :id="event.id" :edit="edit" type="event" :slug="event.slug" />
           </aside>
 
           <!-- Main content: description and related content -->
@@ -51,6 +50,7 @@
             />
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+              <SourceCard :id="event.id" :edit="edit" type="event" :slug="event.slug" />
               <PeopleRelatedCard :id="event.id" :edit="edit" type="event" :slug="event.slug" />
             </div>
           </main>
