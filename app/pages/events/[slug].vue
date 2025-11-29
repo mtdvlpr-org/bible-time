@@ -16,8 +16,10 @@
           <LazyTranslateModal
             v-if="event && locale !== 'en' && can('translations.create')"
             type="event"
+            :slug="event.slug"
             :name="event.title"
             :aliases="event.aliases"
+            :description="event.description"
           />
           <LazyUButton
             v-if="event && can('events.update')"
