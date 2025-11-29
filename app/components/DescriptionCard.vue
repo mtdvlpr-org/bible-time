@@ -3,7 +3,7 @@
     <LazyUForm v-if="edit" @submit="onSubmit">
       <UFormField
         :label="$t('general.description')"
-        :description="$t('validation.provide-in-language', { language: localeProperties.name })"
+        :description="$t('validation.provide-in-language', { language: $t('i18n.english') })"
       >
         <UTextarea v-model="newDescription" autoresize :maxrows="10" class="w-full" />
       </UFormField>
@@ -13,7 +13,7 @@
           type="submit"
           icon="i-lucide:save"
           :label="$t('general.save')"
-          :disabled="localeDescription === newDescription"
+          :disabled="item?.description?.en === newDescription"
         />
       </div>
     </LazyUForm>
@@ -36,13 +36,13 @@ const props = defineProps<{
 const { data: item } = useNuxtData<Tables<'events'> | Tables<'people'>>(
   `${props.type}-${props.slug}`
 )
-const { locale, localeProperties, t } = useI18n()
+const { locale, t } = useI18n()
 
 const localeDescription = computed(() => {
   return item.value?.description?.[locale.value] ?? null
 })
 
-const newDescription = ref(localeDescription.value)
+const newDescription = ref(item.value?.description?.en)
 
 const { showError, showSuccess } = useFlash()
 const supabase = useSupabaseClient()
@@ -54,7 +54,7 @@ async function onSubmit() {
   const previousDescription = item.value.description
   const description = {
     ...(item.value.description ?? {}),
-    [locale.value]: newDescription.value ?? ''
+    en: newDescription.value ?? ''
   }
 
   // Update description optimistically

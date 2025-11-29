@@ -17,7 +17,9 @@
             v-if="person && locale !== 'en' && can('translations.create')"
             type="person"
             :name="person.name"
+            :slug="person.slug"
             :aliases="person.aliases"
+            :description="person.description"
           />
           <LazyUButton
             v-if="person && can('people.update')"
