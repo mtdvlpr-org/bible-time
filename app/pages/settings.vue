@@ -31,7 +31,7 @@ const links = computed((): NavigationMenuItem[][] => [
   [
     {
       exact: true,
-      icon: 'i-lucide:settings',
+      icon: 'i-lucide:settings-2',
       label: t('settings.general'),
       to: localePath('/settings')
     },
@@ -41,7 +41,7 @@ const links = computed((): NavigationMenuItem[][] => [
       to: localePath('/settings/profile')
     },
     {
-      icon: 'i-lucide:shield',
+      icon: 'i-lucide:shield-user',
       label: t('settings.security'),
       to: localePath('/settings/security')
     }

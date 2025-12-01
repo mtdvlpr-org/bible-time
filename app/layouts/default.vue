@@ -147,14 +147,17 @@ const links = computed((): NavigationMenuItem[][] => [
       children: [
         {
           exact: true,
+          icon: 'i-lucide:settings-2',
           label: t('settings.general'),
           to: localePath('/settings')
         },
         {
+          icon: 'i-lucide:user-round',
           label: t('settings.profile'),
           to: localePath('/settings/profile')
         },
         {
+          icon: 'i-lucide:shield-user',
           label: t('settings.security'),
           to: localePath('/settings/security')
         }
