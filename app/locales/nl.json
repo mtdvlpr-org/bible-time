@@ -413,10 +413,10 @@
     "title": "Tijdbalk"
   },
   "users": {
-    "description": "",
+    "description": "Manage users and their roles, permissions, and access.",
     "filter-role": "Filter rol",
-    "not-found": "",
-    "search": "",
+    "not-found": "No users found.",
+    "search": "Search users...",
     "title": "Gebruikers"
   },
   "validation": {
