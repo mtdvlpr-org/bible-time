@@ -6,7 +6,7 @@
 
 - add sources to people and events.
 - allow translators to translate description.
-- Show children in person detail page
+- Show children in person detail page.
 
 ## 1.0.0 (2025-11-18)
 

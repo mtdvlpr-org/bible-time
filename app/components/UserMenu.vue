@@ -68,7 +68,7 @@ const items = computed<DropdownMenuItem[][]>(() => [
   ],
   [
     {
-      icon: 'i-lucide:user',
+      icon: 'i-lucide:user-round',
       label: t('settings.profile'),
       to: localePath('/settings/profile')
     },

@@ -36,7 +36,7 @@ const links = computed((): NavigationMenuItem[][] => [
       to: localePath('/settings')
     },
     {
-      icon: 'i-lucide:user',
+      icon: 'i-lucide:user-round',
       label: t('settings.profile'),
       to: localePath('/settings/profile')
     },

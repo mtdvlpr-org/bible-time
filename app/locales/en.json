@@ -1,6 +1,7 @@
 {
   "auth": {
     "account": "Account",
+    "admin": "Admin",
     "already-have-account": "Already have an account?",
     "by-signing-in": "By signing in, you agree to our",
     "by-signing-up": "By signing up, you agree to our",
@@ -18,6 +19,7 @@
     "i-am-not-robot": "I am not a robot",
     "login": "Log in",
     "login-description": "Log in to your account.",
+    "moderator": "Moderator",
     "name-description": "How you want to be displayed to other users.",
     "new-password": "New Password",
     "no-account": "Don't have an account?",
@@ -26,10 +28,14 @@
     "remember-me": "Remember me",
     "reset-password": "Reset password",
     "reset-password-description": "Reset your password to regain access to your account.",
+    "role": "Role",
     "sign-up": "Sign up",
     "sign-up-description": "Create a new account.",
+    "translator": "Translator",
+    "user": "User",
     "waiting-for-login": "Waiting for login...",
-    "welcome-back": "Welcome back"
+    "welcome-back": "Welcome back",
+    "you": "You"
   },
   "bible": {
     "abbreviations": {
@@ -405,6 +411,13 @@
   "timeline": {
     "description": "A timeline of Biblical people and events.",
     "title": "Timeline"
+  },
+  "users": {
+    "description": "Manage users and their roles, permissions, and access.",
+    "filter-role": "Filter role",
+    "not-found": "No users found.",
+    "search": "Search users...",
+    "title": "Users"
   },
   "validation": {
     "after-or-equal-to": "{field} must be after or equal to {date}.",
