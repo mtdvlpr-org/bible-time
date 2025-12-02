@@ -1,3 +1,4 @@
+import vitest from '@vitest/eslint-plugin'
 import perfectionist from 'eslint-plugin-perfectionist'
 import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended'
 import { globalIgnores } from 'eslint/config'
@@ -7,6 +8,7 @@ import withNuxt from './.nuxt/eslint.config.mjs'
 
 export default withNuxt(
   perfectionist.configs['recommended-natural'],
+  { files: ['test/**'], plugins: { vitest }, rules: { ...vitest.configs.recommended.rules } },
   {
     files: ['**/*.vue'],
     rules: {
