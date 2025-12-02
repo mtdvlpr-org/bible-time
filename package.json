@@ -21,7 +21,7 @@
     "lint:fix": "eslint --fix .",
     "lint:types": "nuxt typecheck",
     "lint:commit": "commitlint -g config/commitlint.config.ts --edit",
-    "test:unit": "vitest --project unit",
+    "test:unit": "vitest --project browser --project server",
     "test:e2e": "vitest --project e2e",
     "test:nuxt": "vitest --project nuxt",
     "test": "vitest",
