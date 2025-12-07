@@ -1,5 +1,6 @@
 <template>
   <UAuthForm
+    ref="authForm"
     loading-auto
     :fields="fields"
     :schema="schema"
@@ -39,7 +40,7 @@
         size="invisible"
         :theme="colorMode.value"
         :sitekey="captchaSiteKey"
-        @verify="captchaToken = $event"
+        @verify="onCaptchaVerify"
       />
     </template>
 
@@ -80,6 +81,7 @@ const { fields: allFields, rules } = useForm()
 const captchaToken = ref('')
 const colorMode = useColorMode()
 const captcha = useTemplateRef('captcha')
+const authForm = useTemplateRef('authForm')
 const { captchaSiteKey } = useRuntimeConfig().public
 const fields: AuthFormField[] = [
   { ...allFields.email, autofocus: true },
@@ -100,6 +102,11 @@ type Schema = z.output<typeof schema>
 
 const { showError } = useFlash()
 const supabase = useSupabaseClient()
+
+function onCaptchaVerify(token: string) {
+  captchaToken.value = token
+  authForm.value?.formRef?.clear('human')
+}
 
 async function onSubmit(payload: FormSubmitEvent<Schema>) {
   const { error } = await supabase.auth.signInWithPassword({
