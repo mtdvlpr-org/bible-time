@@ -54,7 +54,7 @@ const {
 } = await useAsyncData('users', async (): Promise<AppUser[]> => {
   const { data } = await supabase
     .from('profiles')
-    .select('id, display_name, avatar_url, user_roles(role)')
+    .select('id, display_name, avatar_url, user_roles!inner(role)')
   return data ?? []
 })
 
@@ -83,14 +83,14 @@ const columns = computed((): TableColumn<AppUser>[] => [
   {
     accessorKey: 'user_roles.role',
     cell: ({ row }) => {
-      switch (row.original.user_roles?.role) {
+      switch (row.original.user_roles.role) {
         case 'admin':
           return t('auth.admin')
         case 'moderator':
           return t('auth.moderator')
         case 'translator':
           return t('auth.translator')
-        default:
+        case 'user':
           return t('auth.user')
       }
     },
@@ -104,7 +104,7 @@ const columns = computed((): TableColumn<AppUser>[] => [
         { label: t('general.actions'), type: 'label' },
         {
           disabled:
-            row.original.user_roles?.role === 'admin' || userStore.user?.id === row.original.id,
+            row.original.user_roles.role === 'admin' || userStore.user?.id === row.original.id,
           icon: 'i-lucide:edit',
           label: t('users.edit-role'),
           onClick: () => {

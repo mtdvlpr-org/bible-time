@@ -19,7 +19,7 @@
             color="primary"
             variant="solid"
             :label="$t('general.save')"
-            :disabled="state.role === user.user_roles?.role"
+            :disabled="state.role === user.user_roles.role"
           />
         </div>
       </UForm>
@@ -45,7 +45,7 @@ const schema = z.object({
 type Schema = z.output<typeof schema>
 
 const state = reactive<Partial<Schema>>({
-  role: props.user.user_roles?.role ?? 'user'
+  role: props.user.user_roles.role ?? 'user'
 })
 
 const { t } = useI18n()
