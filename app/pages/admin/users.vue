@@ -33,21 +33,19 @@
           />
         </template>
       </DataTable>
+      <LazyAuthRoleModal v-if="selectedUser" v-model="openRoleModal" :user="selectedUser" />
     </template>
   </UDashboardPanel>
 </template>
 <script setup lang="ts">
 import type { TableColumn } from '@nuxt/ui'
 
-type AppUser = Omit<Tables<'profiles'>, 'created_at'> & {
-  user_roles: null | {
-    role: Enums<'app_role'>
-  }
-}
-
 const { t } = useI18n()
 const supabase = useSupabaseClient()
 const dataTable = useTemplateRef('table')
+
+const selectedUser = ref<AppUser | null>(null)
+const openRoleModal = ref(false)
 
 const {
   data: users,
@@ -92,7 +90,7 @@ const columns = computed((): TableColumn<AppUser>[] => [
           return t('auth.moderator')
         case 'translator':
           return t('auth.translator')
-        case 'user':
+        default:
           return t('auth.user')
       }
     },
@@ -101,7 +99,20 @@ const columns = computed((): TableColumn<AppUser>[] => [
     id: 'role'
   },
   {
-    cell: () => actionCell([{ label: t('general.actions'), type: 'label' }]),
+    cell: ({ row }) =>
+      actionCell([
+        { label: t('general.actions'), type: 'label' },
+        {
+          disabled:
+            row.original.user_roles?.role === 'admin' || userStore.user?.id === row.original.id,
+          icon: 'i-lucide:edit',
+          label: t('users.edit-role'),
+          onClick: () => {
+            selectedUser.value = row.original
+            openRoleModal.value = true
+          }
+        }
+      ]),
     id: 'actions'
   }
 ])

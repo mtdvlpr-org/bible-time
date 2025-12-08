@@ -23,14 +23,15 @@
         :empty="$t('events.not-found')"
         :search-label="$t('events.search')"
       />
+      <LazyConfirmModal
+        v-if="can('events.delete') && deleteEvent"
+        v-model="confirmDelete"
+        :confirm="{ color: 'error', label: t('event.delete') }"
+        :message="$t('feedback.confirm-delete', { item: translate(deleteEvent.title) })"
+        @cancel="onCancelDelete"
+        @confirm="onConfirmDelete"
+      />
     </template>
-    <LazyConfirmModal
-      v-if="can('events.delete') && deleteEvent"
-      v-model="confirmDelete"
-      :message="$t('feedback.confirm-delete', { item: translate(deleteEvent.title) })"
-      @cancel="onCancelDelete"
-      @confirm="onConfirmDelete"
-    />
   </UDashboardPanel>
 </template>
 <script setup lang="ts">

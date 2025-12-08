@@ -414,6 +414,7 @@
   },
   "users": {
     "description": "Beheer gebruikers en hun rollen, machtigingen en toegang.",
+    "edit-role": "Bewerk rol",
     "filter-role": "Filter rol",
     "not-found": "Geen gebruikers gevonden.",
     "search": "Zoek gebruikers...",

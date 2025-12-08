@@ -38,14 +38,15 @@
           />
         </template>
       </DataTable>
+      <LazyConfirmModal
+        v-if="can('people.delete') && deletePerson"
+        v-model="confirmDelete"
+        :confirm="{ color: 'error', label: t('person.delete') }"
+        :message="$t('feedback.confirm-delete', { item: translate(deletePerson.name) })"
+        @cancel="onCancelDelete"
+        @confirm="onConfirmDelete"
+      />
     </template>
-    <LazyConfirmModal
-      v-if="can('people.delete') && deletePerson"
-      v-model="confirmDelete"
-      :message="$t('feedback.confirm-delete', { item: translate(deletePerson.name) })"
-      @cancel="onCancelDelete"
-      @confirm="onConfirmDelete"
-    />
   </UDashboardPanel>
 </template>
 <script setup lang="ts">
@@ -159,6 +160,7 @@ const columns = computed((): TableColumn<Tables<'people'>>[] => [
                 label: t('person.delete'),
                 onSelect() {
                   deletePerson.value = row.original
+                  confirmDelete.value = true
                 }
               }
             ]

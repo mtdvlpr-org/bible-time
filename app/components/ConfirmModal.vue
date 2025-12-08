@@ -2,8 +2,8 @@
   <UModal
     v-model:open="open"
     :ui="{ footer: 'justify-end' }"
-    :title="title ?? $t('feedback.confirm-action')"
-    :description="description ?? $t('feedback.are-you-sure')"
+    :title="title ?? $t('feedback.are-you-sure')"
+    :description="description ?? $t('feedback.confirm-action')"
   >
     <template #body>
       <slot>

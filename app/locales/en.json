@@ -414,6 +414,7 @@
   },
   "users": {
     "description": "Manage users and their roles, permissions, and access.",
+    "edit-role": "Edit role",
     "filter-role": "Filter role",
     "not-found": "No users found.",
     "search": "Search users...",
