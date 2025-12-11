@@ -115,7 +115,7 @@ importers:
         specifier: ^1.57.0
         version: 1.57.0
       prettier:
-        specifier: ~3.7.4
+        specifier: ^3.7.4
         version: 3.7.4
       sass-embedded:
         specifier: ^1.96.0
