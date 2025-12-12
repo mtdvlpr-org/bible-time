@@ -2,7 +2,6 @@
   <UDashboardGroup unit="rem">
     <UDashboardSidebar
       id="default"
-      v-model:open="open"
       resizable
       collapsible
       class="bg-elevated/25"
@@ -84,7 +83,6 @@ const user = useSupabaseUser()
 const userStore = useUserStore()
 await callOnce(user.value?.sub || 'profile', userStore.fetch, { mode: 'navigation' })
 
-const open = ref(false)
 const { repoUrl } = useRuntimeConfig().public
 
 const links = computed((): NavigationMenuItem[][] => [
@@ -92,65 +90,75 @@ const links = computed((): NavigationMenuItem[][] => [
     {
       icon: 'i-lucide:house',
       label: t('home.title'),
-      onSelect: () => {
-        open.value = false
-      },
       to: localePath('/')
     },
     {
       icon: 'i-lucide:chart-gantt',
       label: t('timeline.title'),
-      onSelect: () => {
-        open.value = false
-      },
       to: localePath('/timeline')
     },
     {
       icon: 'i-lucide:users',
       label: t('people.title'),
-      onSelect: () => {
-        open.value = false
-      },
       to: localePath('/people')
     },
     {
       icon: 'i-lucide:calendar-range',
       label: t('events.title'),
-      onSelect: () => {
-        open.value = false
-      },
       to: localePath('/events')
     },
     {
       icon: 'i-lucide:lightbulb',
       label: t('suggestions.title'),
-      onSelect: () => {
-        open.value = false
-      },
       to: localePath('/suggestions')
     },
+    ...(userStore.user?.role === 'admin'
+      ? [
+          {
+            children: [
+              {
+                icon: 'i-lucide:users',
+                label: t('people.title'),
+                to: localePath('/admin/people')
+              },
+              {
+                icon: 'i-lucide:calendar-range',
+                label: t('events.title'),
+                to: localePath('/admin/events')
+              },
+              ...(userStore.can('users.manage')
+                ? [
+                    {
+                      icon: 'i-lucide:users-round',
+                      label: t('users.title'),
+                      to: localePath('/admin/users')
+                    }
+                  ]
+                : [])
+            ],
+            defaultOpen: true,
+            icon: 'i-lucide:shield',
+            label: t('auth.admin'),
+            type: 'trigger' as const
+          }
+        ]
+      : []),
     {
       children: [
         {
           exact: true,
+          icon: 'i-lucide:settings-2',
           label: t('settings.general'),
-          onSelect: () => {
-            open.value = false
-          },
           to: localePath('/settings')
         },
         {
+          icon: 'i-lucide:user-round',
           label: t('settings.profile'),
-          onSelect: () => {
-            open.value = false
-          },
           to: localePath('/settings/profile')
         },
         {
+          icon: 'i-lucide:shield-user',
           label: t('settings.security'),
-          onSelect: () => {
-            open.value = false
-          },
           to: localePath('/settings/security')
         }
       ],

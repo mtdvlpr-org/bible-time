@@ -69,6 +69,7 @@
       td: 'border-b border-default',
       separator: 'h-0'
     }"
+    @select="onSelect"
   />
 
   <div class="flex justify-center border-t border-default pt-4 mt-auto">
@@ -81,7 +82,7 @@
   </div>
 </template>
 <script setup lang="ts" generic="T extends TableData">
-import type { DropdownMenuItem, TableColumn, TableData } from '@nuxt/ui'
+import type { DropdownMenuItem, TableColumn, TableData, TableRow } from '@nuxt/ui'
 
 import {
   type ColumnFiltersState,
@@ -95,6 +96,7 @@ defineProps<{
   data?: T[]
   empty?: string
   filters?: ColumnFiltersState
+  onSelect?: (e: Event, row: TableRow<T>) => void
   pending?: boolean
   refresh?: () => Promise<void>
   searchLabel?: string

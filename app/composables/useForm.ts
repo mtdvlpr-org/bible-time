@@ -62,6 +62,17 @@ export default function () {
       label: t('auth.remember-me'),
       name: 'remember',
       type: 'checkbox'
+    },
+    role: {
+      items: [
+        { label: t('auth.admin'), value: 'admin' },
+        { label: t('auth.moderator'), value: 'moderator' },
+        { label: t('auth.translator'), value: 'translator' },
+        { label: t('auth.user'), value: 'user' }
+      ] satisfies { label: string; value: Enums<'app_role'> }[],
+      label: t('auth.role'),
+      name: 'role',
+      type: 'select'
     }
   } satisfies Record<string, DynamicFormField>
 
@@ -127,6 +138,13 @@ export default function () {
       t('validation.enum', {
         field: t('relation.type'),
         values: Constants.public.Enums.person_relation.join(', ')
+      })
+    ),
+    role: z.enum(
+      Constants.public.Enums.app_role,
+      t('validation.enum', {
+        field: t('auth.role'),
+        values: Constants.public.Enums.app_role.join(', ')
       })
     ),
     slug: z

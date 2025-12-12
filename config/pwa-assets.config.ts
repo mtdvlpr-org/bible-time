@@ -1,11 +1,6 @@
 import { createAppleSplashScreens, defineConfig } from '@vite-pwa/assets-generator/config'
 
-import {
-  appleTouchSizes,
-  iconBaseUrl,
-  maskableSizes,
-  transparentSizes
-} from './../app/utils/assets'
+import { appleTouchSizes, iconBaseUrl, transparentSizes } from './../app/utils/assets'
 
 export default defineConfig({
   headLinkOptions: { preset: '2023' },
@@ -13,7 +8,7 @@ export default defineConfig({
   preset: {
     apple: { sizes: appleTouchSizes },
     appleSplashScreens: createAppleSplashScreens({ darkResizeOptions: {} }),
-    maskable: { sizes: maskableSizes },
+    maskable: { padding: 0.45, sizes: [] },
     transparent: { favicons: [[64, 'favicon.ico']], sizes: transparentSizes }
   }
 })

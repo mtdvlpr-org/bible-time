@@ -4,6 +4,10 @@ import type { Database as DatabaseGenerated } from './../database-generated.type
 
 export { Constants } from './../database-generated.types'
 
+export type AppUser = Omit<Tables<'profiles'>, 'created_at'> & {
+  user_roles: { role: Enums<'app_role'> }
+}
+
 export type CompositeTypes<
   PublicCompositeTypeNameOrOptions extends
     | keyof DefaultSchema['CompositeTypes']

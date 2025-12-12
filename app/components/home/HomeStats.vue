@@ -26,7 +26,9 @@
 
 <script setup lang="ts">
 import NumberFlow from '@number-flow/vue'
+
 const { t } = useI18n()
+const userStore = useUserStore()
 const localePath = useLocalePath()
 
 type Table = {
@@ -50,10 +52,10 @@ const tables = computed((): Table[] => [
     to: localePath('/events')
   },
   {
-    icon: 'i-lucide:user-check',
+    icon: 'i-lucide:users-round',
     key: 'users',
     title: t('general.users'),
-    to: localePath('/settings/profile')
+    to: userStore.can('users.manage') ? localePath('/admin/users') : localePath('/settings/profile')
   },
   {
     icon: 'i-lucide:lightbulb',

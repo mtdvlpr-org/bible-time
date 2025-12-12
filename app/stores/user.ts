@@ -58,7 +58,11 @@ export const useUserStore = defineStore('user', {
     },
     async logout() {
       this.user = null
-      await useSupabaseClient().auth.signOut()
+      try {
+        await useSupabaseClient().auth.signOut()
+      } catch {
+        // Account deleted, ignore error
+      }
       await navigateTo('/auth/login')
     },
     updateProfile(profile: Tables<'profiles'>) {

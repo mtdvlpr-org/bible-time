@@ -1,14 +1,9 @@
 <template>
-  <UDashboardPanel id="people">
+  <UDashboardPanel id="admin-people">
     <template #header>
       <UDashboardNavbar :title="$t('people.title')">
         <template #leading>
           <UDashboardSidebarCollapse />
-        </template>
-
-        <template #right>
-          <LazySuggestionsAddModal v-if="can('suggestions.create')" type="person.create" />
-          <LazyPeopleAddModal v-if="can('people.create')" />
         </template>
       </UDashboardNavbar>
     </template>
@@ -20,6 +15,7 @@
         :columns="columns"
         :pending="pending"
         :refresh="refresh"
+        :on-select="onSelect"
         :empty="$t('people.not-found')"
         :search-label="$t('people.search')"
       >
@@ -38,23 +34,13 @@
           />
         </template>
       </DataTable>
-      <LazyConfirmModal
-        v-if="can('people.delete') && deletePerson"
-        v-model="confirmDelete"
-        :confirm="{ color: 'error', label: t('person.delete') }"
-        :message="$t('feedback.confirm-delete', { item: translate(deletePerson.name) })"
-        @cancel="onCancelDelete"
-        @confirm="onConfirmDelete"
-      />
     </template>
   </UDashboardPanel>
 </template>
 <script setup lang="ts">
-import type { TableColumn } from '@nuxt/ui'
+import type { TableColumn, TableRow } from '@nuxt/ui'
 
 const { t } = useI18n()
-const { can } = useUserStore()
-const localePath = useLocalePath()
 const supabase = useSupabaseClient()
 const dataTable = useTemplateRef('table')
 
@@ -62,46 +48,29 @@ const {
   data: people,
   pending,
   refresh
-} = await useAsyncData('people', async () => {
-  const { data } = await supabase.from('people').select('*')
+} = await useAsyncData('admin-people', async () => {
+  const { data } = await supabase
+    .from('people')
+    .select('*')
+    .or(
+      'avatar_url.is.null,description.is.null,birth_year.is.null,death_year.is.null,gender.eq.unknown'
+    )
   return data ?? []
 })
 
 const { fields } = useForm()
 const { formatYear } = useDate()
-const { showError, showSuccess } = useFlash()
-const { actionCell, avatarCell, sortableColumn } = useTable()
+const { avatarCell, sortableColumn } = useTable()
 
 const genderFilters = computed((): { label: string; value: Enums<'gender'> | undefined }[] => [
   ...fields.gender.items,
   { label: t('general.all'), value: undefined }
 ])
 
-const confirmDelete = ref(false)
-const deletePerson = shallowRef<null | Tables<'people'>>(null)
+const localePath = useLocalePath()
 
-function onCancelDelete() {
-  confirmDelete.value = false
-  deletePerson.value = null
-}
-
-async function onConfirmDelete() {
-  if (!deletePerson.value) return
-
-  const { error } = await supabase.from('people').delete().eq('id', deletePerson.value.id)
-
-  if (error) {
-    showError({
-      description: t('feedback.could-not-delete', { item: translate(deletePerson.value.name) })
-    })
-  } else {
-    showSuccess({
-      description: t('feedback.deleted-successfully', { item: translate(deletePerson.value.name) })
-    })
-
-    confirmDelete.value = false
-    deletePerson.value = null
-  }
+function onSelect(e: Event, row: TableRow<Tables<'people'>>) {
+  navigateTo(localePath(`/people/${row.original.slug}`))
 }
 
 const { translate } = useTranslations()
@@ -143,30 +112,12 @@ const columns = computed((): TableColumn<Tables<'people'>>[] => [
     header: ({ column }) => sortableColumn(column, t('people.died'))
   },
   {
+    accessorKey: 'description',
     cell: ({ row }) =>
-      actionCell([
-        { label: t('general.actions'), type: 'label' },
-        {
-          icon: 'i-lucide:list',
-          label: t('person.view'),
-          to: localePath(`/people/${row.original.slug}`)
-        },
-        ...(can('people.delete')
-          ? [
-              { type: 'separator' as const },
-              {
-                color: 'error' as const,
-                icon: 'i-lucide:trash',
-                label: t('person.delete'),
-                onSelect() {
-                  deletePerson.value = row.original
-                  confirmDelete.value = true
-                }
-              }
-            ]
-          : [])
-      ]),
-    id: 'actions'
+      row.original.description?.en
+        ? row.original.description?.en?.slice(0, 15) + '...'
+        : t('general.no-description'),
+    header: t('general.description')
   }
 ])
 

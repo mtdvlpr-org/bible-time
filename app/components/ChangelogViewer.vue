@@ -1,6 +1,6 @@
 <!-- eslint-disable vue/no-v-html -->
 <template>
-  <UModal :title="`${$t('general.see-whats-new')} (v${version})`">
+  <UModal title="Changelog" :description="`${$t('general.see-whats-new')} (v${version})`">
     <UButton variant="ghost" :label="`${$t('general.see-whats-new')} (v${version})`" />
     <template #body>
       <div class="changelog" v-html="html"></div>

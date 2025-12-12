@@ -48,7 +48,8 @@ export default defineNuxtConfig({
     '@pinia/nuxt',
     '@vite-pwa/nuxt',
     '@vueuse/nuxt',
-    'pinia-plugin-persistedstate/nuxt'
+    'pinia-plugin-persistedstate/nuxt',
+    '@nuxt/test-utils/module'
   ],
 
   netlify: {
@@ -67,6 +68,7 @@ export default defineNuxtConfig({
       type: 'module'
     },
     manifest: {
+      background_color: '#000000',
       description: 'An overview of Biblical people and events.',
       icons: [
         ...transparentSizes.map((size) => ({
@@ -75,11 +77,27 @@ export default defineNuxtConfig({
           type: 'image/png'
         })),
         ...maskableSizes.map((size) => ({
-          purpose: 'any maskable',
+          purpose: 'maskable',
           sizes: `${size}x${size}`,
-          src: `${iconBaseUrl}/pwa-${size}x${size}.png`,
+          src: `${iconBaseUrl}/maskable-icon-${size}x${size}.png`,
           type: 'image/png'
-        }))
+        })),
+        {
+          sizes: '64x64',
+          src: `${iconBaseUrl}/favicon.ico`,
+          type: 'image/ico'
+        },
+        {
+          purpose: 'monochrome',
+          sizes: 'any',
+          src: `${iconBaseUrl}/logo-mono.svg`,
+          type: 'image/svg+xml'
+        },
+        {
+          sizes: 'any',
+          src: `${iconBaseUrl}/logo.svg`,
+          type: 'image/svg+xml'
+        }
       ],
       name: process.env.NUXT_SITE_NAME || 'BibleTime',
       short_name: process.env.NUXT_SITE_NAME || 'BibleTime',

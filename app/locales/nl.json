@@ -1,6 +1,7 @@
 {
   "auth": {
     "account": "Account",
+    "admin": "Admin",
     "already-have-account": "Heb je al een account?",
     "by-signing-in": "Door in te loggen, ga je akkoord met onze",
     "by-signing-up": "Door je aan te melden, ga je akkoord met onze",
@@ -18,6 +19,7 @@
     "i-am-not-robot": "Ik ben geen robot",
     "login": "Log in",
     "login-description": "Log in op je account.",
+    "moderator": "Moderator",
     "name-description": "Hoe je wilt worden weergegeven aan andere gebruikers.",
     "new-password": "Nieuw wachtwoord",
     "no-account": "Nog geen account?",
@@ -26,10 +28,14 @@
     "remember-me": "Onthoud me",
     "reset-password": "Wachtwoord resetten",
     "reset-password-description": "Reset je wachtwoord om weer toegang te krijgen tot je account.",
+    "role": "Rol",
     "sign-up": "Meld je aan",
     "sign-up-description": "Maak een nieuw account aan.",
+    "translator": "Vertaler",
+    "user": "Gebruiker",
     "waiting-for-login": "Wachten op login...",
-    "welcome-back": "Welkom terug"
+    "welcome-back": "Welkom terug",
+    "you": "Jij"
   },
   "bible": {
     "abbreviations": {
@@ -405,6 +411,14 @@
   "timeline": {
     "description": "Een tijdbalk van Bijbelse personen en gebeurtenissen.",
     "title": "Tijdbalk"
+  },
+  "users": {
+    "description": "Beheer gebruikers en hun rollen, machtigingen en toegang.",
+    "edit-role": "Bewerk rol",
+    "filter-role": "Filter rol",
+    "not-found": "Geen gebruikers gevonden.",
+    "search": "Zoek gebruikers...",
+    "title": "Gebruikers"
   },
   "validation": {
     "after-or-equal-to": "{field} moet na of gelijk zijn aan {date}.",

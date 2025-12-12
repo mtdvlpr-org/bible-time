@@ -10,11 +10,13 @@
 </template>
 
 <script setup lang="ts">
+import { appleTouchSizes } from './utils/assets'
+
 const { locale } = useI18n()
 const head = useLocaleHead()
 
 const colorMode = useColorMode()
-const color = computed(() => (colorMode.value === 'dark' ? '#1b1718' : 'white'))
+const color = computed(() => (colorMode.value === 'dark' ? '#1A3D7C' : '#1A3D7C'))
 
 const i18nStore = useI18nStore()
 watchImmediate(locale, (newLocale) => {
@@ -100,6 +102,9 @@ useHead({
     ...(head.value.meta || []),
     { content: 'width=device-width, initial-scale=1', name: 'viewport' },
     { content: color.value, key: 'theme-color', name: 'theme-color' },
+
+    // Apple
+    { content: 'yes', name: 'apple-mobile-web-app-capable' },
 
     // Windows Tile
     { content: `${iconBaseUrl}/pwa-icon-150x150.png`, name: 'msapplication-TileImage' },
