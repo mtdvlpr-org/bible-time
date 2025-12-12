@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<browserconfig>
+    <msapplication>
+        <tile>
+            <square70x70logo src="/brand/pwa-70x70.png"/>
+            <square150x150logo src="/brand/pwa-150x150.png"/>
+            <square310x310logo src="/brand/pwa-310x310.png"/>
+            <TileColor>#1A3D7C</TileColor>
+        </tile>
+    </msapplication>
+</browserconfig>
