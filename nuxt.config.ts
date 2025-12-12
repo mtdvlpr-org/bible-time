@@ -72,6 +72,7 @@ export default defineNuxtConfig({
       background_color: '#000000',
       categories: ['education'],
       description: messages.nuxtSiteConfig.description,
+      dir: 'ltr',
       display: 'standalone',
       icons: [
         ...transparentSizes.map((size) => ({
@@ -102,7 +103,12 @@ export default defineNuxtConfig({
           type: 'image/svg+xml'
         }
       ],
+      id: '/',
+      lang: 'en',
       name: process.env.NUXT_SITE_NAME || messages.nuxtSiteConfig.name,
+      orientation: 'any',
+      prefer_related_applications: false,
+      scope: '/',
       screenshots: [
         {
           form_factor: 'wide',
@@ -114,7 +120,7 @@ export default defineNuxtConfig({
         {
           form_factor: 'narrow',
           label: 'Mobile view showing some statistics',
-          sizes: '412x915',
+          sizes: '1442x3206',
           src: '/screenshots/home-mobile.png',
           type: 'image/png'
         },
@@ -128,7 +134,7 @@ export default defineNuxtConfig({
         {
           form_factor: 'narrow',
           label: 'Mobile view showing a timeline of people and events',
-          sizes: '412x915',
+          sizes: '1442x3206',
           src: '/screenshots/timeline-mobile.png',
           type: 'image/png'
         },
@@ -142,7 +148,7 @@ export default defineNuxtConfig({
         {
           form_factor: 'narrow',
           label: 'Mobile view showing a table overview of people',
-          sizes: '412x915',
+          sizes: '1442x3206',
           src: '/screenshots/people-mobile.png',
           type: 'image/png'
         },
@@ -156,7 +162,7 @@ export default defineNuxtConfig({
         {
           form_factor: 'narrow',
           label: 'Mobile view showing a settings page',
-          sizes: '412x915',
+          sizes: '1442x3206',
           src: '/screenshots/settings-mobile.png',
           type: 'image/png'
         }
@@ -187,6 +193,7 @@ export default defineNuxtConfig({
           url: '/suggestions'
         }
       ],
+      start_url: '/',
       theme_color: '#1A3D7C'
     },
     registerType: 'autoUpdate',

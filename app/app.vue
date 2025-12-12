@@ -23,7 +23,7 @@ watchImmediate(locale, (newLocale) => {
   i18nStore.fetch(newLocale)
 })
 
-const faviconIcons = [128, 96, 32, 16].map((size) => ({
+const faviconIcons = [512, 196, 192, 128, 96, 32, 16].map((size) => ({
   href: `${iconBaseUrl}/pwa-${size}x${size}.png`,
   rel: 'icon',
   sizes: `${size}x${size}`,
@@ -48,7 +48,8 @@ const appleSplashIcon = (
 
 const appleTouchIcons = appleTouchSizes.map((size) => ({
   href: `${iconBaseUrl}/apple-touch-icon-${size}x${size}.png`,
-  rel: 'apple-touch-icon'
+  rel: 'apple-touch-icon',
+  sizes: `${size}x${size}`
 }))
 
 const appleSplashIcons: { height: number; ratio: number; width: number }[] = [
@@ -78,39 +79,48 @@ useHead({
   link: [
     ...(head.value.link || []),
 
+    // Favicons
+    ...faviconIcons,
+    { href: `${iconBaseUrl}/favicon.ico`, rel: 'icon', sizes: '64x64', type: 'image/ico' },
+    { href: `${iconBaseUrl}/logo.svg`, ref: 'icon', sizes: 'any', type: 'image/svg+xml' },
+
+    // Apple Touch Icons
+    ...appleTouchIcons,
+
+    // Pinned Tab
+    { color: color.value, href: `${iconBaseUrl}/logo-mono.svg`, rel: 'mask-icon', sizes: 'any' },
+
     // Apple Splash Screens
     ...appleSplashIcons.flatMap(({ height, ratio, width }) => [
       appleSplashIcon(width, height, ratio, 'light', 'portrait'),
       appleSplashIcon(width, height, ratio, 'dark', 'portrait'),
       appleSplashIcon(width, height, ratio, 'light', 'landscape'),
       appleSplashIcon(width, height, ratio, 'dark', 'landscape')
-    ]),
-
-    // Apple Touch Icons
-    ...appleTouchIcons,
-
-    // Safari Pinned Tab
-    { color: color.value, href: `${iconBaseUrl}/logo-mono.svg`, rel: 'mask-icon' },
-
-    // Favicons
-    ...faviconIcons,
-    { href: `${iconBaseUrl}/favicon.ico`, rel: 'icon', type: 'image/ico' },
-    { href: `${iconBaseUrl}/logo.svg`, ref: 'icon', type: 'image/svg+xml' }
+    ])
   ],
   meta: [
     { charset: 'utf-8' },
     ...(head.value.meta || []),
     { content: 'width=device-width, initial-scale=1', name: 'viewport' },
+
+    // Android
+    { content: 'yes', name: 'mobile-web-app-capable' },
     { content: color.value, key: 'theme-color', name: 'theme-color' },
 
     // Apple
-    { content: 'yes', name: 'apple-mobile-web-app-capable' },
     { content: 'telephone=no', name: 'format-detection' },
+    { content: 'yes', name: 'apple-mobile-web-app-capable' },
     { content: $t('nuxtSiteConfig.name'), name: 'apple-mobile-web-app-title' },
+    { content: 'default', name: 'apple-mobile-web-app-status-bar-style' },
 
-    // Windows Tile
-    { content: `${iconBaseUrl}/pwa-icon-150x150.png`, name: 'msapplication-TileImage' },
-    { content: color.value, name: 'msapplication-TileColor' }
+    // Windows
+    { content: $t('nuxtSiteConfig.name'), name: 'application-name' },
+    { content: color.value, name: 'msapplication-TileColor' },
+    { content: '/browserconfig.xml', name: 'msapplication-Config' },
+    { content: `${iconBaseUrl}/pwa-144x144.png`, name: 'msapplication-TileImage' },
+    { content: `${iconBaseUrl}/pwa-70x70.png`, name: 'msapplication-square70x70logo' },
+    { content: `${iconBaseUrl}/pwa-150x150.png`, name: 'msapplication-square150x150logo' },
+    { content: `${iconBaseUrl}/pwa-310x310.png`, name: 'msapplication-square310x310logo' }
   ]
 })
 
