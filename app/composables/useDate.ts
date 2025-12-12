@@ -1,5 +1,5 @@
 export default function () {
-  const { t } = useI18n()
+  const { t } = useNuxtApp().$i18n
 
   const formatYear = (year: null | number, precision?: Enums<'date_precision'> | null) => {
     if (!year) return t('general.unknown')

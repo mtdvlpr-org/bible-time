@@ -105,6 +105,8 @@ useHead({
 
     // Apple
     { content: 'yes', name: 'apple-mobile-web-app-capable' },
+    { content: 'telephone=no', name: 'format-detection' },
+    { content: $t('nuxtSiteConfig.name'), name: 'apple-mobile-web-app-title' },
 
     // Windows Tile
     { content: `${iconBaseUrl}/pwa-icon-150x150.png`, name: 'msapplication-TileImage' },

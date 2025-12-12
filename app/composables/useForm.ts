@@ -1,7 +1,7 @@
 import { z } from 'zod'
 
 export default function () {
-  const { t } = useI18n()
+  const { t } = useNuxtApp().$i18n
 
   const fields = {
     confirm: {

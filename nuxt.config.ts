@@ -6,6 +6,7 @@ import mdPlugin, { Mode } from 'vite-plugin-markdown'
 
 import type { AppLocale } from './shared/types/general.types'
 
+import messages from './app/locales/en.json'
 import { iconBaseUrl, maskableSizes, transparentSizes } from './app/utils/assets'
 import { repository, version } from './package.json'
 
@@ -25,7 +26,7 @@ export default defineNuxtConfig({
   i18n: {
     baseUrl: process.env.NUXT_SITE_URL,
     defaultLocale: 'en',
-    detectBrowserLanguage: { cookieKey: 'i18n_locale', useCookie: true },
+    detectBrowserLanguage: { cookieKey: 'i18n_locale', redirectOn: 'root', useCookie: true },
     langDir: 'locales',
     locales: [
       { code: 'en', dir: 'ltr', file: 'en.json', jw: 'E', language: 'en-US', name: 'English' },
@@ -69,7 +70,9 @@ export default defineNuxtConfig({
     },
     manifest: {
       background_color: '#000000',
-      description: 'An overview of Biblical people and events.',
+      categories: ['education'],
+      description: messages.nuxtSiteConfig.description,
+      display: 'standalone',
       icons: [
         ...transparentSizes.map((size) => ({
           sizes: `${size}x${size}`,
@@ -99,8 +102,91 @@ export default defineNuxtConfig({
           type: 'image/svg+xml'
         }
       ],
-      name: process.env.NUXT_SITE_NAME || 'BibleTime',
-      short_name: process.env.NUXT_SITE_NAME || 'BibleTime',
+      name: process.env.NUXT_SITE_NAME || messages.nuxtSiteConfig.name,
+      screenshots: [
+        {
+          form_factor: 'wide',
+          label: 'Desktop view showing some statistics',
+          sizes: '1920x1080',
+          src: '/screenshots/home-desktop.png',
+          type: 'image/png'
+        },
+        {
+          form_factor: 'narrow',
+          label: 'Mobile view showing some statistics',
+          sizes: '412x915',
+          src: '/screenshots/home-mobile.png',
+          type: 'image/png'
+        },
+        {
+          form_factor: 'wide',
+          label: 'Desktop view showing a timeline of people and events',
+          sizes: '1920x1080',
+          src: '/screenshots/timeline-desktop.png',
+          type: 'image/png'
+        },
+        {
+          form_factor: 'narrow',
+          label: 'Mobile view showing a timeline of people and events',
+          sizes: '412x915',
+          src: '/screenshots/timeline-mobile.png',
+          type: 'image/png'
+        },
+        {
+          form_factor: 'wide',
+          label: 'Desktop view showing a table overview of people',
+          sizes: '1920x1080',
+          src: '/screenshots/people-desktop.png',
+          type: 'image/png'
+        },
+        {
+          form_factor: 'narrow',
+          label: 'Mobile view showing a table overview of people',
+          sizes: '412x915',
+          src: '/screenshots/people-mobile.png',
+          type: 'image/png'
+        },
+        {
+          form_factor: 'wide',
+          label: 'Desktop view showing a settings page',
+          sizes: '1920x1080',
+          src: '/screenshots/settings-desktop.png',
+          type: 'image/png'
+        },
+        {
+          form_factor: 'narrow',
+          label: 'Mobile view showing a settings page',
+          sizes: '412x915',
+          src: '/screenshots/settings-mobile.png',
+          type: 'image/png'
+        }
+      ],
+      short_name: process.env.NUXT_SITE_NAME || messages.nuxtSiteConfig.name,
+      shortcuts: [
+        {
+          description: messages.timeline.description,
+          icons: [{ sizes: 'any', src: `/icons/timeline.svg`, type: 'image/svg+xml' }],
+          name: messages.timeline.title,
+          url: '/timeline'
+        },
+        {
+          description: messages.people.description,
+          icons: [{ sizes: 'any', src: `/icons/people.svg`, type: 'image/svg+xml' }],
+          name: messages.people.title,
+          url: '/people'
+        },
+        {
+          description: messages.events.description,
+          icons: [{ sizes: 'any', src: `/icons/events.svg`, type: 'image/svg+xml' }],
+          name: messages.events.title,
+          url: '/events'
+        },
+        {
+          description: messages.suggestions.description,
+          name: messages.suggestions.title,
+          url: '/suggestions'
+        }
+      ],
       theme_color: '#1A3D7C'
     },
     registerType: 'autoUpdate',
@@ -122,7 +208,11 @@ export default defineNuxtConfig({
     }
   },
 
-  schemaOrg: { identity: defineOrganization({ name: process.env.NUXT_SITE_NAME || 'BibleTime' }) },
+  schemaOrg: {
+    identity: defineOrganization({
+      name: process.env.NUXT_SITE_NAME || messages.nuxtSiteConfig.name
+    })
+  },
 
   seo: { fallbackTitle: false },
 

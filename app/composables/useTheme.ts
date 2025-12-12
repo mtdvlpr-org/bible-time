@@ -23,7 +23,7 @@ const colors = [
 const neutrals = ['slate', 'gray', 'zinc', 'neutral', 'stone']
 
 export default function () {
-  const { t } = useI18n()
+  const { t } = useNuxtApp().$i18n
   const appConfig = useAppConfig()
 
   const setPrimaryColor = (color: string) => {
