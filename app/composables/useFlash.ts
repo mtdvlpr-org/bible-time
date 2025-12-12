@@ -1,7 +1,7 @@
 import type { Toast } from '@nuxt/ui/runtime/composables/useToast.js'
 
 export default function () {
-  const { t } = useI18n()
+  const { t } = useNuxtApp().$i18n
   const toast = useToast()
 
   const show = (options: Partial<Toast>) => {

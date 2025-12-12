@@ -1,5 +1,5 @@
 export default function () {
-  const { locale, localeProperties, t } = useI18n()
+  const { locale, localeProperties, t } = useNuxtApp().$i18n
   const i18nStore = useI18nStore()
 
   const translate = (key: string, fallback = true) => {
