@@ -103,6 +103,64 @@ export default defineNuxtConfig({
         }
       ],
       name: process.env.NUXT_SITE_NAME || messages.nuxtSiteConfig.name,
+      screenshots: [
+        {
+          form_factor: 'wide',
+          label: 'Desktop view showing some statistics',
+          sizes: '1920x1080',
+          src: '/screenshots/home-desktop.png',
+          type: 'image/png'
+        },
+        {
+          form_factor: 'narrow',
+          label: 'Mobile view showing some statistics',
+          sizes: '412x915',
+          src: '/screenshots/home-mobile.png',
+          type: 'image/png'
+        },
+        {
+          form_factor: 'wide',
+          label: 'Desktop view showing a timeline of people and events',
+          sizes: '1920x1080',
+          src: '/screenshots/timeline-desktop.png',
+          type: 'image/png'
+        },
+        {
+          form_factor: 'narrow',
+          label: 'Mobile view showing a timeline of people and events',
+          sizes: '412x915',
+          src: '/screenshots/timeline-mobile.png',
+          type: 'image/png'
+        },
+        {
+          form_factor: 'wide',
+          label: 'Desktop view showing a table overview of people',
+          sizes: '1920x1080',
+          src: '/screenshots/people-desktop.png',
+          type: 'image/png'
+        },
+        {
+          form_factor: 'narrow',
+          label: 'Mobile view showing a table overview of people',
+          sizes: '412x915',
+          src: '/screenshots/people-mobile.png',
+          type: 'image/png'
+        },
+        {
+          form_factor: 'wide',
+          label: 'Desktop view showing a settings page',
+          sizes: '1920x1080',
+          src: '/screenshots/settings-desktop.png',
+          type: 'image/png'
+        },
+        {
+          form_factor: 'narrow',
+          label: 'Mobile view showing a settings page',
+          sizes: '412x915',
+          src: '/screenshots/settings-mobile.png',
+          type: 'image/png'
+        }
+      ],
       short_name: process.env.NUXT_SITE_NAME || messages.nuxtSiteConfig.name,
       shortcuts: [
         {
