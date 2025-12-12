@@ -10,6 +10,8 @@
 </template>
 
 <script setup lang="ts">
+import { appleTouchSizes } from './utils/assets'
+
 const { locale } = useI18n()
 const head = useLocaleHead()
 
