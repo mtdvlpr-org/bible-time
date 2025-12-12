@@ -25,7 +25,7 @@
     "test:e2e": "vitest --project e2e",
     "test:nuxt": "vitest --project nuxt",
     "test": "vitest",
-    "generate:pwa-assets": "pwa-assets-generator -c config/pwa-assets.config.ts",
+    "generate:pwa-assets": "pwa-assets-generator -c config/pwa-assets.config.ts & pwa-assets-generator -c config/maskable-assets.config.ts",
     "generate:supabase-types": "supabase gen types --lang=typescript --project-id pasnnzlggfefuzwhbakl > shared/database-generated.types.ts",
     "deploy": "pnpm generate:pwa-assets && pnpm build",
     "postinstall": "pnpm prepare:husky && pnpm prepare:nuxt"

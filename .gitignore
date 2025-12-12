@@ -34,7 +34,7 @@ public/brand/*
 !public/brand/logo.svg
 !public/brand/logo-mono.svg
 !public/brand/logo-horizontal.svg
-!public/brand/maskable-icon*.png
+!public/brand/maskable-icon.png
 
 # Sentry Config File
 .env.sentry-build-plugin
