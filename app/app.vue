@@ -107,10 +107,11 @@ useHead({
     { content: 'yes', name: 'mobile-web-app-capable' },
     { content: color.value, key: 'theme-color', name: 'theme-color' },
 
-    // iOS
+    // Apple
     { content: 'telephone=no', name: 'format-detection' },
     { content: 'yes', name: 'apple-mobile-web-app-capable' },
     { content: $t('nuxtSiteConfig.name'), name: 'apple-mobile-web-app-title' },
+    { content: 'default', name: 'apple-mobile-web-app-status-bar-style' },
 
     // Windows
     { content: $t('nuxtSiteConfig.name'), name: 'application-name' },
