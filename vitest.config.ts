@@ -4,13 +4,13 @@ import { defineConfig } from 'vitest/config'
 export default defineConfig({
   test: {
     projects: [
-      {
+      await defineVitestProject({
         test: {
-          environment: 'node',
+          environment: 'nuxt',
           include: ['test/e2e/*.test.ts'],
           name: 'e2e'
         }
-      },
+      }),
       {
         test: {
           environment: 'happy-dom',
@@ -28,7 +28,7 @@ export default defineConfig({
       await defineVitestProject({
         test: {
           environment: 'nuxt',
-          include: ['test/nuxt/{components,composables}/*.test.ts'],
+          include: ['test/nuxt/{components,composables,stores}/*.test.ts'],
           name: 'nuxt'
         }
       })

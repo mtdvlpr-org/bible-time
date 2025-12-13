@@ -189,6 +189,7 @@ export default defineNuxtConfig({
         },
         {
           description: messages.suggestions.description,
+          icons: [{ sizes: 'any', src: `/icons/suggestions.svg`, type: 'image/svg+xml' }],
           name: messages.suggestions.title,
           url: '/suggestions'
         }

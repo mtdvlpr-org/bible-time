@@ -12,7 +12,7 @@ export default function () {
     })
   }
 
-  const providers: ButtonProps[] = [
+  const providers = [
     {
       icon: 'i-simple-icons:google',
       label: 'Google',
@@ -27,7 +27,7 @@ export default function () {
         signIn('github')
       }
     }
-  ]
+  ] satisfies ButtonProps[]
 
   return { providers }
 }
