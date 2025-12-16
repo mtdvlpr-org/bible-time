@@ -1,73 +1,76 @@
 <template>
-  <UForm id="profile" :state="profile" :schema="profileSchema" @submit="onSubmit">
-    <UPageCard
-      class="mb-4"
-      variant="naked"
-      orientation="horizontal"
-      :title="$t('settings.profile')"
-    >
-      <UButton
-        loading-auto
-        type="submit"
-        color="neutral"
-        class="w-fit lg:ms-auto"
-        :label="$t('general.save')"
-        :disabled="
-          userStore.user?.display_name === profile.display_name &&
-          !avatarFile &&
-          !(userStore.user?.avatar_url && !avatarPreview)
-        "
-      />
-    </UPageCard>
+  <div class="flex flex-col gap-4 sm:gap-6 lg:gap-12 w-full lg:max-w-2xl mx-auto">
+    <UForm id="profile" :state="profile" :schema="profileSchema" @submit="onSubmit">
+      <UPageCard
+        class="mb-4"
+        variant="naked"
+        orientation="horizontal"
+        :title="$t('settings.profile')"
+        :description="$t('settings.manage-profile')"
+      >
+        <UButton
+          loading-auto
+          type="submit"
+          color="neutral"
+          class="w-fit lg:ms-auto"
+          :label="$t('general.save')"
+          :disabled="
+            userStore.user?.display_name === profile.display_name &&
+            !avatarFile &&
+            !(userStore.user?.avatar_url && !avatarPreview)
+          "
+        />
+      </UPageCard>
 
-    <UPageCard variant="subtle">
-      <UFormField
-        required
-        name="display_name"
-        :label="$t('person.name')"
-        :description="$t('auth.name-description')"
-        class="flex max-sm:flex-col justify-between items-start gap-4"
-      >
-        <UInput v-model="profile.display_name" autocomplete="off" />
-      </UFormField>
-      <USeparator />
-      <UFormField
-        name="avatar"
-        :label="$t('person.avatar')"
-        description="JPG, GIF or PNG. Max 10MB."
-        class="flex max-sm:flex-col justify-between sm:items-center gap-4"
-      >
-        <div class="flex flex-wrap items-center gap-3">
-          <UAvatar size="lg" :src="avatarPreview" :alt="profile.display_name" />
-          <LazyUButton
-            v-if="!avatarFile"
-            color="primary"
-            :label="$t('general.choose')"
-            @click="onFileClick"
-          />
-          <LazyUButton
-            v-if="avatarFile || (userStore.user?.avatar_url && !avatarPreview)"
-            color="neutral"
-            :label="$t('general.cancel')"
-            @click="resetAvatar"
-          />
-          <LazyUButton
-            v-if="!avatarFile && userStore.user?.avatar_url && avatarPreview"
-            color="error"
-            :label="$t('general.delete')"
-            @click="avatarPreview = ''"
-          />
-          <input
-            ref="fileRef"
-            type="file"
-            class="hidden"
-            accept=".jpg, .jpeg, .png, .gif"
-            @change="onFileChange"
-          />
-        </div>
-      </UFormField>
-    </UPageCard>
-  </UForm>
+      <UPageCard variant="subtle">
+        <UFormField
+          required
+          name="display_name"
+          :label="$t('person.name')"
+          :description="$t('auth.name-description')"
+          class="flex max-sm:flex-col justify-between items-start gap-4"
+        >
+          <UInput v-model="profile.display_name" autocomplete="off" />
+        </UFormField>
+        <USeparator />
+        <UFormField
+          name="avatar"
+          :label="$t('person.avatar')"
+          description="JPG, GIF or PNG. Max 10MB."
+          class="flex max-sm:flex-col justify-between sm:items-center gap-4"
+        >
+          <div class="flex flex-wrap items-center gap-3">
+            <UAvatar size="lg" :src="avatarPreview" :alt="profile.display_name" />
+            <LazyUButton
+              v-if="!avatarFile"
+              color="primary"
+              :label="$t('general.choose')"
+              @click="onFileClick"
+            />
+            <LazyUButton
+              v-if="avatarFile || (userStore.user?.avatar_url && !avatarPreview)"
+              color="neutral"
+              :label="$t('general.cancel')"
+              @click="resetAvatar"
+            />
+            <LazyUButton
+              v-if="!avatarFile && userStore.user?.avatar_url && avatarPreview"
+              color="error"
+              :label="$t('general.delete')"
+              @click="avatarPreview = ''"
+            />
+            <input
+              ref="fileRef"
+              type="file"
+              class="hidden"
+              accept=".jpg, .jpeg, .png, .gif"
+              @change="onFileChange"
+            />
+          </div>
+        </UFormField>
+      </UPageCard>
+    </UForm>
+  </div>
 </template>
 <script setup lang="ts">
 import type { FormSubmitEvent } from '@nuxt/ui'

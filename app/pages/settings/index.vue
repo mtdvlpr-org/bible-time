@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="flex flex-col w-full lg:max-w-2xl mx-auto">
     <UPageCard
       class="mb-4"
       variant="naked"
