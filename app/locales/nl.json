@@ -6,7 +6,7 @@
     "by-signing-in": "Door in te loggen, ga je akkoord met onze",
     "by-signing-up": "Door je aan te melden, ga je akkoord met onze",
     "change-email": "Wijzig het e-mailadres dat aan je account is gekoppeld.",
-    "change-password": "Wijzig uw wachtwoord.",
+    "change-password": "Wijzig je wachtwoord.",
     "check-your-email-for-instructions": "Er is een e-mail verzonden met verdere instructies.",
     "confirm-not-robot": "Bevestig dat je geen robot bent.",
     "confirm-password": "Bevestig wachtwoord",
@@ -188,7 +188,7 @@
     "subject": "Onderwerp",
     "ticket-created": "Er is een ticket voor je aangemaakt op een openbaar forum.",
     "title": "Contact",
-    "us": "Nee, contact op"
+    "us": "Neem contact op"
   },
   "date": {
     "after": "Na",
@@ -368,6 +368,7 @@
     "language-description": "De voorkeurstaal van de applicatie.",
     "light": "Licht",
     "log-out": "Log uit",
+    "manage-profile": "Beheer je gebruikersprofiel.",
     "profile": "Profiel",
     "security": "Beveiliging",
     "system": "Systeem",
