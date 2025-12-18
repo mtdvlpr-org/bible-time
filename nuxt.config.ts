@@ -197,7 +197,7 @@ export default defineNuxtConfig({
       start_url: '/',
       theme_color: '#1A3D7C'
     },
-    registerType: 'autoUpdate',
+    registerType: 'prompt',
     registerWebManifestInRouteRules: true
   },
 

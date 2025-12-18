@@ -12,7 +12,45 @@
 <script setup lang="ts">
 import { appleTouchSizes } from './utils/assets'
 
-const { locale } = useI18n()
+const { locale, t } = useI18n()
+
+const { $pwa } = useNuxtApp()
+const { showInfo } = useFlash()
+
+watchImmediate(
+  () => $pwa?.offlineReady,
+  (val) => {
+    if (val) {
+      showInfo({
+        description: t('feedback.offline-ready-description'),
+        id: 'offline-ready',
+        title: t('feedback.offline-ready')
+      })
+    }
+  },
+  { once: true }
+)
+
+onMounted(() => {
+  if (import.meta.client && $pwa?.needRefresh) {
+    showInfo({
+      actions: [
+        {
+          label: t('general.refresh'),
+          onClick: async () => {
+            await $pwa.updateServiceWorker(true)
+          }
+        }
+      ],
+      close: true,
+      description: t('feedback.new-version-available-description'),
+      duration: 0,
+      id: 'new-version-available',
+      title: t('feedback.new-version-available')
+    })
+  }
+})
+
 const head = useLocaleHead()
 
 const colorMode = useColorMode()
@@ -110,11 +148,11 @@ useHead({
     // Apple
     { content: 'telephone=no', name: 'format-detection' },
     { content: 'yes', name: 'apple-mobile-web-app-capable' },
-    { content: $t('nuxtSiteConfig.name'), name: 'apple-mobile-web-app-title' },
+    { content: t('nuxtSiteConfig.name'), name: 'apple-mobile-web-app-title' },
     { content: 'default', name: 'apple-mobile-web-app-status-bar-style' },
 
     // Windows
-    { content: $t('nuxtSiteConfig.name'), name: 'application-name' },
+    { content: t('nuxtSiteConfig.name'), name: 'application-name' },
     { content: color.value, name: 'msapplication-TileColor' },
     { content: '/browserconfig.xml', name: 'msapplication-Config' },
     { content: `${iconBaseUrl}/pwa-144x144.png`, name: 'msapplication-TileImage' },
@@ -125,9 +163,9 @@ useHead({
 })
 
 useSeoMeta({
-  description: $t('nuxtSiteConfig.description'),
+  description: t('nuxtSiteConfig.description'),
   titleTemplate: (title) =>
-    title ? `${title} | ${$t('nuxtSiteConfig.name')}` : $t('nuxtSiteConfig.name')
+    title ? `${title} | ${t('nuxtSiteConfig.name')}` : t('nuxtSiteConfig.name')
 })
 
 if (import.meta.server) {
