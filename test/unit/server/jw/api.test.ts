@@ -24,7 +24,7 @@ describe('jw api utils', () => {
 
   describe('fetchJwLanguages', () => {
     it('should fetch languages', async () => {
-      const mockResult = { languages: [{ code: 'en', name: 'English' }] }
+      const mockResult = { languages: [{ code: 'en', hasWebContent: true, name: 'English' }] }
       vi.mocked($fetch).mockResolvedValue(mockResult)
 
       const result = await fetchJwLanguages('en')
@@ -46,7 +46,9 @@ describe('jw api utils', () => {
         'https://wol.jw.org/wol/finder',
         expect.objectContaining({
           query: expect.objectContaining({
-            docid: 1102024800,
+            docid: '1102024800',
+            format: 'json',
+            snip: 'yes',
             wtlocale: 'E'
           })
         })
@@ -65,7 +67,7 @@ describe('jw api utils', () => {
 
   describe('fetchPublication', () => {
     it('should fetch publication details', async () => {
-      const pubMock = { issue: '202401', langwritten: 'E', pub: 'w' } as const
+      const pubMock = { issue: 202401, langwritten: 'E', pub: 'w' } as const
       const mockApiResult = { pub: 'w', title: 'Watchtower' }
       vi.mocked($fetch).mockResolvedValue(mockApiResult)
 
@@ -75,7 +77,7 @@ describe('jw api utils', () => {
         'https://b.jw-cdn.org/apis/pub-media/GETPUBMEDIALINKS',
         expect.objectContaining({
           query: expect.objectContaining({
-            issue: '202401',
+            issue: 202401,
             langwritten: 'E',
             pub: 'w'
           })
@@ -88,10 +90,10 @@ describe('jw api utils', () => {
     it('should fetch media items', async () => {
       const pubMock = {
         fileformat: 'MP3',
-        issue: '20240100',
+        issue: 20240100,
         langwritten: 'E',
         pub: 'w',
-        track: '1'
+        track: 1
       } as const
       const mockApiResult = { media: [] }
       vi.mocked($fetch).mockResolvedValue(mockApiResult)
@@ -101,7 +103,12 @@ describe('jw api utils', () => {
       expect(result).toEqual({ publication: pubMock, result: mockApiResult })
 
       expect($fetch).toHaveBeenCalledWith(
-        expect.stringContaining('https://b.jw-cdn.org/apis/mediator/v1/media-items/E/')
+        expect.stringContaining('https://b.jw-cdn.org/apis/mediator/v1/media-items/E/'),
+        expect.objectContaining({
+          query: expect.objectContaining({
+            clientType: 'www'
+          })
+        })
       )
     })
   })
