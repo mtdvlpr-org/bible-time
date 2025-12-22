@@ -10,7 +10,10 @@ export default defineMcpResource({
       const locale = variables.locale as JwLangSymbol
       if (!locale) return mcpService.resourceError(uri, new Error('Locale variable is required.'))
       if (!jwLangSymbols.includes(locale)) {
-        return mcpService.resourceError(uri, new Error(`Invalid locale: ${locale}.`))
+        return mcpService.resourceError(
+          uri,
+          new Error(`Locale is invalid or does not have web content: ${locale}.`)
+        )
       }
 
       const { result } = await fetchBibleData(locale)
