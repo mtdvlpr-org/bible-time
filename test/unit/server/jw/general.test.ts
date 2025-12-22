@@ -7,7 +7,8 @@ import {
   extractLangCode,
   extractPubId,
   extractResolution,
-  findBestMatch,
+  findBestFileMatch,
+  findBestImage,
   generatePubId,
   generateVerseId,
   isJwLangCode,
@@ -121,6 +122,10 @@ describe('jw general utils', () => {
       expect(extractPubId('https://jw.org/pub-jw')).toBe('pub-jw')
     })
 
+    it('should extract from hash', () => {
+      expect(extractPubId('https://jw.org/videos/#en/pub-jw')).toBe('pub-jw')
+    })
+
     it('should return null if not found', () => {
       expect(extractPubId('https://jw.org')).toBe(null)
     })
@@ -148,7 +153,7 @@ describe('jw general utils', () => {
     })
   })
 
-  describe('findBestMatch', () => {
+  describe('findBestFileMatch', () => {
     const media = [
       { label: '480p', subtitles: { url: 'sub' } },
       { label: '720p' },
@@ -156,20 +161,58 @@ describe('jw general utils', () => {
     ] as unknown as MediaItemFile[]
 
     it('should return null for empty list', () => {
-      expect(findBestMatch([])).toBe(null)
+      expect(findBestFileMatch([])).toBe(null)
     })
 
     it('should return single item', () => {
-      expect(findBestMatch([media[0]])).toBe(media[0])
+      expect(findBestFileMatch([media[0]])).toBe(media[0])
     })
 
     it('should sort by resolution', () => {
       // Should pick 720p as it is the highest resolution
-      expect(findBestMatch(media)).toEqual(media[1]) // 720p
+      expect(findBestFileMatch(media)).toEqual(media[1]) // 720p
     })
 
     it('should prioritize subtitles if requested', () => {
-      expect(findBestMatch(media, true)).toEqual(media[0]) // 480p has subtitles
+      expect(findBestFileMatch(media, true)).toEqual(media[0]) // 480p has subtitles
+    })
+  })
+
+  describe('findBestImage', () => {
+    it('should return null for empty images', () => {
+      expect(findBestImage({})).toBe(null)
+    })
+
+    it('should return highest priority image (wsr xl)', () => {
+      const images = {
+        sqr: { xl: 'sqr-xl' },
+        wsr: { lg: 'wsr-lg', xl: 'wsr-xl' }
+      }
+      expect(findBestImage(images)).toBe('wsr-xl')
+    })
+
+    it('should fall back to smaller sizes if larger not available', () => {
+      const images = {
+        wsr: { sm: 'wsr-sm', xs: 'wsr-xs' }
+      }
+      expect(findBestImage(images)).toBe('wsr-sm')
+    })
+
+    it('should fall back to lower priority types if preferred type not available', () => {
+      const images = {
+        cvr: { xl: 'cvr-xl' },
+        sqr: { xl: 'sqr-xl' }
+      }
+      expect(findBestImage(images)).toBe('sqr-xl')
+    })
+
+    it('should handle complex availability', () => {
+      const images = {
+        lsr: { sm: 'lsr-sm' },
+        sqr: { xl: 'sqr-xl' }
+      }
+
+      expect(findBestImage(images)).toBe('lsr-sm')
     })
   })
 })

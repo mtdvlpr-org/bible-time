@@ -1,7 +1,7 @@
 import type { JwLangCode, JwLangSymbol } from './lang'
 
 export type ImageSize = 'lg' | 'md' | 'sm' | 'xl' | 'xs'
-export type ImageType = 'lsr' | 'lss' | 'pnr' | 'sqr' | 'sqs' | 'wsr' | 'wss'
+export type ImageType = 'cvr' | 'lsr' | 'lss' | 'pnr' | 'sqr' | 'sqs' | 'wsr' | 'wss'
 
 /* eslint-disable perfectionist/sort-interfaces */
 export interface MediaItem {

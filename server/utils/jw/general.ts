@@ -56,8 +56,14 @@ export const extractPubId = (input: string): null | PubId => {
     const docid = url.searchParams.get('docid')
     if (docid && isPubId(docid)) return docid
 
-    const match = url.pathname.match(/\/((?:pub|docid)-[^/]+)/)
-    if (match && isPubId(match[1])) return match[1]
+    // eslint-disable-next-line no-useless-escape
+    const idRegex = /\/((?:pub|docid)-[^\/]+)/
+
+    const pathMatch = url.pathname.match(idRegex)
+    if (pathMatch && isPubId(pathMatch[1])) return pathMatch[1]
+
+    const hashMatch = url.hash.match(idRegex)
+    if (hashMatch && isPubId(hashMatch[1])) return hashMatch[1]
 
     return null
   } catch {
@@ -79,7 +85,7 @@ export const extractResolution = (file: MediaItemFile): number => {
   return parseInt(resolution)
 }
 
-export const findBestMatch = (
+export const findBestFileMatch = (
   media: MediaItemFile[],
   withSubtitles = false
 ): MediaItemFile | null => {
@@ -88,4 +94,17 @@ export const findBestMatch = (
 
   const sorted = [...media].sort((a, b) => extractResolution(b) - extractResolution(a))
   return withSubtitles ? (sorted.find((file) => file.subtitles) ?? sorted[0]) : sorted[0]
+}
+
+export const findBestImage = (images: MediaItem['images']) => {
+  const sizeOrder: ImageSize[] = ['xl', 'lg', 'md', 'sm', 'xs'] as const
+  const typeOrder: ImageType[] = ['wsr', 'wss', 'lsr', 'lss', 'pnr', 'sqr', 'sqs', 'cvr'] as const
+
+  for (const type of typeOrder) {
+    for (const size of sizeOrder) {
+      const image = images[type]?.[size]
+      if (image) return image
+    }
+  }
+  return null
 }

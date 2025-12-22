@@ -1,4 +1,4 @@
-import { findBestMatch, generatePubId, generateVerseId } from './general'
+import { findBestFileMatch, generatePubId, generateVerseId } from './general'
 import { scrapeBibleDataUrl } from './scraper'
 
 /**
@@ -9,7 +9,10 @@ import { scrapeBibleDataUrl } from './scraper'
 export const fetchJwLanguages = async (locale: JwLangSymbol = 'en') => {
   const result = await $fetch<JwLanguageResult>(`https://www.jw.org/${locale}/languages/`)
 
-  return { languages: result?.languages, locale }
+  return {
+    languages: result?.languages.filter((l) => l.hasWebContent),
+    locale
+  }
 }
 
 interface YeartextResult {
@@ -68,7 +71,7 @@ export const fetchMediaItems = async (
   const url = `https://b.jw-cdn.org/apis/mediator/v1/media-items/${publication.langwritten}`
 
   const id = 'id' in publication ? publication.id : generatePubId(publication)
-  const result = await $fetch<MediaItemsMediator>(`${url}/${id}`)
+  const result = await $fetch<MediaItemsMediator>(`${url}/${id}`, { query: { clientType: 'www' } })
 
   return { publication, result }
 }
@@ -101,7 +104,7 @@ export const fetchMediaWithSubtitles = async (
   const { result } = await fetchMediaItems(publication)
 
   const video = result?.media?.[0]
-  const bestMatch = findBestMatch(video?.files ?? [], true)
+  const bestMatch = findBestFileMatch(video?.files ?? [], true)
 
   return { bestMatch, publication, video }
 }
