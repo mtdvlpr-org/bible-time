@@ -1,5 +1,13 @@
 import { z } from 'zod'
 
+const outputSchema = {
+  subtitles: z.string().describe('The subtitles of the video.'),
+  thumbnail: z.string().describe('The thumbnail of the video.'),
+  title: z.string().describe('The title of the video.')
+}
+
+type OutputSchema = z.output<z.ZodObject<typeof outputSchema>>
+
 export default defineMcpTool({
   annotations: {
     destructiveHint: false,
@@ -13,21 +21,13 @@ export default defineMcpTool({
     const id = extractPubId(url)
     const langwritten = extractLangCode(url)
     if (!id) throw new Error('Invalid JW Video URL')
-    const video = await fetchSubtitles({ id, langwritten: langcode || langwritten || 'E' })
+    const result = await fetchSubtitles({ id, langwritten: langcode || langwritten || 'E' })
 
-    return {
-      content: [
-        {
-          text: video?.subtitles ?? 'No transcript found.',
-          type: 'text'
-        }
-      ],
-      structuredContent: {
-        subtitles: video?.subtitles ?? 'No transcript found.',
-        thumbnail: findBestImage(video?.video.images ?? {}) ?? '',
-        title: video?.video.title
-      }
-    }
+    return mcpService.toolResult<OutputSchema>(result.subtitles, {
+      subtitles: result.subtitles,
+      thumbnail: findBestImage(result.video.images ?? {}) ?? '',
+      title: result.video.title
+    })
   },
   inputSchema: {
     langcode: z
@@ -42,9 +42,5 @@ export default defineMcpTool({
         'A JW Video URL. Examples: https://www.jw.org/finder?srcid=share&wtlocale=E&lank=pub-imv_4_VIDEO or https://www.jw.org/en/library/videos/#en/mediaitems/FeaturedLibraryVideos/pub-imv_4_VIDEO'
       )
   },
-  outputSchema: {
-    subtitles: z.string().describe('The subtitles of the video.'),
-    thumbnail: z.string().describe('The thumbnail of the video.'),
-    title: z.string().describe('The title of the video.')
-  }
+  outputSchema
 })

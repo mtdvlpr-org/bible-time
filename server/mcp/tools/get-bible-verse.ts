@@ -10,15 +10,12 @@ export default defineMcpTool({
   cache: '4w',
   description: 'Get a Bible verse from JW.org.',
   handler: async ({ book, chapter, symbol, verseNumber }) => {
-    const verse = await fetchBibleVerse(book as BibleBookNr, chapter, verseNumber, symbol)
+    try {
+      const { verse } = await fetchBibleVerse(book as BibleBookNr, chapter, verseNumber, symbol)
 
-    return {
-      content: [
-        {
-          text: verse?.verse?.content ?? 'No verse found.',
-          type: 'text'
-        }
-      ]
+      return mcpService.toolResult(verse.content)
+    } catch (e) {
+      return mcpService.toolError(e)
     }
   },
   inputSchema: {

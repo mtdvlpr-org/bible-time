@@ -10,7 +10,7 @@ export const fetchJwLanguages = async (locale: JwLangSymbol = 'en') => {
   const result = await $fetch<JwLanguageResult>(`https://www.jw.org/${locale}/languages/`)
 
   return {
-    languages: result?.languages.filter((l) => l.hasWebContent),
+    languages: result.languages.filter((l) => l.hasWebContent),
     locale
   }
 }
@@ -39,7 +39,7 @@ export const fetchYeartext = async (wtlocale: JwLangCode, year?: number) => {
     }
   })
 
-  return { wtlocale, year: searchYear, yeartext: result?.content }
+  return { wtlocale, year: searchYear, yeartext: result.content }
 }
 
 /**
@@ -68,9 +68,9 @@ export const fetchPublication = async (publication: PublicationDocFetcher | Publ
 export const fetchMediaItems = async (
   publication: PublicationDocFetcher | PublicationFetcher | { id: PubId; langwritten: JwLangCode }
 ) => {
+  const id = 'id' in publication ? publication.id : generatePubId(publication)
   const url = `https://b.jw-cdn.org/apis/mediator/v1/media-items/${publication.langwritten}`
 
-  const id = 'id' in publication ? publication.id : generatePubId(publication)
   const result = await $fetch<MediaItemsMediator>(`${url}/${id}`, { query: { clientType: 'www' } })
 
   return { publication, result }
@@ -93,7 +93,9 @@ export const fetchBibleVerse = async (
   const verseId = generateVerseId(book, chapter, verseNumber)
   const result = await $fetch<BibleResultSingle>(`${url}/${verseId}`)
 
-  const verse = result?.ranges?.[verseId]?.verses?.[0]
+  const verse = result.ranges?.[verseId]?.verses?.[0]
+
+  if (!verse) throw new Error('Verse not found')
 
   return { book, chapter, locale, verse, verseNumber }
 }
@@ -103,8 +105,13 @@ export const fetchMediaWithSubtitles = async (
 ) => {
   const { result } = await fetchMediaItems(publication)
 
-  const video = result?.media?.[0]
+  const video = result.media[0]
+
+  if (!video) throw new Error('Video not found')
+
   const bestMatch = findBestFileMatch(video?.files ?? [], true)
+
+  if (!bestMatch) throw new Error('No subtitles found')
 
   return { bestMatch, publication, video }
 }
@@ -114,7 +121,8 @@ export const fetchSubtitles = async (
 ) => {
   const { bestMatch, video } = await fetchMediaWithSubtitles(publication)
 
-  if (!bestMatch?.subtitles) return null
+  if (!bestMatch?.subtitles) throw new Error('No subtitles found')
+
   const subtitles = await $fetch<string>(bestMatch.subtitles.url, { responseType: 'text' })
 
   return { bestMatch, publication, subtitles, video }
