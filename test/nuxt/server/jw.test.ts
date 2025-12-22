@@ -75,23 +75,21 @@ describe('jw api integration', () => {
     timeout
   )
 
-  it.todo(
+  it(
     'should fetch real media items',
     async () => {
-      // Fetching media for a recent Watchtower issue
-      // Mediator API requires specific ID format or might be restricted/changed.
-      // Skipping this test as fetchPublication provides media links reliably via GETPUBMEDIALINKS.
       const pubRequest: PublicationFetcher = {
-        fileformat: 'MP3',
-        issue: 20240100,
+        fileformat: 'MP4',
+        issue: 4,
         langwritten: 'E',
-        pub: 'w'
+        pub: 'imv'
       }
 
       const result = await fetchMediaItems(pubRequest)
       expect(result.publication).toEqual(pubRequest)
       expect(result.result).toBeDefined()
       expect(result.result?.media).toBeDefined()
+      expect(result.result?.media.length).toBeGreaterThan(0)
     },
     timeout
   )
