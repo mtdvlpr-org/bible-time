@@ -20,7 +20,7 @@ export default defineMcpTool({
   handler: async ({ langcode, url }) => {
     const id = extractPubId(url)
     const langwritten = extractLangCode(url)
-    if (!id) throw new Error('Invalid JW Video URL')
+    if (!id) throw new Error('Could not extract publication ID from URL')
     const result = await fetchSubtitles({ id, langwritten: langcode || langwritten || 'E' })
 
     return mcpService.toolResult<OutputSchema>(result.subtitles, {
