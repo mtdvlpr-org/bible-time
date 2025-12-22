@@ -22,14 +22,14 @@ const model = defineModel<string | undefined>({ required: true })
 
 const { translateBook } = useTranslations()
 
-const book = ref<keyof typeof bibleChapters | undefined>()
+const book = ref<BibleBookNr | undefined>()
 const chapter = ref<number | undefined>()
 const startVerse = ref(1)
 const endVerse = ref<number | undefined>()
 
 const books = computed(() =>
   Object.keys(bibleChapters).map((c) => ({
-    label: translateBook(+c as keyof typeof bibleChapters),
+    label: translateBook(+c as BibleBookNr),
     value: +c
   }))
 )

@@ -4,7 +4,7 @@ declare module '@nuxtjs/i18n' {
      * The JW locale code
      * @example 'E'
      */
-    jw: string
+    jw: JwLangCode
   }
 }
 

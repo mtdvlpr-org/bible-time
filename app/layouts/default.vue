@@ -83,6 +83,7 @@ const user = useSupabaseUser()
 const userStore = useUserStore()
 await callOnce(user.value?.sub || 'profile', userStore.fetch, { mode: 'navigation' })
 
+const { $pwa } = useNuxtApp()
 const { repoUrl } = useRuntimeConfig().public
 
 const links = computed((): NavigationMenuItem[][] => [
@@ -179,6 +180,17 @@ const links = computed((): NavigationMenuItem[][] => [
       label: t('legal.title'),
       to: localePath('/legal')
     },
+    ...($pwa?.showInstallPrompt && !$pwa?.isPWAInstalled
+      ? [
+          {
+            icon: 'i-lucide:download',
+            label: t('feedback.install-app'),
+            onClick: () => {
+              $pwa.install()
+            }
+          }
+        ]
+      : []),
     {
       external: true,
       icon: 'i-lucide-info',
