@@ -1,4 +1,5 @@
-import type { AppLocale } from '#shared/types/general.types'
+import type { AppLocale } from '#shared/types/general'
+import type { BibleBookNr } from '#shared/types/jw/books'
 
 export const getBibleLink = (
   locale: AppLocale,
@@ -23,7 +24,7 @@ export const getBibleLink = (
 export const parseVerseString = (
   verse: string
 ): null | {
-  book: keyof typeof bibleChapters
+  book: BibleBookNr
   chapter: number
   end: number | undefined
   start: number
@@ -34,7 +35,7 @@ export const parseVerseString = (
   if (!book || !chapter || !start) return null
 
   return {
-    book: parseInt(book) as keyof typeof bibleChapters,
+    book: parseInt(book) as BibleBookNr,
     chapter: parseInt(chapter),
     end: end ? parseInt(end) : undefined,
     start: parseInt(start)
@@ -108,4 +109,4 @@ export const bibleChapters = {
   64: 1,
   65: 1,
   66: 22
-} satisfies Record<number, number>
+} satisfies Record<BibleBookNr, number>

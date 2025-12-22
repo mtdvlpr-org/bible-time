@@ -14,21 +14,21 @@ export default defineConfig({
       {
         test: {
           environment: 'happy-dom',
-          include: ['test/unit/{app,shared}/*.test.ts'],
+          include: ['test/unit/{app,shared}/**/*.test.ts'],
           name: 'browser'
         }
       },
       {
         test: {
           environment: 'node',
-          include: ['test/unit/{server,shared}/*.test.ts'],
+          include: ['test/unit/{server,shared}/**/*.test.ts'],
           name: 'server'
         }
       },
       await defineVitestProject({
         test: {
           environment: 'nuxt',
-          include: ['test/nuxt/{components,composables,stores}/*.test.ts'],
+          include: ['test/nuxt/**/*.test.ts'],
           name: 'nuxt'
         }
       })

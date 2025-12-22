@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url'
 import { defineOrganization } from 'nuxt-schema-org/schema'
 import mdPlugin, { Mode } from 'vite-plugin-markdown'
 
-import type { AppLocale } from './shared/types/general.types'
+import type { AppLocale } from './shared/types/general'
 
 import messages from './app/locales/en.json'
 import { iconBaseUrl, maskableSizes, transparentSizes } from './app/utils/assets'
@@ -22,7 +22,6 @@ export default defineNuxtConfig({
   compatibilityDate: '2024-07-11',
   css: ['~/assets/css/main.css'],
   future: { typescriptBundlerResolution: true },
-
   i18n: {
     baseUrl: process.env.NUXT_SITE_URL,
     defaultLocale: 'en',
@@ -37,6 +36,8 @@ export default defineNuxtConfig({
   },
 
   image: { domains: imageOptimizationDomains, provider: 'none' },
+
+  imports: { dirs: ['shared/types/jw'] },
 
   modules: [
     '@netlify/nuxt',
@@ -59,13 +60,19 @@ export default defineNuxtConfig({
     redirects: { enabled: true }
   },
 
-  nitro: { netlify: { images: { remote_images: imageOptimizationDomains } }, preset: 'netlify' },
+  nitro: {
+    imports: { dirs: ['shared/types/jw'] },
+    netlify: { images: { remote_images: imageOptimizationDomains } },
+    preset: 'netlify'
+  },
 
   pwa: {
+    client: { installPrompt: true },
     devOptions: {
       enabled: true,
       navigateFallback: '/',
       navigateFallbackAllowlist: [/^\/$/],
+      suppressWarnings: true,
       type: 'module'
     },
     manifest: {

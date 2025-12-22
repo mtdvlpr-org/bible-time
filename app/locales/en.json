@@ -233,6 +233,7 @@
     "deleted-successfully": "{item} has been deleted successfully.",
     "error": "Error",
     "info": "Information",
+    "install-app": "Install app",
     "new-version-available": "New version available!",
     "new-version-available-description": "A new version of the app is available. Please refresh to get the latest features.",
     "offline-ready": "Offline Ready",

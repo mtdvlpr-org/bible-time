@@ -66,7 +66,7 @@ describe('useTranslations', () => {
 
   it('formats bible verse', () => {
     const { formatBibleVerse } = useTranslations()
-    const verse: { book: keyof typeof bibleChapters; chapter: number; start: number } = {
+    const verse: { book: BibleBookNr; chapter: number; start: number } = {
       book: 1,
       chapter: 1,
       start: 1
@@ -75,7 +75,7 @@ describe('useTranslations', () => {
     expect(formatBibleVerse(verse)).toBe('t:bible.books.genesis 1:1')
 
     const range: {
-      book: keyof typeof bibleChapters
+      book: BibleBookNr
       chapter: number
       end?: number
       start: number

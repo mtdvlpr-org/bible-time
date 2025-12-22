@@ -88,7 +88,7 @@ export default function () {
     }
   }
 
-  const translateBook = (id: keyof typeof bibleChapters, short = false): string => {
+  const translateBook = (id: BibleBookNr, short = false): string => {
     switch (id) {
       case 1:
         return short ? t('bible.abbreviations.genesis') : t('bible.books.genesis')
@@ -227,7 +227,7 @@ export default function () {
 
   const formatBibleVerse = (
     verse: null | {
-      book: keyof typeof bibleChapters
+      book: BibleBookNr
       chapter: number
       end?: number
       start: number
