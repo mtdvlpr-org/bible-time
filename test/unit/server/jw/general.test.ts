@@ -115,7 +115,7 @@ describe('jw general utils', () => {
     })
 
     it('should extract from docid param', () => {
-      expect(extractPubId('https://jw.org/finder?docid=123')).toBe('docid-123')
+      expect(extractPubId('https://jw.org/finder?docid=docid-123')).toBe('docid-123')
     })
 
     it('should extract from path', () => {
