@@ -54,7 +54,7 @@ export const extractPubId = (input: string): null | PubId => {
     if (lank && isPubId(lank)) return lank
 
     const docid = url.searchParams.get('docid')
-    if (docid && isPubId(docid)) return docid
+    if (docid) return 'docid-' + docid as PubId
 
     // eslint-disable-next-line no-useless-escape
     const idRegex = /\/((?:pub|docid)-[^\/]+)/
