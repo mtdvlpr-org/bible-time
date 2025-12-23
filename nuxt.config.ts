@@ -211,7 +211,7 @@ export default defineNuxtConfig({
     registerWebManifestInRouteRules: true
   },
 
-  routeRules: { '/api/**': { cors: true } },
+  routeRules: { '/api/**': { cors: true }, '/mcp': { cors: true } },
 
   runtimeConfig: {
     githubToken: process.env.GITHUB_TOKEN,
