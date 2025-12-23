@@ -89,7 +89,7 @@ describe('jw general utils', () => {
     })
 
     it('should extract from wtlocale param', () => {
-      expect(extractLangCode('https://jw.org?wtlocale=E')).toBe('E')
+      expect(extractLangCode('https://jw.org/finder?wtlocale=E')).toBe('E')
     })
 
     it('should extract from langwritten param', () => {
@@ -111,11 +111,11 @@ describe('jw general utils', () => {
     })
 
     it('should extract from lank param', () => {
-      expect(extractPubId('https://jw.org?lank=pub-jw')).toBe('pub-jw')
+      expect(extractPubId('https://jw.org/finder?lank=pub-jw')).toBe('pub-jw')
     })
 
     it('should extract from docid param', () => {
-      expect(extractPubId('https://jw.org?docid=docid-123')).toBe('docid-123')
+      expect(extractPubId('https://jw.org/finder?docid=123')).toBe('docid-123')
     })
 
     it('should extract from path', () => {
