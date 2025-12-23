@@ -1,7 +1,7 @@
 import { mockNuxtImport } from '@nuxt/test-utils/runtime'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
-import useFlash from '../../../app/composables/useFlash'
+import useFlash from '~/composables/useFlash'
 
 const toastAddMock = vi.fn()
 const toastsMock: { value: { id: string }[] } = { value: [] }

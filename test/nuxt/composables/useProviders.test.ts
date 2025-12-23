@@ -1,7 +1,7 @@
 import { mockNuxtImport } from '@nuxt/test-utils/runtime'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
-import useProviders from '../../../app/composables/useProviders'
+import useProviders from '~/composables/useProviders'
 
 const signInWithOAuthMock = vi.fn()
 

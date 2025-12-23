@@ -4,7 +4,7 @@ import { mockNuxtImport } from '@nuxt/test-utils/runtime'
 import { createPinia, setActivePinia } from 'pinia'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
-import { useUserStore } from '../../../app/stores/user'
+import { useUserStore } from '~/stores/user'
 
 const {
   eqMock,

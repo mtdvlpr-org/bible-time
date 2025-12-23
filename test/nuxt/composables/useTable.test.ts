@@ -4,7 +4,7 @@ import type { Column } from '@tanstack/table-core'
 import { describe, expect, it, vi } from 'vitest'
 import { isVNode } from 'vue'
 
-import useTable from '../../../app/composables/useTable'
+import useTable from '~/composables/useTable'
 
 vi.mock('#components', () => ({
   UAvatar: { name: 'UAvatar' },

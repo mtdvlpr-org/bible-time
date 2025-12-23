@@ -1,6 +1,4 @@
-import { describe, expect, it } from 'vitest'
-
-import type { PublicationFetcher } from '../../../shared/types/jw/publication'
+import type { PublicationFetcher } from '#shared/types/jw/publication'
 
 import {
   fetchBibleData,
@@ -9,7 +7,8 @@ import {
   fetchMediaItems,
   fetchPublication,
   fetchYeartext
-} from '../../../server/utils/jw/api'
+} from '#server/utils/jw/api'
+import { describe, expect, it } from 'vitest'
 
 describe('jw api integration', () => {
   // Use a longer timeout for network requests

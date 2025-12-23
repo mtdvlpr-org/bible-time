@@ -1,7 +1,7 @@
 import { mockNuxtImport } from '@nuxt/test-utils/runtime'
 import { describe, expect, it, vi } from 'vitest'
 
-import useForm from '../../../app/composables/useForm'
+import useForm from '~/composables/useForm'
 
 // Mock Constants globally
 const ConstantsMock = {

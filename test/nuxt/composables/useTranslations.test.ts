@@ -1,7 +1,7 @@
 import { mockNuxtImport } from '@nuxt/test-utils/runtime'
 import { describe, expect, it } from 'vitest'
 
-import useTranslations from '../../../app/composables/useTranslations'
+import useTranslations from '~/composables/useTranslations'
 
 const translationsMock = {
   en: {

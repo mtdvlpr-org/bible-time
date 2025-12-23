@@ -1,7 +1,7 @@
 import { mockNuxtImport } from '@nuxt/test-utils/runtime'
 import { describe, expect, it, vi } from 'vitest'
 
-import useTheme from '../../../app/composables/useTheme'
+import useTheme from '~/composables/useTheme'
 
 const appConfigMock = {
   ui: {

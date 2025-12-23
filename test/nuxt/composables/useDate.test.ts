@@ -1,7 +1,7 @@
 import { mockNuxtImport } from '@nuxt/test-utils/runtime'
 import { describe, expect, it } from 'vitest'
 
-import useDate from '../../../app/composables/useDate'
+import useDate from '~/composables/useDate'
 
 mockNuxtImport('useNuxtApp', () => {
   return () => ({

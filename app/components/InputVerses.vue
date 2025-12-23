@@ -39,7 +39,7 @@ const chapters = computed(() =>
 )
 
 watchImmediate(model, (val) => {
-  const verse = parseVerseString(val ?? '')
+  const verse = parseVerseString((val as unknown as string | undefined) ?? '')
 
   if (!verse) {
     book.value = undefined

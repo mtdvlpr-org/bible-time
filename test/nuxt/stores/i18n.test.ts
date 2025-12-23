@@ -2,7 +2,7 @@ import { mockNuxtImport } from '@nuxt/test-utils/runtime'
 import { createPinia, setActivePinia } from 'pinia'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
-import { useI18nStore } from '../../../app/stores/i18n'
+import { useI18nStore } from '~/stores/i18n'
 
 // Mock Supabase with hoisted variables to avoid hoisting issues
 const { eqMock, fromMock, selectMock } = vi.hoisted(() => {
