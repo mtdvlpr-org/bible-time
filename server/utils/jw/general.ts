@@ -1,5 +1,5 @@
-export const isPubId = (input: string): input is PubId => {
-  return input.startsWith('docid-') || input.startsWith('pub-')
+export const isPubId = (input?: string): input is PubId => {
+  return !!input && (input.startsWith('docid-') || input.startsWith('pub-'))
 }
 
 export const generatePubId = (publication: PublicationDocFetcher | PublicationFetcher): PubId => {
@@ -90,10 +90,10 @@ export const findBestFileMatch = (
   withSubtitles = false
 ): MediaItemFile | null => {
   if (media.length === 0) return null
-  if (media.length === 1) return media[0]
+  if (media.length === 1) return media[0]!
 
   const sorted = [...media].sort((a, b) => extractResolution(b) - extractResolution(a))
-  return withSubtitles ? (sorted.find((file) => file.subtitles) ?? sorted[0]) : sorted[0]
+  return withSubtitles ? (sorted.find((file) => file.subtitles) ?? sorted[0]!) : sorted[0]!
 }
 
 export const findBestImage = (images: MediaItem['images']) => {
