@@ -76,7 +76,7 @@
     "supabase": "^2.70.3",
     "typescript": "^5.9.3",
     "vite-plugin-markdown": "^2.2.0",
-    "vitest": "^3.2.4",
+    "vitest": "^4.0.16",
     "vue-tsc": "^3.2.1"
   },
   "lint-staged": {
