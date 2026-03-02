@@ -45,7 +45,7 @@
     "@vueuse/nuxt": "^14.1.0",
     "@vueuse/router": "^14.1.0",
     "node-html-parser": "^7.0.1",
-    "nuxt": "^4.2.2",
+    "nuxt": "^4.3.1",
     "pinia": "^3.0.4",
     "pinia-plugin-persistedstate": "^4.7.1",
     "vue-timeline-chart": "^4.1.2",
