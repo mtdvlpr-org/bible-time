@@ -23,7 +23,7 @@ export default defineEventHandler(async (event) => {
   if (isNaN(parsedId)) {
     throw createError({
       message: `Invalid suggestion ID '${id}'.`,
-      statusCode: 400,
+      status: 400,
       statusText: 'Bad Request'
     })
   }
@@ -45,7 +45,7 @@ export default defineEventHandler(async (event) => {
   if (!suggestion) {
     throw createError({
       message: `Suggestion with ID '${id}' not found.`,
-      statusCode: 404,
+      status: 404,
       statusText: 'Not Found'
     })
   }
@@ -53,7 +53,7 @@ export default defineEventHandler(async (event) => {
   if (suggestion.type.includes('.update') && !suggestion.target_slug) {
     throw createError({
       message: `Suggestion with ID '${id}' is missing a target slug.`,
-      statusCode: 400,
+      status: 400,
       statusText: 'Bad Request'
     })
   }

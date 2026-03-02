@@ -86,120 +86,123 @@ await callOnce(user.value?.sub || 'profile', userStore.fetch, { mode: 'navigatio
 const { $pwa } = useNuxtApp()
 const { repoUrl } = useRuntimeConfig().public
 
-const links = computed((): NavigationMenuItem[][] => [
-  [
-    {
-      icon: 'i-lucide:house',
-      label: t('home.title'),
-      to: localePath('/')
-    },
-    {
-      icon: 'i-lucide:chart-gantt',
-      label: t('timeline.title'),
-      to: localePath('/timeline')
-    },
-    {
-      icon: 'i-lucide:users',
-      label: t('people.title'),
-      to: localePath('/people')
-    },
-    {
-      icon: 'i-lucide:calendar-range',
-      label: t('events.title'),
-      to: localePath('/events')
-    },
-    {
-      icon: 'i-lucide:lightbulb',
-      label: t('suggestions.title'),
-      to: localePath('/suggestions')
-    },
-    ...(userStore.user?.role === 'admin'
-      ? [
-          {
-            children: [
-              {
-                icon: 'i-lucide:users',
-                label: t('people.title'),
-                to: localePath('/admin/people')
-              },
-              {
-                icon: 'i-lucide:calendar-range',
-                label: t('events.title'),
-                to: localePath('/admin/events')
-              },
-              ...(userStore.can('users.manage')
-                ? [
-                    {
-                      icon: 'i-lucide:users-round',
-                      label: t('users.title'),
-                      to: localePath('/admin/users')
-                    }
-                  ]
-                : [])
-            ],
-            defaultOpen: true,
-            icon: 'i-lucide:shield',
-            label: t('auth.admin'),
-            type: 'trigger' as const
-          }
-        ]
-      : []),
-    {
-      children: [
+const links = computed(
+  () =>
+    [
+      [
         {
-          exact: true,
-          icon: 'i-lucide:settings-2',
-          label: t('settings.general'),
-          to: localePath('/settings')
+          icon: 'i-lucide:house',
+          label: t('home.title'),
+          to: localePath('/')
         },
         {
-          icon: 'i-lucide:user-round',
-          label: t('settings.profile'),
-          to: localePath('/settings/profile')
+          icon: 'i-lucide:chart-gantt',
+          label: t('timeline.title'),
+          to: localePath('/timeline')
         },
         {
-          icon: 'i-lucide:shield-user',
-          label: t('settings.security'),
-          to: localePath('/settings/security')
+          icon: 'i-lucide:users',
+          label: t('people.title'),
+          to: localePath('/people')
+        },
+        {
+          icon: 'i-lucide:calendar-range',
+          label: t('events.title'),
+          to: localePath('/events')
+        },
+        {
+          icon: 'i-lucide:lightbulb',
+          label: t('suggestions.title'),
+          to: localePath('/suggestions')
+        },
+        ...(userStore.user?.role === 'admin'
+          ? [
+              {
+                children: [
+                  {
+                    icon: 'i-lucide:users',
+                    label: t('people.title'),
+                    to: localePath('/admin/people')
+                  },
+                  {
+                    icon: 'i-lucide:calendar-range',
+                    label: t('events.title'),
+                    to: localePath('/admin/events')
+                  },
+                  ...(userStore.can('users.manage')
+                    ? [
+                        {
+                          icon: 'i-lucide:users-round',
+                          label: t('users.title'),
+                          to: localePath('/admin/users')
+                        }
+                      ]
+                    : [])
+                ],
+                defaultOpen: true,
+                icon: 'i-lucide:shield',
+                label: t('auth.admin'),
+                type: 'trigger' as const
+              }
+            ]
+          : []),
+        {
+          children: [
+            {
+              exact: true,
+              icon: 'i-lucide:settings-2',
+              label: t('settings.general'),
+              to: localePath('/settings')
+            },
+            {
+              icon: 'i-lucide:user-round',
+              label: t('settings.profile'),
+              to: localePath('/settings/profile')
+            },
+            {
+              icon: 'i-lucide:shield-user',
+              label: t('settings.security'),
+              to: localePath('/settings/security')
+            }
+          ],
+          defaultOpen: true,
+          icon: 'i-lucide:settings',
+          label: t('settings.title'),
+          type: 'trigger'
         }
       ],
-      defaultOpen: true,
-      icon: 'i-lucide:settings',
-      label: t('settings.title'),
-      type: 'trigger'
-    }
-  ],
-  [
-    {
-      icon: 'i-lucide:mail',
-      label: t('contact.title'),
-      to: localePath('/contact')
-    },
-    {
-      icon: 'i-lucide:file-text',
-      label: t('legal.title'),
-      to: localePath('/legal')
-    },
-    ...($pwa?.showInstallPrompt && !$pwa?.isPWAInstalled
-      ? [
-          {
-            icon: 'i-lucide:download',
-            label: t('feedback.install-app'),
-            onClick: () => {
-              $pwa.install()
-            }
-          }
-        ]
-      : []),
-    {
-      external: true,
-      icon: 'i-lucide-info',
-      label: t('general.help-and-support'),
-      target: '_blank',
-      to: repoUrl + '#readme'
-    }
-  ]
-])
+      [
+        {
+          icon: 'i-lucide:mail',
+          label: t('contact.title'),
+          to: localePath('/contact')
+        },
+        {
+          icon: 'i-lucide:file-text',
+          label: t('legal.title'),
+          to: localePath('/legal')
+        },
+        ...($pwa?.showInstallPrompt && !$pwa?.isPWAInstalled
+          ? [
+              {
+                icon: 'i-lucide:download',
+                label: t('feedback.install-app'),
+                onClick: () => {
+                  $pwa.install()
+                }
+              }
+            ]
+          : []),
+        {
+          external: true,
+          icon: 'i-lucide-info',
+          label: t('general.help-and-support'),
+          target: '_blank',
+          to: repoUrl + '#readme'
+        }
+      ]
+    ] satisfies NavigationMenuItem[][]
+)
 
 const { appearanceDropdownItem } = useTheme()
 

@@ -1,5 +1,5 @@
 <template>
-  <UInput v-model="model">
+  <UInput v-model="model" :model-modifiers="{ nullable: true }">
     <template v-if="model?.length" #trailing>
       <LazyUButton
         size="sm"

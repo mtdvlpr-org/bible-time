@@ -36,7 +36,7 @@ export default defineEventHandler(async (event) => {
   if (!item) {
     throw createError({
       message: `Item with slug '${slug}' not found.`,
-      statusCode: 404,
+      status: 404,
       statusText: 'Not Found'
     })
   }

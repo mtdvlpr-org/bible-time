@@ -24,7 +24,7 @@ describe('server supabase utils', () => {
 
       expect(createErrorMock).toHaveBeenCalledWith({
         message: 'DB Error',
-        statusCode: 500,
+        status: 500,
         statusText: 'Server Error'
       })
     })

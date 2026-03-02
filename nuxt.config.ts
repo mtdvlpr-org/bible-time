@@ -1,6 +1,6 @@
 import type { LocaleObject } from '@nuxtjs/i18n'
+import type { DefineNuxtConfig } from 'nuxt/config'
 
-import { fileURLToPath } from 'node:url'
 import { defineOrganization } from 'nuxt-schema-org/schema'
 import mdPlugin, { Mode } from 'vite-plugin-markdown'
 
@@ -17,7 +17,6 @@ const imageOptimizationDomains: string[] = []
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  alias: { '#server': fileURLToPath(new URL('./server', import.meta.url)) },
   colorMode: { fallback: 'light', preference: 'system' },
   compatibilityDate: '2024-07-11',
   css: ['~/assets/css/main.css'],
@@ -263,6 +262,6 @@ export default defineNuxtConfig({
         }
       }
     },
-    plugins: [mdPlugin({ mode: [Mode.HTML] })]
+    plugins: [mdPlugin({ mode: [Mode.HTML] })] as DefineNuxtConfig['arguments']
   }
 })

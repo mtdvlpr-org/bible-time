@@ -9,8 +9,8 @@ export default defineEventHandler(async (event) => {
   if (error) {
     throw createError({
       message: error.message,
-      statusCode: 500,
-      statusMessage: 'Internal Server Error'
+      status: 500,
+      statusText: 'Internal Server Error'
     })
   }
 

@@ -4,7 +4,7 @@ export const supabaseService = {
   handleError: (error: PostgrestError, status: number, statusText: string) => {
     throw createError({
       message: error.message,
-      statusCode: status,
+      status,
       statusText
     })
   }

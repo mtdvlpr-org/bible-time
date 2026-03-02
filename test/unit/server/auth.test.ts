@@ -41,8 +41,8 @@ describe('server auth utils', () => {
 
       expect(createErrorMock).toHaveBeenCalledWith(
         expect.objectContaining({
-          statusCode: 401,
-          statusMessage: 'Unauthorized'
+          status: 401,
+          statusText: 'Unauthorized'
         })
       )
     })
@@ -74,8 +74,8 @@ describe('server auth utils', () => {
       expect(createErrorMock).toHaveBeenCalledWith(
         expect.objectContaining({
           message: 'RPC Error',
-          statusCode: 500,
-          statusMessage: 'Error'
+          status: 500,
+          statusText: 'Error'
         })
       )
     })
@@ -89,8 +89,8 @@ describe('server auth utils', () => {
 
       expect(createErrorMock).toHaveBeenCalledWith(
         expect.objectContaining({
-          statusCode: 403,
-          statusMessage: 'Forbidden'
+          status: 403,
+          statusText: 'Forbidden'
         })
       )
     })

@@ -11,12 +11,12 @@ export const authService = {
     })
 
     if (error) {
-      throw createError({ message: error.message, statusCode: status, statusMessage: statusText })
+      throw createError({ message: error.message, status, statusText })
     } else if (!data) {
       throw createError({
         message: `You do not have permission to perform this action.`,
-        statusCode: 403,
-        statusMessage: 'Forbidden'
+        status: 403,
+        statusText: 'Forbidden'
       })
     }
   },
@@ -25,8 +25,8 @@ export const authService = {
     if (!user) {
       throw createError({
         message: 'No user session found.',
-        statusCode: 401,
-        statusMessage: 'Unauthorized'
+        status: 401,
+        statusText: 'Unauthorized'
       })
     }
 

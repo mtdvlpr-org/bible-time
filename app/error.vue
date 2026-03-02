@@ -1,6 +1,12 @@
 <template>
   <UApp :locale="uiLocales[locale]">
-    <UError :error="error" />
+    <UError
+      :error="{
+        ...error,
+        statusCode: error.status ?? error.statusCode,
+        statusMessage: error.statusText ?? error.statusMessage
+      }"
+    />
   </UApp>
 </template>
 
@@ -28,12 +34,12 @@ useHead({
 })
 
 useSeoMeta({
-  description: props.error.statusMessage || props.error.message,
-  title: props.error.statusCode
+  description: props.error.statusText || props.error.statusMessage || props.error.message,
+  title: props.error.status || props.error.statusCode
 })
 
 defineOgImageComponent('Page', {
-  description: props.error.statusMessage || props.error.message,
-  title: props.error.statusCode.toString()
+  description: props.error.statusText || props.error.statusMessage || props.error.message,
+  title: props.error.status?.toString() || props.error.statusCode?.toString()
 })
 </script>

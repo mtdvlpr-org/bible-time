@@ -6,12 +6,6 @@ import { isVNode } from 'vue'
 
 import useTable from '~/composables/useTable'
 
-vi.mock('#components', () => ({
-  UAvatar: { name: 'UAvatar' },
-  UButton: { name: 'UButton' },
-  UDropdownMenu: { name: 'UDropdownMenu' }
-}))
-
 describe('useTable', () => {
   it('sortableColumn returns a VNode', () => {
     const { sortableColumn } = useTable()

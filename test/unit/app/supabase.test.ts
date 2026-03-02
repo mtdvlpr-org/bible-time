@@ -30,7 +30,7 @@ describe('app supabase utils', () => {
       expect(createErrorMock).toHaveBeenCalledWith({
         data: error,
         message: error.message,
-        statusCode: 500,
+        status: 500,
         statusText: 'Internal Server Error'
       })
     })
