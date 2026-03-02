@@ -11,6 +11,7 @@
         <UButton
           loading-auto
           type="submit"
+          form="profile"
           color="neutral"
           class="w-fit lg:ms-auto"
           :label="$t('general.save')"
@@ -151,6 +152,7 @@ async function onSubmit(event: FormSubmitEvent<ProfileSchema>) {
     showSuccess({
       description: t('feedback.saved-successfully', { item: t('settings.profile') })
     })
+    resetAvatar()
   }
 }
 

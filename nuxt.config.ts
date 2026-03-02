@@ -39,8 +39,6 @@ export default defineNuxtConfig({
 
   imports: { dirs: ['shared/types/jw'] },
 
-  mcp: { name: 'JW MCP', version: version },
-
   modules: [
     '@netlify/nuxt',
     '@nuxt/eslint',
@@ -52,7 +50,6 @@ export default defineNuxtConfig({
     '@pinia/nuxt',
     '@vite-pwa/nuxt',
     '@vueuse/nuxt',
-    '@nuxtjs/mcp-toolkit',
     'pinia-plugin-persistedstate/nuxt',
     '@nuxt/test-utils/module'
   ],
@@ -211,7 +208,7 @@ export default defineNuxtConfig({
     registerWebManifestInRouteRules: true
   },
 
-  routeRules: { '/api/**': { cors: true }, '/mcp': { cors: true } },
+  routeRules: { '/api/**': { cors: true } },
 
   runtimeConfig: {
     githubToken: process.env.GITHUB_TOKEN,
