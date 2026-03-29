@@ -5959,8 +5959,8 @@ packages:
   h3@1.15.6:
     resolution: {integrity: sha512-oi15ESLW5LRthZ+qPCi5GNasY/gvynSKUQxgiovrY63bPAtG59wtM+LSrlcwvOHAXzGrXVLnI97brbkdPF9WoQ==}
 
-  h3@2.0.1-rc.18:
-    resolution: {integrity: sha512-2EdYEOIJwZHfhfdxvqZsmmUz4tgwzQSuzre+l50j+voHJV4m7j3zw2lYLgHoyfkCF9EAZcaH4ea0zH/hgcs9Yg==}
+  h3@2.0.1-rc.19:
+    resolution: {integrity: sha512-47er/mh8eGA7+0nvNUloalj+yTJ1ku8M0BVzA2I1ZHSlpfbUNdBK4LpWztfH7TwW6kuhF8MfAvl0AwB+X9B+2w==}
     engines: {node: '>=20.11.1'}
     hasBin: true
     peerDependencies:
@@ -7390,6 +7390,10 @@ packages:
     resolution: {integrity: sha512-JU3teHTNjmE2VCGFzuY8EXzCDVwEqB2a8fsIvwaStHhAWJEeVd1o1QD80CU6+ZdEXXSLbSsuLwJjkCBWqRQUVA==}
     engines: {node: '>=8.6'}
 
+  picomatch@2.3.2:
+    resolution: {integrity: sha512-V7+vQEJ06Z+c5tSye8S+nHUfI51xoXIXjHQ99cQtKUkQqqO1kO/KCJUfZXuB47h/YBlDhah2H3hdUGXn8ie0oA==}
+    engines: {node: '>=8.6'}
+
   picomatch@4.0.3:
     resolution: {integrity: sha512-5gTmgEY/sqK6gFXLIsQNH19lWb4ebPDLA4SdLP7dsWkIXHWlG66oPuVvXSGFPppYZz8ZDZq0dYYrbHfBCVUb1Q==}
     engines: {node: '>=12'}
@@ -8280,6 +8284,11 @@ packages:
 
   srvx@0.11.12:
     resolution: {integrity: sha512-AQfrGqntqVPXgP03pvBDN1KyevHC+KmYVqb8vVf4N+aomQqdhaZxjvoVp+AOm4u6x+GgNQY3MVzAUIn+TqwkOA==}
+    engines: {node: '>=20.16.0'}
+    hasBin: true
+
+  srvx@0.11.13:
+    resolution: {integrity: sha512-oknN6qduuMPafxKtHucUeG32Q963pjriA5g3/Bl05cwEsUe5VVbIU4qR9LrALHbipSCyBe+VmfDGGydqazDRkw==}
     engines: {node: '>=20.16.0'}
     hasBin: true
 
@@ -11794,7 +11803,7 @@ snapshots:
       fake-indexeddb: 6.2.5
       get-port-please: 3.2.0
       h3: 1.15.6
-      h3-next: h3@2.0.1-rc.18
+      h3-next: h3@2.0.1-rc.19
       local-pkg: 1.1.2
       magic-string: 0.30.21
       node-fetch-native: 1.6.7
@@ -12764,7 +12773,7 @@ snapshots:
     dependencies:
       '@types/estree': 0.0.39
       estree-walker: 1.0.1
-      picomatch: 2.3.1
+      picomatch: 2.3.2
       rollup: 2.80.0
 
   '@rollup/pluginutils@5.3.0(rollup@2.80.0)':
@@ -15801,10 +15810,10 @@ snapshots:
       ufo: 1.6.3
       uncrypto: 0.1.3
 
-  h3@2.0.1-rc.18:
+  h3@2.0.1-rc.19:
     dependencies:
       rou3: 0.8.1
-      srvx: 0.11.12
+      srvx: 0.11.13
 
   happy-dom@20.8.4:
     dependencies:
@@ -17561,6 +17570,8 @@ snapshots:
 
   picomatch@2.3.1: {}
 
+  picomatch@2.3.2: {}
+
   picomatch@4.0.3: {}
 
   picoquery@2.5.0: {}
@@ -18578,6 +18589,8 @@ snapshots:
   sprintf-js@1.0.3: {}
 
   srvx@0.11.12: {}
+
+  srvx@0.11.13: {}
 
   stable-hash-x@0.2.0: {}
 
