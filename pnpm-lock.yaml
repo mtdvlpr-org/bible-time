@@ -127,8 +127,8 @@ importers:
         specifier: ^1.98.0
         version: 1.98.0
       supabase:
-        specifier: ^2.84.4
-        version: 2.84.4
+        specifier: ^2.84.5
+        version: 2.84.5
       typescript:
         specifier: ^5.9.3
         version: 5.9.3
@@ -8398,8 +8398,8 @@ packages:
     peerDependencies:
       postcss: ^8.4.32
 
-  supabase@2.84.4:
-    resolution: {integrity: sha512-+WSe/7FFMuEOa1LJr1tZh12WDwW6lpKSmBjiEmf7m9j/ialf2oxeUMlsJCdYpST5kQ7PN0XDyvqnjE0tv/AB2w==}
+  supabase@2.84.5:
+    resolution: {integrity: sha512-quguD5MJVcbbMie35d++BaV3ejXyTTZQIz3zH/z485bLxcEl+wC1EttGboq9Snukzv6sDoQkshXYga+6K4SQwA==}
     engines: {npm: '>=8'}
     hasBin: true
 
@@ -18702,7 +18702,7 @@ snapshots:
       postcss: 8.5.8
       postcss-selector-parser: 7.1.1
 
-  supabase@2.84.4:
+  supabase@2.84.5:
     dependencies:
       bin-links: 6.0.0
       https-proxy-agent: 8.0.0
